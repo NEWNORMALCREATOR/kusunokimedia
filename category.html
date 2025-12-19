@@ -108,36 +108,6 @@
       margin:0 auto;
     }
 
-    /* カテゴリー切替（カテゴリーページ内のタブ） */
-    .category-switch{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin: 6px 0 18px 0;
-    }
-    .switch-btn{
-      appearance:none;
-      border:1px solid #e0e0e0;
-      background:#f8f9fa;
-      color:#666;
-      padding:10px 14px;
-      border-radius:999px;
-      font-size:13px;
-      cursor:pointer;
-      transition: all .25s;
-      white-space:nowrap;
-    }
-    .switch-btn:hover{
-      border-color:#7FB069;
-      color:#7FB069;
-    }
-    .switch-btn.active{
-      background:#7FB069;
-      color:#fff;
-      border-color:#7FB069;
-      font-weight:700;
-    }
-
     /* 検索＆並び替え */
     .toolbar{
       display:flex;
@@ -182,69 +152,6 @@
       font-size:13px;
       background:#fff;
       outline:none;
-    }
-
-    /* 注目記事（大：左サムネ／右テキスト） */
-    .featured-wrap{ margin: 6px 0 18px 0; }
-    .featured-card{
-      background:#fff;
-      border-radius:14px;
-      overflow:hidden;
-      box-shadow:0 6px 18px rgba(0,0,0,0.10);
-      border:1px solid rgba(127,176,105,.25);
-      transition:transform .3s, box-shadow .3s;
-      display:flex;
-      flex-direction:column; /* スマホは縦 */
-      text-decoration:none;
-      color:inherit;
-    }
-    .featured-card:hover{
-      transform:translateY(-3px);
-      box-shadow:0 10px 24px rgba(0,0,0,0.14);
-    }
-    .featured-media{
-      position:relative;
-      width:100%;
-      height:210px;
-      background:linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%);
-      flex-shrink:0;
-    }
-    .featured-media img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .featured-badge{
-      position:absolute; top:12px; left:12px;
-      background:linear-gradient(135deg,#7FB069 0%, #9BC87B 100%);
-      color:#fff;
-      padding:6px 12px;
-      border-radius:999px;
-      font-size:11px;
-      font-weight:900;
-      box-shadow:0 6px 16px rgba(127,176,105,.35);
-    }
-    .featured-body{
-      padding:16px;
-      display:flex; flex-direction:column;
-      gap:8px;
-    }
-    .featured-title{
-      font-size:17px;
-      font-weight:900;
-      line-height:1.45;
-      color:#222;
-    }
-    .featured-excerpt{
-      font-size:13px;
-      color:#555;
-      line-height:1.75;
-    }
-    .featured-meta{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      font-size:11px;
-      color:#888;
-      padding-top:10px;
-      border-top:1px solid #f0f0f0;
-      margin-top:6px;
     }
 
     /* 記事リスト（縦に並ぶ） */
@@ -394,21 +301,9 @@
       .searchbox{ flex: 1 1 auto; }
       .sortbox{ flex: 0 0 auto; }
 
-      .featured-media{ height:240px; }
-      .featured-title{ font-size:20px; }
-      .featured-excerpt{ font-size:14px; }
-
-      .list-item{
-        flex-direction:row; /* タブレットから横並び */
-      }
-      .list-thumb{
-        width:38%;
-        height:220px;
-      }
-      .list-body{
-        width:62%;
-        padding:16px;
-      }
+      .list-item{ flex-direction:row; } /* タブレットから横並び */
+      .list-thumb{ width:38%; height:220px; }
+      .list-body{ width:62%; padding:16px; }
 
       .footer-nav{ grid-template-columns:repeat(4,1fr); }
     }
@@ -455,21 +350,6 @@
       }
       .nav-link:hover{ background:#7FB069; color:#fff; }
 
-      /* 注目記事：PCは左右レイアウト固定 */
-      .featured-card{
-        flex-direction:row;
-        align-items:stretch;
-      }
-      .featured-media{
-        width:46%;
-        height:auto;
-        min-height:260px;
-      }
-      .featured-body{
-        width:54%;
-        padding:20px 22px;
-      }
-
       .page-hero{ padding:28px 40px; }
       footer{ padding:50px 40px; }
       .footer-nav{ grid-template-columns:repeat(4,1fr); gap:15px; }
@@ -477,7 +357,7 @@
     }
 
     @media (prefers-reduced-motion: reduce){
-      .featured-card, .list-item{ transition:none; }
+      .list-item{ transition:none; }
     }
   </style>
 </head>
@@ -499,19 +379,19 @@
       <!-- グローバルメニュー：カテゴリー1〜6（ドロップダウン撤廃） -->
       <nav class="nav-menu" id="navMenu" aria-label="グローバルメニュー">
         <div class="nav-menu-inner">
-          <a href="#category1" class="nav-link">カテゴリー1</a>
-          <a href="#category2" class="nav-link">カテゴリー2</a>
-          <a href="#category3" class="nav-link">カテゴリー3</a>
-          <a href="#category4" class="nav-link">カテゴリー4</a>
-          <a href="#category5" class="nav-link">カテゴリー5</a>
-          <a href="#category6" class="nav-link">カテゴリー6</a>
+          <a href="#" class="nav-link">カテゴリー1</a>
+          <a href="#" class="nav-link">カテゴリー2</a>
+          <a href="#" class="nav-link">カテゴリー3</a>
+          <a href="#" class="nav-link">カテゴリー4</a>
+          <a href="#" class="nav-link">カテゴリー5</a>
+          <a href="#" class="nav-link">カテゴリー6</a>
         </div>
       </nav>
     </div>
   </header>
 
   <!-- カテゴリーページヘッダー -->
-  <section class="page-hero" id="category">
+  <section class="page-hero">
     <div class="page-hero-inner">
       <div class="breadcrumb">ホーム / カテゴリー / <span id="crumbCurrent">カテゴリー1</span></div>
       <h1 class="page-title" id="pageTitle">カテゴリー1</h1>
@@ -536,30 +416,7 @@
       </div>
     </div>
 
-    <!-- 注目記事（大） -->
-    <div class="featured-wrap" id="featuredWrap">
-      <!-- JSで差し替える -->
-      <a class="featured-card" href="#" id="featuredCard">
-        <div class="featured-media">
-          <img id="featuredImg" src="featured-cat1.jpg" alt="注目記事のサムネイル（差し替え）">
-          <div class="featured-badge" id="featuredBadge">思春期のからだ</div>
-        </div>
-
-        <div class="featured-body">
-          <h2 class="featured-title" id="featuredTitle">思春期のからだの変化、どう向き合う？不安を小さくする“3つの見方”</h2>
-          <p class="featured-excerpt" id="featuredExcerpt">
-            「自分だけおかしいのでは」と感じるときほど、まず知っておきたい“個人差”の話がある。
-            本記事では、からだの変化を安心して観察できる見方を整理する。
-          </p>
-          <div class="featured-meta">
-            <span id="featuredDate">📅 2024.11.28</span>
-            <span id="featuredAuthor">👤 院長 藤田聡子</span>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <!-- 記事リスト（縦に並ぶ） -->
+    <!-- 記事リスト（完成形：これのみ表示） -->
     <div class="list" id="list"></div>
 
     <!-- ページネーション（ダミー） -->
@@ -580,7 +437,7 @@
         <div style="font-size:16px;font-weight:600;color:#7FB069;">くすの木ノート</div>
       </div>
 
-      <!-- フッター内メニュー：カテゴリー削除（ページ上部へも入れない） -->
+      <!-- フッター内：ページ上部へなし／カテゴリーなし -->
       <div class="footer-nav">
         <a href="#company">運営会社</a>
         <a href="#supervisor">監修者紹介</a>
@@ -621,89 +478,20 @@
       }
     });
 
-    /* ===== デモデータ（カテゴリー別） ===== */
-    const CATEGORIES = {
-      cat1: {
-        name: "カテゴリー1",
-        title: "カテゴリー1",
-        desc: "このカテゴリーでは、思春期のからだ・生理・親子の会話など、基礎からやさしく整理する。",
-        featured: {
-          id: "c1-f",
-          catLabel: "思春期のからだ",
-          img: "featured-cat1.jpg",
-          title: "思春期のからだの変化、どう向き合う？不安を小さくする“3つの見方”",
-          excerpt: "「自分だけおかしいのでは」と感じるときほど、まず知っておきたい“個人差”の話がある。安心して観察できる見方を整理する。",
-          date: "2024.11.28",
-          author: "院長 藤田聡子"
-        },
-        posts: [
-          {id:"c1-01", cat:"生理のこと", img:"thumb1.jpg", title:"生理痛がつらいとき、どこまで我慢していい？受診の目安を知ろう", excerpt:"学校や仕事を休むほどの生理痛は、我慢すべき症状ではない。受診の目安とサインをまとめる。", date:"2024.11.25", author:"スタッフ 山田", popularity: 92},
-          {id:"c1-02", cat:"親子の会話", img:"thumb2.jpg", title:"「性のこと、子どもにどう伝える？」最初の一歩の言葉がけ", excerpt:"完璧な説明でなくても大丈夫。話を始めるための言葉選びとタイミングを紹介する。", date:"2024.11.22", author:"院長 藤田聡子", popularity: 78},
-          {id:"c1-03", cat:"LGBTQ+", img:"thumb3.jpg", title:"「ふつう」と違ってもいい。多様な性について子どもと話してみる", excerpt:"子どもから質問されたときの説明のしかた。基本の考え方を整理して解説する。", date:"2024.11.20", author:"スタッフ 佐藤", popularity: 70},
-          {id:"c1-04", cat:"パートナーシップ", img:"thumb4.jpg", title:"「イヤ」と言える関係は健全です。境界線を大切にするコミュニケーション", excerpt:"どの関係でも自分の気持ちを大切にする権利がある。ノーの伝え方の例を紹介する。", date:"2024.11.18", author:"院長 藤田聡子", popularity: 66},
-          {id:"c1-05", cat:"思春期のからだ", img:"thumb5.jpg", title:"胸がふくらんできたときに知っておきたいブラジャーの選び方", excerpt:"初めての下着選びは迷いやすい。締め付けない選び方と売り場で困らないコツをまとめる。", date:"2024.11.12", author:"スタッフ 田中", popularity: 61},
-        ]
-      },
-
-      cat2: {
-        name: "カテゴリー2",
-        title: "カテゴリー2",
-        desc: "受診前の不安、家庭での会話、学校生活の困りごとなど、テーマから探しやすいまとめ。",
-        featured: {
-          id: "c2-f",
-          catLabel: "親子の会話",
-          img: "featured-cat2.jpg",
-          title: "年齢別・性教育の伝え方。家庭で“自然に話せる”導入フレーズ集",
-          excerpt: "幼児期・小学生・中高生で必要な情報量は異なる。導入フレーズと避けたい言い回しを整理する。",
-          date: "2024.10.18",
-          author: "スタッフ 佐藤"
-        },
-        posts: [
-          {id:"c2-01", cat:"パートナーシップ", img:"thumb6.jpg", title:"付き合う前に話しておきたい「同意」と「境界線」のこと", excerpt:"言葉で確認することは、安心を増やす。デート前に知っておきたい考え方を整理する。", date:"2024.10.28", author:"院長 藤田聡子", popularity: 88},
-          {id:"c2-02", cat:"クリニックの日常", img:"thumb7.jpg", title:"婦人科で話してよいこと・悪いことなんてありません", excerpt:"医師にどう切り出せばよいか迷う方へ、問診の流れと例を紹介する。", date:"2024.10.25", author:"スタッフ 中村", popularity: 74},
-          {id:"c2-03", cat:"生理のこと", img:"thumb8.jpg", title:"部活と生理。パフォーマンスを落とさないためにできる準備", excerpt:"大会や試合と重なる不安を軽くする。事前準備と伝え方のヒントをまとめる。", date:"2024.10.22", author:"スタッフ 田中", popularity: 64},
-          {id:"c2-04", cat:"避妊と性感染症", img:"thumb9.jpg", title:"ピルってどんな薬？メリットと注意点をまとめて解説", excerpt:"飲み方や副作用、飲めないケースなど、受診前に知っておきたいポイントを整理する。", date:"2024.10.20", author:"院長 藤田聡子", popularity: 80},
-        ]
-      },
-
-      cat3: {
-        name: "カテゴリー3",
-        title: "カテゴリー3",
-        desc: "アクセスが多い記事を中心に、まず押さえたい基礎知識を最短で確認できる一覧。",
-        featured: {
-          id: "c3-f",
-          catLabel: "避妊と性感染症",
-          img: "featured-cat3.jpg",
-          title: "避妊と性感染症予防の基本。“知っているつもり”を整理するチェックリスト",
-          excerpt: "避妊と感染症予防の違い、併用の意味、相談先の選び方まで最小限で見直す。",
-          date: "2024.09.30",
-          author: "院長 藤田聡子"
-        },
-        posts: [
-          {id:"c3-01", cat:"クリニックの日常", img:"thumb10.jpg", title:"初めての婦人科受診、何を聞かれる？どんな検査をする？", excerpt:"来院のイメージが湧くように、問診や診察の流れを具体的に紹介する。", date:"2024.09.25", author:"スタッフ 佐藤", popularity: 95},
-          {id:"c3-02", cat:"院長の診察室から", img:"thumb11.jpg", title:"【連載】院長の診察室から vol.1 - 私が産婦人科医になった理由", excerpt:"院長が大切にしている価値観を語る連載。クリニックの原点を紹介する。", date:"2024.09.20", author:"院長 藤田聡子", popularity: 89},
-          {id:"c3-03", cat:"生理のこと", img:"thumb12.jpg", title:"生理周期アプリとの付き合い方。便利さと注意点を知っておこう", excerpt:"アプリは便利だが医療的診断ではない。受診が必要なサインも含めて説明する。", date:"2024.09.18", author:"スタッフ 山田", popularity: 82},
-        ]
-      }
-    };
+    /* ===== 記事データ（リスト表示用：これだけ） ===== */
+    const POSTS = [
+      {id:"c1-01", cat:"生理のこと", img:"thumb1.jpg", title:"生理痛がつらいとき、どこまで我慢していい？受診の目安を知ろう", excerpt:"学校や仕事を休むほどの生理痛は、我慢すべき症状ではない。受診の目安とサインをまとめる。", date:"2024.11.25", author:"スタッフ 山田", popularity: 92},
+      {id:"c1-02", cat:"親子の会話", img:"thumb2.jpg", title:"「性のこと、子どもにどう伝える？」最初の一歩の言葉がけ", excerpt:"完璧な説明でなくても大丈夫。話を始めるための言葉選びとタイミングを紹介する。", date:"2024.11.22", author:"院長 藤田聡子", popularity: 78},
+      {id:"c1-03", cat:"LGBTQ+", img:"thumb3.jpg", title:"「ふつう」と違ってもいい。多様な性について子どもと話してみる", excerpt:"子どもから質問されたときの説明のしかた。基本の考え方を整理して解説する。", date:"2024.11.20", author:"スタッフ 佐藤", popularity: 70},
+      {id:"c1-04", cat:"パートナーシップ", img:"thumb4.jpg", title:"「イヤ」と言える関係は健全です。境界線を大切にするコミュニケーション", excerpt:"どの関係でも自分の気持ちを大切にする権利がある。ノーの伝え方の例を紹介する。", date:"2024.11.18", author:"院長 藤田聡子", popularity: 66},
+      {id:"c1-05", cat:"思春期のからだ", img:"thumb5.jpg", title:"胸がふくらんできたときに知っておきたいブラジャーの選び方", excerpt:"初めての下着選びは迷いやすい。締め付けない選び方と売り場で困らないコツをまとめる。", date:"2024.11.12", author:"スタッフ 田中", popularity: 61},
+    ];
 
     /* ===== 状態 ===== */
-    let currentCatKey = "cat1";
     let currentPage = 1;
     const perPage = 5;
 
     /* ===== DOM ===== */
-    const crumbCurrent = document.getElementById('crumbCurrent');
-    const pageTitle = document.getElementById('pageTitle');
-    const pageDesc = document.getElementById('pageDesc');
-
-    const featuredImg = document.getElementById('featuredImg');
-    const featuredBadge = document.getElementById('featuredBadge');
-    const featuredTitle = document.getElementById('featuredTitle');
-    const featuredExcerpt = document.getElementById('featuredExcerpt');
-    const featuredDate = document.getElementById('featuredDate');
-    const featuredAuthor = document.getElementById('featuredAuthor');
-
     const listEl = document.getElementById('list');
     const searchInput = document.getElementById('searchInput');
     const sortSelect = document.getElementById('sortSelect');
@@ -712,48 +500,15 @@
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    /* ===== レンダリング ===== */
-    function setActiveCat(catKey){
-      currentCatKey = catKey;
-      currentPage = 1;
-
-      // タブのactive
-      document.querySelectorAll('.switch-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.cat === catKey);
-      });
-
-      // パンくず & タイトル
-      const cat = CATEGORIES[catKey];
-      crumbCurrent.textContent = cat.name;
-      pageTitle.textContent = cat.title;
-      pageDesc.textContent = cat.desc;
-
-      // 注目記事
-      const f = cat.featured;
-      featuredImg.src = f.img;
-      featuredImg.alt = "注目記事のサムネイル（差し替え）";
-      featuredBadge.textContent = f.catLabel;
-      featuredTitle.textContent = f.title;
-      featuredExcerpt.textContent = f.excerpt;
-      featuredDate.textContent = "📅 " + f.date;
-      featuredAuthor.textContent = "👤 " + f.author;
-
-      // リスト
-      renderList();
-      updatePaginationUI();
-    }
-
-    function parseDateStr(d){ // "2024.11.25" -> Date
+    function parseDateStr(d){
       const [y,m,day] = d.split('.').map(n=>parseInt(n,10));
       return new Date(y, m-1, day);
     }
 
     function getFilteredPosts(){
-      const cat = CATEGORIES[currentCatKey];
       const q = (searchInput.value || "").trim().toLowerCase();
-      let posts = [...cat.posts];
+      let posts = [...POSTS];
 
-      // 検索（タイトル＋抜粋）
       if (q){
         posts = posts.filter(p =>
           (p.title || "").toLowerCase().includes(q) ||
@@ -762,7 +517,6 @@
         );
       }
 
-      // 並び替え
       const sort = sortSelect.value;
       if (sort === "new"){
         posts.sort((a,b)=> parseDateStr(b.date) - parseDateStr(a.date));
@@ -771,7 +525,6 @@
       } else if (sort === "popular"){
         posts.sort((a,b)=> (b.popularity||0) - (a.popularity||0));
       }
-
       return posts;
     }
 
@@ -784,7 +537,7 @@
         listEl.innerHTML = `
           <div style="padding:14px;border:1px solid #e0e0e0;border-radius:12px;background:#fff;">
             <div style="font-weight:800;color:#7FB069;margin-bottom:6px;">該当する記事が見つかりませんでした</div>
-            <div style="font-size:13px;color:#666;">検索キーワードを変えるか、別のカテゴリーを選択してください。</div>
+            <div style="font-size:13px;color:#666;">検索キーワードを変えてください。</div>
           </div>
         `;
         return;
@@ -822,11 +575,6 @@
         btn.style.display = (p <= totalPages) ? 'inline-block' : 'none';
       });
     }
-
-    /* ===== イベント ===== */
-    document.querySelectorAll('.switch-btn').forEach(btn => {
-      btn.addEventListener('click', () => setActiveCat(btn.dataset.cat));
-    });
 
     searchInput.addEventListener('input', () => {
       currentPage = 1;
@@ -869,7 +617,6 @@
       }
     });
 
-    /* ===== util ===== */
     function escapeHtml(str){
       return String(str).replace(/[&<>"']/g, s => ({
         '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
@@ -880,7 +627,8 @@
     }
 
     /* 初期表示 */
-    setActiveCat("cat1");
+    renderList();
+    updatePaginationUI();
   </script>
 </body>
 </html>
