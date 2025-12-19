@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>運営会社 - くすの木ノート</title>
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body{
+      font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic','Meiryo',sans-serif;
+      background:#fff; color:#333; line-height:1.8;
+    }
+
+    /* ヘッダー */
+    header{
+      background:#fff;
+      border-bottom:3px solid #7FB069;
+      padding:15px 20px;
+      position:sticky; top:0; z-index:1000;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    }
+    .header-inner{
+      max-width:1200px; margin:0 auto;
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:nowrap; gap:12px;
+    }
+    .logo-area{
+      display:flex; align-items:center; gap:12px;
+      white-space:nowrap;
+      min-width:0;
+      flex:1 1 auto;
+    }
+    .logo-icon{
+      width:35px; height:35px; flex-shrink:0;
+      background:#7FB069; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:20px;
+    }
+    .site-text{ min-width:0; }
+    .site-title{ font-size:20px; font-weight:600; color:#7FB069; white-space:nowrap; }
+    .site-subtitle{ font-size:11px; color:#666; margin-top:-2px; white-space:nowrap; }
+
+    .menu-toggle{
+      background:none; border:none;
+      font-size:28px; cursor:pointer;
+      color:#7FB069; display:block; flex-shrink:0;
+    }
+
+    /* ナビ（モバイル） */
+    .nav-menu{
+      display:none;
+      background:#f8f9fa;
+      padding:15px 0;
+      margin-top:10px;
+      border-radius:8px;
+      position:absolute;
+      top:70px; right:20px; left:20px;
+      z-index:999;
+    }
+    .nav-menu.active{ display:block; }
+    .nav-menu-inner{ display:flex; flex-direction:column; }
+    .nav-link{
+      display:block;
+      padding:12px 20px;
+      color:#333; text-decoration:none;
+      border-bottom:1px solid #e0e0e0;
+      font-size:14px;
+      transition:all .3s;
+      white-space:nowrap;
+    }
+    .nav-link:hover{ background:#7FB069; color:#fff; }
+    .nav-menu-inner .nav-link:last-child{ border-bottom:none; }
+
+    /* ページヘッダー */
+    .page-hero{
+      background:linear-gradient(135deg,#7FB069 0%, #9BC87B 100%);
+      color:#fff;
+      padding:22px 20px;
+    }
+    .page-hero-inner{ max-width:1200px; margin:0 auto; }
+    .breadcrumb{
+      font-size:12px; opacity:.95;
+      margin-bottom:6px;
+    }
+    .page-title{
+      font-size:22px;
+      font-weight:800;
+      line-height:1.35;
+      margin-bottom:6px;
+      text-shadow:0 2px 10px rgba(0,0,0,.18);
+    }
+    .page-desc{
+      font-size:13px;
+      opacity:.95;
+      text-shadow:0 2px 10px rgba(0,0,0,.18);
+    }
+
+    /* コンテンツ */
+    .container{
+      padding:20px;
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    .section-title{
+      font-size:18px; font-weight:800; color:#7FB069;
+      margin:26px 0 12px 0; padding-bottom:8px;
+      border-bottom:2px solid #7FB069;
+      display:flex; align-items:center; gap:8px;
+    }
+    .section-title::before{ content:'🌿'; font-size:20px; }
+
+    .card{
+      background:#fff;
+      border:1px solid #ededed;
+      border-radius:14px;
+      padding:16px;
+      box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:12px;
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+    .kv-row{
+      display:grid;
+      grid-template-columns:110px 1fr;
+      gap:10px;
+      padding:10px 0;
+      border-bottom:1px solid #f0f0f0;
+      align-items:start;
+    }
+    .kv-row:last-child{ border-bottom:none; }
+    .kv-key{
+      font-size:12px;
+      color:#666;
+      font-weight:800;
+      white-space:nowrap;
+    }
+    .kv-val{
+      font-size:14px;
+      color:#333;
+    }
+
+    .note{
+      margin-top:10px;
+      font-size:13px;
+      color:#666;
+      line-height:1.75;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#f8f9fa;
+      border:1px solid #e0e0e0;
+      color:#666;
+      font-size:12px;
+      margin: 6px 8px 0 0;
+    }
+
+    .access-steps{
+      margin-top:10px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .step{
+      background:#fff;
+      border:1px solid #ededed;
+      border-radius:12px;
+      padding:14px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    }
+    .step h3{
+      font-size:14px;
+      color:#222;
+      font-weight:900;
+      margin-bottom:6px;
+    }
+    .step p{
+      font-size:13px;
+      color:#666;
+      line-height:1.75;
+    }
+
+    .hours{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:12px;
+      border:1px solid #e0e0e0;
+      background:#fff;
+    }
+    .hours th, .hours td{
+      padding:12px 12px;
+      font-size:13px;
+      border-bottom:1px solid #f0f0f0;
+      text-align:left;
+      vertical-align:top;
+    }
+    .hours tr:last-child th, .hours tr:last-child td{ border-bottom:none; }
+    .hours th{
+      width:140px;
+      color:#666;
+      font-weight:900;
+      background:#f8f9fa;
+      white-space:nowrap;
+    }
+
+    .map{
+      width:100%;
+      height:320px;
+      border:1px solid #e0e0e0;
+      border-radius:14px;
+      overflow:hidden;
+      background:#f8f9fa;
+      box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    }
+    .map iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
+    /* フッター */
+    footer{
+      background:#f8f9fa;
+      padding:30px 20px;
+      margin-top:40px;
+      border-top:3px solid #7FB069;
+    }
+    .footer-content{ max-width:1200px; margin:0 auto; }
+    .footer-logo{ text-align:center; margin-bottom:20px; }
+    .footer-logo-icon{
+      width:50px; height:50px;
+      background:#7FB069; border-radius:50%;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-size:28px; margin-bottom:8px;
+    }
+    .footer-nav{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-bottom:20px;
+    }
+    .footer-nav a{
+      color:#666; text-decoration:none;
+      font-size:12px; padding:8px; text-align:center;
+      border-radius:4px; transition:all .3s;
+    }
+    .footer-nav a:hover{ background:#7FB069; color:#fff; }
+    .copyright{
+      text-align:center;
+      font-size:11px;
+      color:#999;
+      margin-top:20px;
+    }
+
+    /* タブレット */
+    @media (min-width:768px){
+      .container{ padding:30px; }
+      .page-title{ font-size:28px; }
+      .page-desc{ font-size:14px; }
+
+      .grid{
+        grid-template-columns:1fr 1fr;
+        gap:16px;
+      }
+
+      .kv-row{ grid-template-columns:140px 1fr; }
+
+      .footer-nav{ grid-template-columns:repeat(4,1fr); }
+    }
+
+    /* PC */
+    @media (min-width:1024px){
+      header{ padding:20px 40px; }
+      .logo-icon{ width:45px; height:45px; font-size:24px; }
+      .site-title{ font-size:24px; }
+      .site-subtitle{ font-size:13px; }
+
+      .menu-toggle{ display:none; }
+
+      .nav-menu{
+        display:block !important;
+        position:static;
+        background:none;
+        padding:0;
+        margin:0;
+        max-width:70%;
+      }
+      .nav-menu-inner{
+        flex-direction:row;
+        justify-content:flex-end;
+        gap:5px;
+        white-space:nowrap;
+        align-items:center;
+      }
+      .nav-link{
+        border:none;
+        border-radius:20px;
+        padding:8px 14px;
+        font-size:13px;
+      }
+
+      .page-hero{ padding:28px 40px; }
+      footer{ padding:50px 40px; }
+      .footer-nav{ grid-template-columns:repeat(4,1fr); gap:15px; }
+      .footer-nav a{ font-size:13px; padding:12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .nav-link{ transition:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-icon">🌳</div>
+        <div class="site-text">
+          <div class="site-title">くすの木ノート</div>
+          <div class="site-subtitle">性と健康について、もっと自然に</div>
+        </div>
+      </div>
+
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニューを開閉">☰</button>
+
+      <!-- グローバルメニュー：カテゴリー1〜6 -->
+      <nav class="nav-menu" id="navMenu" aria-label="グローバルメニュー">
+        <div class="nav-menu-inner">
+          <a href="category1.html" class="nav-link">カテゴリー1</a>
+          <a href="category2.html" class="nav-link">カテゴリー2</a>
+          <a href="category3.html" class="nav-link">カテゴリー3</a>
+          <a href="category4.html" class="nav-link">カテゴリー4</a>
+          <a href="category5.html" class="nav-link">カテゴリー5</a>
+          <a href="category6.html" class="nav-link">カテゴリー6</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ページヘッダー -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">ホーム / 運営会社</div>
+      <h1 class="page-title">運営会社</h1>
+      <p class="page-desc">くすの木ノートの運営情報、アクセス、診療時間のご案内です。</p>
+    </div>
+  </section>
+
+  <main class="container">
+    <h2 class="section-title">運営情報</h2>
+
+    <div class="grid">
+      <section class="card" aria-label="運営主体">
+        <div class="kv" role="list">
+          <div class="kv-row" role="listitem">
+            <div class="kv-key">運営主体</div>
+            <div class="kv-val">くすの木レディースクリニック北千住</div>
+          </div>
+          <div class="kv-row" role="listitem">
+            <div class="kv-key">所在地</div>
+            <div class="kv-val">東京都足立区千住2‐33‐3 千住第二横山ビル３F</div>
+          </div>
+          <div class="kv-row" role="listitem">
+            <div class="kv-key">電話番号</div>
+            <div class="kv-val">03-6806-2500</div>
+          </div>
+          <div class="kv-row" role="listitem">
+            <div class="kv-key">補足</div>
+            <div class="kv-val">
+              当院は完全予約制です。<br />
+              ※お電話は日本語でのご案内となります。
+            </div>
+          </div>
+        </div>
+
+        <div class="note">
+          <span class="pill">📞 03-6806-2500</span>
+          <span class="pill">📍 北千住</span>
+          <span class="pill">🕒 月〜土</span>
+        </div>
+      </section>
+
+      <section class="card" aria-label="診療時間">
+        <table class="hours" aria-label="診療時間">
+          <tr>
+            <th>診療日</th>
+            <td>月曜日〜土曜日</td>
+          </tr>
+          <tr>
+            <th>午前</th>
+            <td>9:30 〜 12:30</td>
+          </tr>
+          <tr>
+            <th>午後</th>
+            <td>14:00 〜 17:30</td>
+          </tr>
+          <tr>
+            <th>受付終了</th>
+            <td>17:15</td>
+          </tr>
+          <tr>
+            <th>休診</th>
+            <td>日曜日・祝日</td>
+          </tr>
+        </table>
+
+        <div class="note">
+          ※上記はご案内用の表示です。最新情報は公式サイトの案内もあわせてご確認ください。
+        </div>
+      </section>
+    </div>
+
+    <h2 class="section-title">アクセス</h2>
+
+    <div class="grid">
+      <section class="card" aria-label="アクセス案内">
+        <div class="access-steps">
+          <div class="step">
+            <h3>北千住駅 西口から</h3>
+            <p>北千住駅の西口を出て、ドン・キホーテの角を左折します。</p>
+          </div>
+          <div class="step">
+            <h3>目印</h3>
+            <p>右側にある吉野家を過ぎて、柏屋というお蕎麦屋さんの隣です。</p>
+          </div>
+          <div class="step">
+            <h3>ビル・フロア</h3>
+            <p>1階は薬局の入っているビルの3階です。</p>
+          </div>
+          <div class="step">
+            <h3>エレベーター</h3>
+            <p>薬局の左側の通路を奥に進むと、上の階に上がるエレベーターがあります。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-label="地図">
+        <div class="map" aria-label="Googleマップ">
+          <!-- 必要に応じて埋め込みURLを差し替えてください -->
+          <iframe
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E8%B6%B3%E7%AB%8B%E5%8C%BA%E5%8D%83%E4%BD%8F2-33-3%20%E5%8D%83%E4%BD%8F%E7%AC%AC%E4%BA%8C%E6%A8%AA%E5%B1%B1%E3%83%93%E3%83%AB&output=embed"
+            title="くすの木レディースクリニック北千住（地図）"
+            aria-label="地図（埋め込み）"
+          ></iframe>
+        </div>
+
+        <div class="note">
+          ※地図が表示されない場合は、ネットワーク設定やブラウザの制限をご確認ください。
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- フッター（「カテゴリー」削除、「ページ上部へ」無し） -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">🌳</div>
+        <div style="font-size:16px;font-weight:600;color:#7FB069;">くすの木ノート</div>
+      </div>
+
+      <div class="footer-nav" aria-label="フッターメニュー">
+        <a href="company.html">運営会社</a>
+        <a href="supervisor.html">監修者紹介</a>
+        <a href="faq.html">よくある質問</a>
+        <a href="contact.html">お問い合わせ</a>
+        <a href="sitemap.html">サイトマップ</a>
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="https://www.kusunoki.tokyo/" target="_blank" rel="noopener">クリニック公式サイト</a>
+        <a href="index.html">トップページ</a>
+      </div>
+
+      <div class="copyright">
+        © 2024 くすの木レディースクリニック北千住 All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('navMenu');
+      menu.classList.toggle('active');
+    }
+
+    // メニュー外クリックで閉じる（モバイルのみ）
+    document.addEventListener('click', function(event) {
+      if (window.innerWidth < 1024) {
+        const menu = document.getElementById('navMenu');
+        const toggle = document.querySelector('.menu-toggle');
+        if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+          menu.classList.remove('active');
+        }
+      }
+    });
+
+    // ウィンドウリサイズ時の処理
+    window.addEventListener('resize', function() {
+      if (window.innerWidth >= 1024) {
+        document.getElementById('navMenu').classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

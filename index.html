@@ -1,1209 +1,805 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>くすの木ノート - 性と健康について、もっと自然に</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
-            background-color: #ffffff;
-            color: #333333;
-            line-height: 1.8;
-        }
-
-        /* ヘッダー */
-        header {
-            background-color: #ffffff;
-            border-bottom: 3px solid #7FB069;
-            padding: 15px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: nowrap; /* 改行させない */
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            white-space: nowrap; /* ロゴ＋サイト名を1行に */
-            min-width: 0;
-        }
-
-        .logo-icon {
-            width: 35px;
-            height: 35px;
-            background-color: #7FB069;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .site-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #7FB069;
-        }
-
-        .site-subtitle {
-            font-size: 11px;
-            color: #666;
-            margin-top: -2px;
-        }
-
-        /* ハンバーガーメニュー（モバイル） */
-        .menu-toggle {
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: #7FB069;
-            display: block;
-            flex-shrink: 0;
-        }
-
-        /* ナビゲーション（共通） */
-        .nav-menu {
-            display: none;
-            background-color: #f8f9fa;
-            padding: 15px 0;
-            margin-top: 10px;
-            border-radius: 8px;
-            position: absolute;
-            top: 70px;
-            right: 20px;
-            left: 20px;
-            z-index: 999;
-        }
-
-        .nav-menu.active {
-            display: block;
-        }
-
-        .nav-menu-inner {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-link,
-        .dropdown-link {
-            display: block;
-            padding: 12px 20px;
-            color: #333;
-            text-decoration: none;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .nav-link:last-child {
-            border-bottom: none;
-        }
-
-        .nav-link:hover,
-        .dropdown-link:hover {
-            background-color: #7FB069;
-            color: #ffffff;
-        }
-
-        /* カテゴリードロップダウン（モバイル時は常に下に出す） */
-        .nav-item-category .dropdown {
-            display: block;
-            background-color: #fdfdfd;
-        }
-
-        .dropdown-link {
-            padding-left: 36px;  /* ひとつ字下げ */
-            font-size: 13px;
-        }
-
-        /* メインビジュアル */
-        .hero {
-            background: linear-gradient(135deg, #7FB069 0%, #9BC87B 100%);
-            padding: 40px 20px;
-            text-align: center;
-            color: white;
-        }
-
-        .hero h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .hero p {
-            font-size: 13px;
-            opacity: 0.95;
-        }
-
-        /* コンテンツエリア */
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #7FB069;
-            margin: 30px 0 15px 0;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #7FB069;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .section-title::before {
-            content: '🌿';
-            font-size: 20px;
-        }
-
-        /* 記事グリッド */
-        .article-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        /* 記事カード */
-        .article-card {
-            background: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .article-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-        }
-
-        .article-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 14px;
-            position: relative;
-        }
-
-        .article-category {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #7FB069;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .article-content {
-            padding: 15px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .article-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-
-        .article-excerpt {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            flex: 1;
-        }
-
-        .article-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            color: #999;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        /* カテゴリータグ */
-        .category-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .category-tag {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #f8f9fa;
-            border: 1px solid #e0e0e0;
-            border-radius: 20px;
-            font-size: 12px;
-            color: #666;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .category-tag:hover {
-            background-color: #7FB069;
-            color: white;
-            border-color: #7FB069;
-        }
-
-        /* お知らせバナー */
-        .notice-banner {
-            background: linear-gradient(135deg, #FFF9E6 0%, #FFF3D0 100%);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #F9A825;
-        }
-
-        .notice-banner h3 {
-            font-size: 14px;
-            color: #F9A825;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-        .notice-banner p {
-            font-size: 12px;
-            color: #666;
-        }
-
-        /* CTAボタン */
-        .cta-button {
-            display: block;
-            background: linear-gradient(135deg, #7FB069 0%, #9BC87B 100%);
-            color: white;
-            text-align: center;
-            padding: 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            margin: 20px 0;
-            box-shadow: 0 4px 12px rgba(127, 176, 105, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(127, 176, 105, 0.4);
-        }
-
-        /* 下層セクション共通 */
-        .info-section {
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-        }
-
-        .info-section h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #7FB069;
-            margin-bottom: 10px;
-        }
-
-        .info-section p {
-            font-size: 13px;
-            color: #555;
-        }
-
-        .faq-list dt {
-            font-weight: 600;
-            margin-top: 10px;
-            font-size: 13px;
-        }
-
-        .faq-list dd {
-            font-size: 13px;
-            margin-left: 0;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        /* フッター */
-        footer {
-            background-color: #f8f9fa;
-            padding: 30px 20px;
-            margin-top: 40px;
-            border-top: 3px solid #7FB069;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .footer-logo-icon {
-            width: 50px;
-            height: 50px;
-            background-color: #7FB069;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .footer-nav {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .footer-nav a {
-            color: #666;
-            text-decoration: none;
-            font-size: 12px;
-            padding: 8px;
-            text-align: center;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-
-        .footer-nav a:hover {
-            background-color: #7FB069;
-            color: white;
-        }
-
-        .clinic-info {
-            background-color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .clinic-info h4 {
-            font-size: 14px;
-            color: #7FB069;
-            margin-bottom: 8px;
-        }
-
-        .clinic-info p {
-            font-size: 11px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .copyright {
-            text-align: center;
-            font-size: 11px;
-            color: #999;
-            margin-top: 20px;
-        }
-
-        /* タブレット対応（768px以上） */
-        @media (min-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero p {
-                font-size: 15px;
-            }
-
-            .container {
-                padding: 30px;
-            }
-
-            .article-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 25px;
-            }
-
-            .section-title {
-                font-size: 22px;
-            }
-
-            .article-title {
-                font-size: 17px;
-            }
-
-            .article-excerpt {
-                font-size: 14px;
-            }
-
-            .footer-nav {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .notice-banner {
-                padding: 20px;
-            }
-
-            .notice-banner h3 {
-                font-size: 16px;
-            }
-
-            .notice-banner p {
-                font-size: 13px;
-            }
-        }
-
-        /* PC対応（1024px以上） */
-        @media (min-width: 1024px) {
-            header {
-                padding: 20px 40px;
-            }
-
-            .logo-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 24px;
-            }
-
-            .site-title {
-                font-size: 24px;
-            }
-
-            .site-subtitle {
-                font-size: 13px;
-            }
-
-            .menu-toggle {
-                display: none;
-            }
-
-            .nav-menu {
-                display: block !important;
-                position: static;
-                background: none;
-                padding: 0;
-                margin: 0;
-                max-width: 60%;
-            }
-
-            .nav-menu-inner {
-                flex-direction: row;
-                justify-content: flex-end;
-                gap: 5px;
-                white-space: nowrap;   /* 改行させない */
-            }
-
-            .nav-link,
-            .dropdown-link {
-                border: none;
-                border-radius: 20px;
-                padding: 8px 14px;
-                font-size: 13px;
-                white-space: nowrap;
-            }
-
-            .nav-link:hover,
-            .dropdown-link:hover {
-                background-color: #7FB069;
-                color: #fff;
-            }
-
-            /* ドロップダウン（PC） */
-            .nav-item-category .dropdown {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                min-width: 190px;
-                background-color: #ffffff;
-                border-radius: 8px;
-                border: 1px solid #e0e0e0;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-                display: none;  /* PCではデフォルト非表示 */
-                flex-direction: column;
-                padding: 4px 0;
-                white-space: nowrap;
-                z-index: 1001;
-            }
-
-            .nav-item-category:hover .dropdown {
-                display: flex; /* 「カテゴリー」にマウスオーバーで表示 */
-            }
-
-            .dropdown-link {
-                border-radius: 0;
-                border: none;
-                padding: 8px 14px;
-            }
-
-            .hero {
-                padding: 60px 40px;
-            }
-
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .hero p {
-                font-size: 17px;
-            }
-
-            .container {
-                padding: 40px;
-            }
-
-            .article-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 30px;
-            }
-
-            .section-title {
-                font-size: 24px;
-                margin: 40px 0 20px 0;
-            }
-
-            .article-image {
-                height: 220px;
-            }
-
-            .article-content {
-                padding: 20px;
-            }
-
-            .article-title {
-                font-size: 18px;
-            }
-
-            .article-excerpt {
-                font-size: 14px;
-            }
-
-            .article-meta {
-                font-size: 12px;
-            }
-
-            .category-tags {
-                gap: 12px;
-                margin-bottom: 30px;
-            }
-
-            .category-tag {
-                padding: 10px 20px;
-                font-size: 13px;
-            }
-
-            .notice-banner {
-                padding: 25px;
-            }
-
-            .notice-banner h3 {
-                font-size: 18px;
-            }
-
-            .notice-banner p {
-                font-size: 14px;
-            }
-
-            .cta-button {
-                max-width: 600px;
-                margin: 30px auto;
-                padding: 20px;
-                font-size: 16px;
-            }
-
-            footer {
-                padding: 50px 40px;
-            }
-
-            .footer-nav {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 15px;
-            }
-
-            .footer-nav a {
-                font-size: 13px;
-                padding: 12px;
-            }
-
-            .clinic-info {
-                padding: 20px;
-            }
-
-            .clinic-info h4 {
-                font-size: 16px;
-            }
-
-            .clinic-info p {
-                font-size: 13px;
-            }
-        }
-
-        /* 大画面PC対応（1440px以上） */
-        @media (min-width: 1440px) {
-            .article-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .hero h1 {
-                font-size: 48px;
-            }
-
-            .hero p {
-                font-size: 18px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>くすの木ノート - 性と健康について、もっと自然に</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body{
+      font-family: 'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic','Meiryo',sans-serif;
+      background-color:#fff; color:#333; line-height:1.8;
+    }
+
+    /* ヘッダー */
+    header{
+      background:#fff;
+      border-bottom:3px solid #7FB069;
+      padding:15px 20px;
+      position:sticky; top:0; z-index:1000;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .header-inner{
+      max-width:1200px; margin:0 auto;
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:nowrap;
+      gap:12px;
+    }
+
+    .logo-area{
+      display:flex; align-items:center; gap:12px;
+      white-space:nowrap;
+      min-width:0;
+      flex: 1 1 auto;
+    }
+
+    .logo-icon{
+      width:35px; height:35px; flex-shrink:0;
+      background:#7FB069; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:20px;
+    }
+
+    .site-text{ min-width:0; }
+    .site-title{ font-size:20px; font-weight:600; color:#7FB069; white-space:nowrap; }
+    .site-subtitle{ font-size:11px; color:#666; margin-top:-2px; white-space:nowrap; }
+
+    /* ハンバーガー */
+    .menu-toggle{
+      background:none; border:none;
+      font-size:28px; cursor:pointer;
+      color:#7FB069; display:block; flex-shrink:0;
+      line-height: 1;
+    }
+
+    /* ナビ（モバイル） */
+    .nav-menu{
+      display:none;
+      background:#f8f9fa;
+      padding:15px 0;
+      margin-top:10px;
+      border-radius:8px;
+      position:absolute;
+      top:70px; right:20px; left:20px;
+      z-index:999;
+      border:1px solid #ededed;
+    }
+    .nav-menu.active{ display:block; }
+    .nav-menu-inner{ display:flex; flex-direction:column; }
+
+    .nav-link{
+      display:block;
+      padding:12px 20px;
+      color:#333; text-decoration:none;
+      border-bottom:1px solid #e0e0e0;
+      font-size:14px;
+      transition:all .3s;
+      white-space:nowrap;
+    }
+    .nav-link:hover{ background:#7FB069; color:#fff; }
+    .nav-menu-inner > .nav-link:last-child{ border-bottom:none; }
+
+    /* ヒーロー：スライドショー */
+    .hero-slider{
+      position:relative;
+      width:100%;
+      height:260px;
+      overflow:hidden;
+      background: linear-gradient(135deg, #7FB069 0%, #9BC87B 100%);
+    }
+    .hero-slides{ position:absolute; inset:0; }
+    .hero-slide{
+      position:absolute; inset:0;
+      opacity:0;
+      transition: opacity .8s ease;
+      background-size:cover;
+      background-position:center;
+    }
+    .hero-slide.active{ opacity:1; }
+
+    .hero-overlay{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.45) 100%);
+      display:flex;
+      align-items:flex-end;
+      padding:22px 20px;
+      color:#fff;
+    }
+    .hero-copy{
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+    }
+    .hero-copy h1{
+      font-size:22px;
+      font-weight:700;
+      line-height:1.35;
+      text-shadow:0 2px 10px rgba(0,0,0,.25);
+      margin-bottom:8px;
+    }
+    .hero-copy p{
+      font-size:13px;
+      opacity:.95;
+      text-shadow:0 2px 10px rgba(0,0,0,.25);
+    }
+
+    .hero-dots{
+      position:absolute;
+      left:0; right:0;
+      bottom:10px;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      z-index:5;
+    }
+    .hero-dot{
+      width:8px; height:8px;
+      border-radius:50%;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.55);
+      cursor:pointer;
+    }
+    .hero-dot.active{
+      background:#fff;
+      border-color:#fff;
+    }
+
+    /* コンテンツ */
+    .container{ padding:20px; max-width:1200px; margin:0 auto; }
+
+    .section-title{
+      font-size:18px; font-weight:600; color:#7FB069;
+      margin:30px 0 15px 0; padding-bottom:8px;
+      border-bottom:2px solid #7FB069;
+      display:flex; align-items:center; gap:8px;
+    }
+    .section-title::before{ content:'🌿'; font-size:20px; }
+
+    /* カテゴリータグ */
+    .category-tags{
+      display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;
+    }
+    .category-tag{
+      display:inline-block;
+      padding:8px 16px;
+      background:#f8f9fa;
+      border:1px solid #e0e0e0;
+      border-radius:20px;
+      font-size:12px;
+      color:#666;
+      text-decoration:none;
+      transition:all .3s;
+    }
+    .category-tag:hover{ background:#7FB069; color:#fff; border-color:#7FB069; }
+
+    /* 記事グリッド（通常） */
+    .article-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:20px;
+    }
+
+    /* 通常カード */
+    .article-card{
+      background:#fff;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+      transition:transform .3s, box-shadow .3s;
+      display:flex; flex-direction:column;
+    }
+    .article-card:hover{ transform:translateY(-3px); box-shadow:0 4px 16px rgba(0,0,0,0.12); }
+
+    .article-image{
+      width:100%;
+      height:200px;
+      background:linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%);
+      display:flex; align-items:center; justify-content:center;
+      color:#999; font-size:14px;
+      position:relative;
+    }
+    .article-image img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+
+    .article-category{
+      position:absolute; top:10px; left:10px;
+      background:#7FB069; color:#fff;
+      padding:4px 12px; border-radius:20px;
+      font-size:11px; font-weight:600;
+      z-index:2;
+    }
+
+    .article-content{
+      padding:15px; flex:1;
+      display:flex; flex-direction:column;
+    }
+    .article-title{
+      font-size:16px; font-weight:600; color:#333;
+      margin-bottom:8px; line-height:1.5;
+    }
+    .article-excerpt{
+      font-size:13px; color:#666; line-height:1.6;
+      margin-bottom:10px; flex:1;
+    }
+    .article-meta{
+      display:flex; justify-content:space-between; align-items:center;
+      font-size:11px; color:#999;
+      margin-top:10px; padding-top:10px;
+      border-top:1px solid #f0f0f0;
+    }
+
+    /* ===== 注目記事（大きく、左サムネ／右テキスト） ===== */
+    .featured-wrap{ margin: 8px 0 22px 0; }
+
+    .featured-label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      font-weight:700;
+      color:#7FB069;
+      margin: 0 0 10px 0;
+    }
+    .featured-label::before{ content:"⭐"; font-size:14px; }
+
+    .featured-card{
+      background:#fff;
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 6px 18px rgba(0,0,0,0.10);
+      border:1px solid rgba(127,176,105,.25);
+      transition:transform .3s, box-shadow .3s;
+      display:flex;
+      flex-direction:column; /* スマホは縦 */
+    }
+    .featured-card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.14);
+    }
+
+    .featured-media{
+      position:relative;
+      width:100%;
+      height:200px;
+      background:linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%);
+      flex-shrink:0;
+    }
+    .featured-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .featured-badge{
+      position:absolute;
+      top:12px; left:12px;
+      background:linear-gradient(135deg,#7FB069 0%, #9BC87B 100%);
+      color:#fff;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.02em;
+      box-shadow:0 6px 16px rgba(127,176,105,.35);
+    }
+
+    .featured-body{
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .featured-title{
+      font-size:17px;
+      font-weight:800;
+      line-height:1.45;
+      color:#222;
+    }
+    .featured-excerpt{
+      font-size:13px;
+      color:#555;
+      line-height:1.75;
+    }
+    .featured-meta{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:11px;
+      color:#888;
+      padding-top:10px;
+      border-top:1px solid #f0f0f0;
+      margin-top:6px;
+    }
+    .featured-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      margin-top:4px;
+      font-size:12px;
+      font-weight:700;
+      color:#7FB069;
+      text-decoration:none;
+    }
+    .featured-cta:hover{ text-decoration:underline; }
+
+    /* フッター */
+    footer{
+      background:#f8f9fa;
+      padding:30px 20px;
+      margin-top:40px;
+      border-top:3px solid #7FB069;
+    }
+    .footer-content{ max-width:1200px; margin:0 auto; }
+
+    .footer-logo{ text-align:center; margin-bottom:20px; }
+    .footer-logo-icon{
+      width:50px; height:50px;
+      background:#7FB069; border-radius:50%;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-size:28px; margin-bottom:8px;
+    }
+
+    .footer-nav{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-bottom:20px;
+    }
+    .footer-nav a{
+      color:#666; text-decoration:none;
+      font-size:12px; padding:8px; text-align:center;
+      border-radius:4px; transition:all .3s;
+    }
+    .footer-nav a:hover{ background:#7FB069; color:#fff; }
+
+    .copyright{
+      text-align:center;
+      font-size:11px;
+      color:#999;
+      margin-top:20px;
+    }
+
+    /* タブレット */
+    @media (min-width:768px){
+      .container{ padding:30px; }
+
+      .hero-slider{ height:320px; }
+      .hero-copy h1{ font-size:28px; }
+      .hero-copy p{ font-size:14px; }
+
+      .article-grid{ grid-template-columns:repeat(2,1fr); gap:25px; }
+      .section-title{ font-size:22px; }
+
+      .featured-media{ height:240px; }
+      .featured-title{ font-size:20px; }
+      .featured-excerpt{ font-size:14px; }
+
+      .footer-nav{ grid-template-columns:repeat(4,1fr); }
+    }
+
+    /* PC */
+    @media (min-width:1024px){
+      header{ padding:20px 40px; }
+      .logo-icon{ width:45px; height:45px; font-size:24px; }
+      .site-title{ font-size:24px; }
+      .site-subtitle{ font-size:13px; }
+
+      .menu-toggle{ display:none; }
+
+      .nav-menu{
+        display:block !important;
+        position:static;
+        background:none;
+        padding:0;
+        margin:0;
+        max-width: 70%;
+        border:none;
+      }
+
+      /* 横並び・改行しない・溢れたら横スクロール */
+      .nav-menu-inner{
+        flex-direction:row;
+        justify-content:flex-end;
+        gap:6px;
+        white-space:nowrap;
+        align-items:center;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        padding-bottom:2px;
+      }
+      .nav-menu-inner::-webkit-scrollbar{ height:6px; }
+      .nav-menu-inner::-webkit-scrollbar-thumb{
+        background:rgba(0,0,0,0.12);
+        border-radius:999px;
+      }
+
+      .nav-link{
+        border:none;
+        border-radius:999px;
+        padding:8px 14px;
+        font-size:13px;
+        white-space:nowrap;
+      }
+      .nav-link:hover{ background:#7FB069; color:#fff; }
+
+      .hero-slider{ height:420px; }
+      .hero-overlay{ padding:28px 40px; }
+      .hero-copy h1{ font-size:38px; }
+      .hero-copy p{ font-size:16px; }
+
+      .container{ padding:40px; }
+      .article-grid{ grid-template-columns:repeat(3,1fr); gap:30px; }
+      .article-image{ height:220px; }
+      .section-title{ font-size:24px; margin:40px 0 20px 0; }
+
+      /* 注目記事：PCは左右レイアウト固定 */
+      .featured-card{
+        flex-direction:row; /* 左画像／右テキスト */
+        align-items:stretch;
+      }
+      .featured-media{
+        width:46%;
+        height:auto;
+        min-height:260px;
+      }
+      .featured-body{
+        width:54%;
+        padding:20px 22px;
+      }
+
+      footer{ padding:50px 40px; }
+      .footer-nav{ grid-template-columns:repeat(4,1fr); gap:15px; }
+      .footer-nav a{ font-size:13px; padding:12px; }
+    }
+
+    /* 大画面 */
+    @media (min-width:1440px){
+      .article-grid{ grid-template-columns:repeat(4,1fr); }
+      .hero-copy h1{ font-size:44px; }
+    }
+
+    /* アクセシビリティ：モーション軽減 */
+    @media (prefers-reduced-motion: reduce){
+      .hero-slide{ transition:none; }
+      .article-card, .featured-card{ transition:none; }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- ヘッダー -->
-    <header>
-        <div class="header-inner">
-            <div class="logo-area">
-                <div class="logo-icon">🌳</div>
-                <div>
-                    <div class="site-title">くすの木ノート</div>
-                    <div class="site-subtitle">性と健康について、もっと自然に</div>
-                </div>
-            </div>
-            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-            <nav class="nav-menu" id="navMenu">
-                <div class="nav-menu-inner">
-                    <div class="nav-item nav-item-category">
-                        <a href="#category" class="nav-link">カテゴリー</a>
-                        <div class="dropdown">
-                            <a href="#category1" class="dropdown-link">カテゴリーサンプル1</a>
-                            <a href="#category2" class="dropdown-link">カテゴリーサンプル2</a>
-                            <a href="#category3" class="dropdown-link">カテゴリーサンプル3</a>
-                        </div>
-                    </div>
-                    <a href="#company" class="nav-link">運営会社</a>
-                    <a href="#supervisor" class="nav-link">監修者紹介</a>
-                    <a href="#faq" class="nav-link">よくある質問</a>
-                    <a href="#contact" class="nav-link">お問い合わせ</a>
-                    <a href="#sitemap" class="nav-link">サイトマップ</a>
-                    <a href="#privacy" class="nav-link">プライバシーポリシー</a>
-                </div>
-            </nav>
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-icon">🌳</div>
+        <div class="site-text">
+          <div class="site-title">くすの木ノート</div>
+          <div class="site-subtitle">性と健康について、もっと自然に</div>
         </div>
-    </header>
+      </div>
 
-    <!-- メインビジュアル -->
-    <div class="hero">
-        <h1>性と健康について、<br>もっと自然に見る・知る場所</h1>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+      <!-- グローバルメニュー：カテゴリー1〜6（ドロップダウン撤廃） -->
+      <nav class="nav-menu" id="navMenu" aria-label="グローバルメニュー">
+        <div class="nav-menu-inner">
+          <a href="#category1" class="nav-link">カテゴリー1</a>
+          <a href="#category2" class="nav-link">カテゴリー2</a>
+          <a href="#category3" class="nav-link">カテゴリー3</a>
+          <a href="#category4" class="nav-link">カテゴリー4</a>
+          <a href="#category5" class="nav-link">カテゴリー5</a>
+          <a href="#category6" class="nav-link">カテゴリー6</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ヒーロー：スライドショー（画像枠） -->
+  <section class="hero-slider" aria-label="メインビジュアルスライドショー">
+    <div class="hero-slides" id="heroSlides">
+      <div class="hero-slide active" style="background-image:url('hero1.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('hero2.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('hero3.jpg');"></div>
+    </div>
+
+    <div class="hero-overlay">
+      <div class="hero-copy">
+        <h1>性と健康について、もっと自然に見る・知る場所</h1>
         <p>くすの木レディースクリニックが足立区から発信する性教育メディア</p>
+      </div>
     </div>
 
-    <!-- コンテンツエリア -->
-    <div class="container" id="category">
-        <!-- カテゴリータグ -->
-        <div class="category-tags">
-            <a href="#category1" class="category-tag">#思春期のからだ</a>
-            <a href="#category2" class="category-tag">#生理のこと</a>
-            <a href="#category3" class="category-tag">#避妊と性感染症</a>
-            <a href="#category3" class="category-tag">#親子の会話</a>
-            <a href="#category2" class="category-tag">#LGBTQ+</a>
-            <a href="#category1" class="category-tag">#パートナーシップ</a>
-        </div>
+    <div class="hero-dots" id="heroDots" aria-label="スライド選択">
+      <button class="hero-dot active" type="button" aria-label="スライド1"></button>
+      <button class="hero-dot" type="button" aria-label="スライド2"></button>
+      <button class="hero-dot" type="button" aria-label="スライド3"></button>
+    </div>
+  </section>
 
-        <!-- カテゴリーサンプル1：新着記事 -->
-        <h2 class="section-title" id="category1">新着記事（カテゴリーサンプル1）</h2>
-        <div class="article-grid">
-            <!-- ここからダミー記事多数（日本人女性の画像／テキストは仮） -->
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">思春期のからだ</span>
-                    <span>日本人女性の画像（くすの木サイト／PIXTA差し替え）</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">思春期のからだの変化、どう向き合う？中学生が知っておきたいこと</h3>
-                    <p class="article-excerpt">「なんだか最近、からだが変わってきた気がする」そんな風に感じている中学生の皆さんへ。思春期は誰もが通る大切な時期であり、戸惑うのは自然なことである。本記事では、からだの変化と気持ちの揺れについて、やさしく解説する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.11.28</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">生理のこと</span>
-                    <span>日本人女性の画像（くすの木サイト／PIXTA差し替え）</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">生理痛がつらいとき、どこまで我慢していい？受診の目安を知ろう</h3>
-                    <p class="article-excerpt">学校や仕事を休んでしまうほどの生理痛は、「仕方ない」と我慢するべき症状ではない。いつ受診を検討した方がよいのか、病気が隠れているサインは何かをわかりやすくまとめる。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.11.25</span>
-                        <span>👤 スタッフ 山田</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">親子の会話</span>
-                    <span>日本人女性の画像（くすの木サイト／PIXTA差し替え）</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">「性のこと、子どもにどう伝える？」最初の一歩の言葉がけ</h3>
-                    <p class="article-excerpt">保護者自身が戸惑っていると、性の話題はつい後回しになりがちである。完璧な説明でなくても、安心して話を始めるための言葉の選び方とタイミングについて紹介する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.11.22</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">LGBTQ+</span>
-                    <span>日本人女性の画像（くすの木サイト／PIXTA差し替え）</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">「ふつう」と違ってもいい。多様な性について子どもと話してみる</h3>
-                    <p class="article-excerpt">テレビやSNSで「LGBTQ+」という言葉を目にする機会が増えている。子どもから質問されたとき、どのように説明すると良いのか、基本的な考え方を整理して解説する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.11.20</span>
-                        <span>👤 スタッフ 佐藤</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">パートナーシップ</span>
-                    <span>日本人女性の画像（くすの木サイト／PIXTA差し替え）</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">「イヤ」と言える関係は健全です。境界線を大切にするコミュニケーション</h3>
-                    <p class="article-excerpt">恋人同士や夫婦、どのような関係でも「自分の気持ちを大切にする権利」がある。境界線（ボーダー）の考え方と、ノーを伝えるときの具体的なフレーズを紹介する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.11.18</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">クリニックの日常</span>
-                    <span>日本人女性の画像（くすの木サイト／PIXTA差し替え）</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">10代の受診は珍しくない？くすの木で多いご相談と対応のしかた</h3>
-                    <p class="article-excerpt">「こんなことで受診していいのかな」と迷う声は多い。実際にクリニックに届く相談の傾向と、医師・スタッフがどのような思いで向き合っているのかをお伝えする。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.11.15</span>
-                        <span>👤 スタッフ 中村</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 新着のダミー記事をさらに追加してボリューム感を出す -->
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">思春期のからだ</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">胸がふくらんできたときに知っておきたいブラジャーの選び方</h3>
-                    <p class="article-excerpt">初めてブラジャーをつけるタイミングやサイズの測り方は、多くの子どもと保護者が迷うポイントである。からだを締め付けない選び方と、下着売り場で困らないコツをまとめる。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.11.12</span>
-                        <span>👤 スタッフ 田中</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">生理のこと</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">ナプキン・タンポン・月経カップ。わたしに合うアイテムはどれ？</h3>
-                    <p class="article-excerpt">生理用品にはさまざまな種類があり、それぞれメリット・デメリットが異なる。生活スタイルやからだの状態に合わせた選び方のポイントを解説する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.11.10</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">避妊と性感染症</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">コンドームだけで大丈夫？避妊と性感染症予防の基本を整理する</h3>
-                    <p class="article-excerpt">「コンドームを使えば安心」と思われがちだが、避妊と性感染症予防には限界もある。他の避妊方法との違い、組み合わせて使う意味をわかりやすく整理する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.11.08</span>
-                        <span>👤 スタッフ 佐藤</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">親子の会話</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">スマホ時代の性情報。子どもがネットで見た内容をどう受け止める？</h3>
-                    <p class="article-excerpt">子どもがインターネットで知る性情報は、必ずしも正しいとは限らない。頭ごなしに否定するのではなく、一緒に確かめていくための会話のヒントを紹介する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.11.05</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- カテゴリーサンプル2：テーマ別で読む -->
-        <h2 class="section-title" id="category2">テーマ別で読む（カテゴリーサンプル2）</h2>
-        <div class="article-grid">
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">LGBTQ+</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">学校でできる小さな工夫。性の多様性にやさしいクラスづくり</h3>
-                    <p class="article-excerpt">席替えや服装の決まり、ごく身近なルールが、誰かを苦しめている場合がある。今日からできる「誰も置き去りにしない」クラスづくりの工夫を紹介する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.10.30</span>
-                        <span>👤 スタッフ 山田</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">パートナーシップ</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">付き合う前に話しておきたい「同意」と「境界線」のこと</h3>
-                    <p class="article-excerpt">「相手が嫌がっていないから大丈夫」ではなく、お互いが安心して過ごせるためには言葉で確認することが大切である。デート前に知っておきたい考え方を整理する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.10.28</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">クリニックの日常</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">婦人科で話してよいこと・悪いことなんてありません</h3>
-                    <p class="article-excerpt">診察室では、からだのことはもちろん、心配ごとや不安も含めて話してよい。医師にどう切り出せばよいか迷う方へ、問診の流れと例を紹介する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.10.25</span>
-                        <span>👤 スタッフ 中村</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">生理のこと</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">部活と生理。パフォーマンスを落とさないためにできる準備</h3>
-                    <p class="article-excerpt">大会や試合と生理が重なると、不安や焦りを感じる人も多い。事前にできる準備や、指導者に伝えるときの言葉の選び方をまとめる。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.10.22</span>
-                        <span>👤 スタッフ 田中</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">避妊と性感染症</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">ピルってどんな薬？メリットと注意点をまとめて解説</h3>
-                    <p class="article-excerpt">月経困難症や避妊のために処方される「ピル」。飲み方や副作用、飲めないケースなど、受診前に知っておきたいポイントを整理する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.10.20</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">親子の会話</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">「どこまで話せばいい？」年齢別・性教育の伝え方のヒント</h3>
-                    <p class="article-excerpt">幼児期・小学生・中高生、それぞれの段階で必要な情報量は異なる。年齢別に意識したいポイントと、伝え方の例を紹介する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.10.18</span>
-                        <span>👤 スタッフ 佐藤</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- テーマ別のダミー追記事 -->
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">思春期のからだ</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">からだの変化が恥ずかしいと感じたときに読んでほしい話</h3>
-                    <p class="article-excerpt">ニキビや体毛、汗のにおいなど、思春期ならではの変化に戸惑うのは自然なことである。自分を責めずに向き合うための視点を紹介する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.10.15</span>
-                        <span>👤 スタッフ 山田</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">パートナーシップ</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">SNSで出会った相手と会う前に考えたいこと</h3>
-                    <p class="article-excerpt">オンラインでの出会いが一般的になった一方で、トラブルも増えている。自分を守るために確認しておきたいポイントをまとめる。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.10.12</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">クリニックの日常</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">スタッフ座談会：10代の患者さんに接するときに大事にしていること</h3>
-                    <p class="article-excerpt">緊張して来院される方が少しでも安心できるように、スタッフが意識している声かけや環境づくりについて語り合った。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.10.10</span>
-                        <span>👤 スタッフ一同</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">LGBTQ+</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">家族にカミングアウトされたとき、まず最初に伝えたい一言</h3>
-                    <p class="article-excerpt">「話してくれてありがとう」という一言は、相手の安心感につながる。驚きや戸惑いを感じたときでも、関係を大切にするための向き合い方を説明する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.10.08</span>
-                        <span>👤 スタッフ 中村</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- カテゴリーサンプル3：よく読まれている記事 -->
-        <h2 class="section-title" id="category3">よく読まれている記事（カテゴリーサンプル3）</h2>
-        <div class="article-grid">
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">避妊と性感染症</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">避妊方法、ちゃんと知ってる？自分を守るための正しい知識</h3>
-                    <p class="article-excerpt">避妊にはピルや子宮内避妊具など、複数の選択肢がある。自分のライフスタイルに合わせた方法を選ぶための基礎知識をまとめる。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.09.30</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">クリニックの日常</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">初めての婦人科受診、何を聞かれる？どんな検査をする？</h3>
-                    <p class="article-excerpt">問診票の内容や診察の流れを事前に知っておくことで、不安を軽くすることができる。来院のイメージが湧くように、具体的なステップを紹介する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.09.25</span>
-                        <span>👤 スタッフ 佐藤</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">院長の診察室から</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">【連載】院長の診察室から vol.1 - 私が産婦人科医になった理由</h3>
-                    <p class="article-excerpt">医師を目指したきっかけや、診察室で大切にしている価値観について院長が語る連載の第1回。くすの木レディースクリニックの原点を紹介する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.09.20</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- よく読まれている記事の追記事 -->
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">生理のこと</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">生理周期アプリとの付き合い方。便利さと注意点を知っておこう</h3>
-                    <p class="article-excerpt">スマホアプリは記録に便利だが、必ずしも医療的な診断にはならない。アプリの活かし方と、受診が必要なサインについて説明する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.09.18</span>
-                        <span>👤 スタッフ 山田</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">思春期のからだ</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">成長のスピードは人それぞれ。他の人と比べて不安になったときに</h3>
-                    <p class="article-excerpt">身長や胸の大きさ、初経のタイミングなどは個人差が大きい。焦りや不安を感じたときに、知っておきたい医学的な目安を紹介する。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.09.15</span>
-                        <span>👤 院長 藤田聡子</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="article-card">
-                <div class="article-image">
-                    <span class="article-category">親子の会話</span>
-                    <span>日本人女性の画像</span>
-                </div>
-                <div class="article-content">
-                    <h3 class="article-title">「それ、セクハラかも？」子どもと一緒に考える境界線</h3>
-                    <p class="article-excerpt">職場や学校、オンライン上でも起こりうるハラスメント。具体例を通して、「どこから嫌なことなのか」を一緒に考えるきっかけをつくる。</p>
-                    <div class="article-meta">
-                        <span>📅 2024.09.10</span>
-                        <span>👤 スタッフ 中村</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CTAボタン
-        <a href="#contact" class="cta-button">
-            💬 困ったことがあれば、お気軽にご相談ください
-        </a>-->
+  <!-- コンテンツ -->
+  <div class="container" id="category">
+    <!-- カテゴリータグ -->
+    <div class="category-tags">
+      <a href="#category1" class="category-tag">#思春期のからだ</a>
+      <a href="#category2" class="category-tag">#生理のこと</a>
+      <a href="#category3" class="category-tag">#避妊と性感染症</a>
+      <a href="#category2" class="category-tag">#親子の会話</a>
+      <a href="#category1" class="category-tag">#LGBTQ+</a>
+      <a href="#category1" class="category-tag">#パートナーシップ</a>
     </div>
 
-    <!-- フッター -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <div class="footer-logo-icon">🌳</div>
-                <div style="font-size: 16px; font-weight: 600; color: #7FB069;">くすの木ノート</div>
-            </div>
+    <!-- ===== カテゴリー1 ===== -->
+    <h2 class="section-title" id="category1">新着記事（カテゴリーサンプル1）</h2>
 
-            <div class="footer-nav">
-                <a href="#category">カテゴリー</a>
-                <a href="#company">運営会社</a>
-                <a href="#supervisor">監修者紹介</a>
-                <a href="#faq">よくある質問</a>
-                <a href="#contact">お問い合わせ</a>
-                <a href="#sitemap">サイトマップ</a>
-                <a href="#privacy">プライバシーポリシー</a>
-                <a href="https://www.kusunoki.tokyo/" target="_blank" rel="noopener">クリニック公式サイト</a>
-            </div>
-
-            <div class="copyright">
-                © 2024 くすの木レディースクリニック北千住 All Rights Reserved.
-            </div>
+    <div class="featured-wrap">
+      <div class="featured-label">このカテゴリーの注目記事</div>
+      <article class="featured-card">
+        <div class="featured-media">
+          <img src="featured-cat1.jpg" alt="注目記事のサムネイル（日本人女性）">
+          <div class="featured-badge">思春期のからだ</div>
         </div>
-    </footer>
+        <div class="featured-body">
+          <h3 class="featured-title">思春期のからだの変化、どう向き合う？不安を小さくする“3つの見方”</h3>
+          <p class="featured-excerpt">
+            「自分だけおかしいのでは」と感じるときほど、まず知っておきたい“個人差”の話がある。
+            本記事では、からだの変化を「正常／異常」で切り分けるのではなく、安心して観察できる見方を整理する。
+          </p>
+          <a class="featured-cta" href="#">この記事を読む →</a>
+          <div class="featured-meta"><span>📅 2024.11.28</span><span>👤 院長 藤田聡子</span></div>
+        </div>
+      </article>
+    </div>
 
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById('navMenu');
-            menu.classList.toggle('active');
+    <div class="article-grid">
+      <div class="article-card">
+        <div class="article-image">
+          <span class="article-category">生理のこと</span>
+          <img src="thumb1.jpg" alt="日本人女性の画像">
+        </div>
+        <div class="article-content">
+          <h3 class="article-title">生理痛がつらいとき、どこまで我慢していい？受診の目安を知ろう</h3>
+          <p class="article-excerpt">学校や仕事を休むほどの生理痛は、我慢すべき症状ではない。受診の目安とサインをわかりやすくまとめる。</p>
+          <div class="article-meta"><span>📅 2024.11.25</span><span>👤 スタッフ 山田</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-image">
+          <span class="article-category">親子の会話</span>
+          <img src="thumb2.jpg" alt="日本人女性の画像">
+        </div>
+        <div class="article-content">
+          <h3 class="article-title">「性のこと、子どもにどう伝える？」最初の一歩の言葉がけ</h3>
+          <p class="article-excerpt">完璧な説明でなくても大丈夫。安心して話を始めるための言葉の選び方とタイミングを紹介する。</p>
+          <div class="article-meta"><span>📅 2024.11.22</span><span>👤 院長 藤田聡子</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-image">
+          <span class="article-category">LGBTQ+</span>
+          <img src="thumb3.jpg" alt="日本人女性の画像">
+        </div>
+        <div class="article-content">
+          <h3 class="article-title">「ふつう」と違ってもいい。多様な性について子どもと話してみる</h3>
+          <p class="article-excerpt">子どもから質問されたとき、どのように説明すると良いのか。基本的な考え方を整理して解説する。</p>
+          <div class="article-meta"><span>📅 2024.11.20</span><span>👤 スタッフ 佐藤</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== カテゴリー2 ===== -->
+    <h2 class="section-title" id="category2">テーマ別で読む（カテゴリーサンプル2）</h2>
+
+    <div class="featured-wrap">
+      <div class="featured-label">このカテゴリーの注目記事</div>
+      <article class="featured-card">
+        <div class="featured-media">
+          <img src="featured-cat2.jpg" alt="注目記事のサムネイル（日本人女性）">
+          <div class="featured-badge">親子の会話</div>
+        </div>
+        <div class="featured-body">
+          <h3 class="featured-title">年齢別・性教育の伝え方。家庭で“自然に話せる”導入フレーズ集</h3>
+          <p class="featured-excerpt">
+            幼児期・小学生・中高生で必要な情報量は異なる。話題を切り出す難しさを減らすために、
+            家庭で使いやすい導入フレーズと、避けたい言い回しを整理する。
+          </p>
+          <a class="featured-cta" href="#">この記事を読む →</a>
+          <div class="featured-meta"><span>📅 2024.10.18</span><span>👤 スタッフ 佐藤</span></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="article-grid">
+      <div class="article-card">
+        <div class="article-image">
+          <span class="article-category">パートナーシップ</span>
+          <img src="thumb4.jpg" alt="日本人女性の画像">
+        </div>
+        <div class="article-content">
+          <h3 class="article-title">付き合う前に話しておきたい「同意」と「境界線」のこと</h3>
+          <p class="article-excerpt">言葉で確認することは、安心を増やす。デート前に知っておきたい考え方を整理する。</p>
+          <div class="article-meta"><span>📅 2024.10.28</span><span>👤 院長 藤田聡子</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-image">
+          <span class="article-category">クリニックの日常</span>
+          <img src="thumb5.jpg" alt="日本人女性の画像">
+        </div>
+        <div class="article-content">
+          <h3 class="article-title">婦人科で話してよいこと・悪いことなんてありません</h3>
+          <p class="article-excerpt">医師にどう切り出せばよいか迷う方へ、問診の流れと例を紹介する。</p>
+          <div class="article-meta"><span>📅 2024.10.25</span><span>👤 スタッフ 中村</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-image">
+          <span class="article-category">生理のこと</span>
+          <img src="thumb6.jpg" alt="日本人女性の画像">
+        </div>
+        <div class="article-content">
+          <h3 class="article-title">部活と生理。パフォーマンスを落とさないためにできる準備</h3>
+          <p class="article-excerpt">大会や試合と重なる不安を軽くする。事前準備と伝え方のヒントをまとめる。</p>
+          <div class="article-meta"><span>📅 2024.10.22</span><span>👤 スタッフ 田中</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== カテゴリー3 ===== -->
+    <h2 class="section-title" id="category3">よく読まれている記事（カテゴリーサンプル3）</h2>
+
+    <div class="featured-wrap">
+      <div class="featured-label">このカテゴリーの注目記事</div>
+      <article class="featured-card">
+        <div class="featured-media">
+          <img src="featured-cat3.jpg" alt="注目記事のサムネイル（日本人女性）">
+          <div class="featured-badge">避妊と性感染症</div>
+        </div>
+        <div class="featured-body">
+          <h3 class="featured-title">避妊と性感染症予防の基本。“知っているつもり”を整理するチェックリスト</h3>
+          <p class="featured-excerpt">
+            「コンドームだけでOK？」と感じたことがある人へ。避妊と感染症予防の違い、
+            併用の意味、相談先の選び方まで、最小限の要点で見直す。
+          </p>
+          <a class="featured-cta" href="#">この記事を読む →</a>
+          <div class="featured-meta"><span>📅 2024.09.30</span><span>👤 院長 藤田聡子</span></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="article-grid">
+      <div class="article-card">
+        <div class="article-image">
+          <span class="article-category">クリニックの日常</span>
+          <img src="thumb7.jpg" alt="日本人女性の画像">
+        </div>
+        <div class="article-content">
+          <h3 class="article-title">初めての婦人科受診、何を聞かれる？どんな検査をする？</h3>
+          <p class="article-excerpt">来院のイメージが湧くように、問診や診察の流れを具体的に紹介する。</p>
+          <div class="article-meta"><span>📅 2024.09.25</span><span>👤 スタッフ 佐藤</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-image">
+          <span class="article-category">院長の診察室から</span>
+          <img src="thumb8.jpg" alt="日本人女性の画像">
+        </div>
+        <div class="article-content">
+          <h3 class="article-title">【連載】院長の診察室から vol.1 - 私が産婦人科医になった理由</h3>
+          <p class="article-excerpt">院長が大切にしている価値観を語る連載。クリニックの原点を紹介する。</p>
+          <div class="article-meta"><span>📅 2024.09.20</span><span>👤 院長 藤田聡子</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-image">
+          <span class="article-category">生理のこと</span>
+          <img src="thumb9.jpg" alt="日本人女性の画像">
+        </div>
+        <div class="article-content">
+          <h3 class="article-title">生理周期アプリとの付き合い方。便利さと注意点を知っておこう</h3>
+          <p class="article-excerpt">アプリは便利だが医療的診断ではない。受診が必要なサインも含めて説明する。</p>
+          <div class="article-meta"><span>📅 2024.09.18</span><span>👤 スタッフ 山田</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">🌳</div>
+        <div style="font-size:16px;font-weight:600;color:#7FB069;">くすの木ノート</div>
+      </div>
+
+      <!-- フッター内メニュー：カテゴリー削除（ページ上部へも入れない） -->
+      <div class="footer-nav">
+        <a href="#company">運営会社</a>
+        <a href="#supervisor">監修者紹介</a>
+        <a href="#faq">よくある質問</a>
+        <a href="#contact">お問い合わせ</a>
+        <a href="#sitemap">サイトマップ</a>
+        <a href="#privacy">プライバシーポリシー</a>
+        <a href="https://www.kusunoki.tokyo/" target="_blank" rel="noopener">クリニック公式サイト</a>
+      </div>
+
+      <div class="copyright">
+        © 2024 くすの木レディースクリニック北千住 All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('navMenu');
+      menu.classList.toggle('active');
+    }
+
+    // メニュー外クリックで閉じる（モバイルのみ）
+    document.addEventListener('click', function(event) {
+      if (window.innerWidth < 1024) {
+        const menu = document.getElementById('navMenu');
+        const toggle = document.querySelector('.menu-toggle');
+        if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+          menu.classList.remove('active');
         }
+      }
+    });
 
-        // メニュー外クリックで閉じる（モバイルのみ）
-        document.addEventListener('click', function(event) {
-            if (window.innerWidth < 1024) {
-                const menu = document.getElementById('navMenu');
-                const toggle = document.querySelector('.menu-toggle');
+    // ウィンドウリサイズ時の処理
+    window.addEventListener('resize', function() {
+      if (window.innerWidth >= 1024) {
+        document.getElementById('navMenu').classList.remove('active');
+      }
+    });
 
-                if (!menu.contains(event.target) && !toggle.contains(event.target)) {
-                    menu.classList.remove('active');
-                }
-            }
+    /* ===== ヒーロースライダー ===== */
+    (function(){
+      const slides = Array.from(document.querySelectorAll('.hero-slide'));
+      const dots = Array.from(document.querySelectorAll('.hero-dot'));
+      if (!slides.length) return;
+
+      let index = 0;
+      const intervalMs = 5000;
+      let timer = null;
+
+      function show(i){
+        index = (i + slides.length) % slides.length;
+        slides.forEach((el, n) => el.classList.toggle('active', n === index));
+        dots.forEach((el, n) => el.classList.toggle('active', n === index));
+      }
+
+      function start(){
+        stop();
+        timer = setInterval(()=> show(index + 1), intervalMs);
+      }
+
+      function stop(){
+        if (timer) clearInterval(timer);
+        timer = null;
+      }
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          show(i);
+          start();
         });
+      });
 
-        // ウィンドウリサイズ時の処理
-        window.addEventListener('resize', function() {
-            if (window.innerWidth >= 1024) {
-                document.getElementById('navMenu').classList.remove('active');
-            }
-        });
-    </script>
+      // モーション軽減
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      show(0);
+      if (!prefersReduced) start();
+    })();
+  </script>
 </body>
 </html>

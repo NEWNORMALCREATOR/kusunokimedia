@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>サイトマップ - くすの木ノート</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic','Meiryo',sans-serif;
+  background:#fff;color:#333;line-height:1.8;
+}
+
+/* ===== ヘッダー ===== */
+header{
+  background:#fff;border-bottom:3px solid #7FB069;
+  padding:15px 20px;position:sticky;top:0;z-index:1000;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.header-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;gap:12px;
+}
+.logo-area{display:flex;align-items:center;gap:12px;flex:1;}
+.logo-icon{
+  width:35px;height:35px;border-radius:50%;
+  background:#7FB069;display:flex;
+  align-items:center;justify-content:center;font-size:20px;
+}
+.site-title{font-size:20px;font-weight:700;color:#7FB069;white-space:nowrap;}
+.site-subtitle{font-size:11px;color:#666;margin-top:-2px;white-space:nowrap;}
+
+.menu-toggle{
+  background:none;border:none;font-size:28px;
+  color:#7FB069;cursor:pointer;
+}
+
+.nav-menu{
+  display:none;background:#f8f9fa;
+  position:absolute;top:70px;left:20px;right:20px;
+  border-radius:10px;border:1px solid #e5e5e5;
+}
+.nav-menu.active{display:block;}
+.nav-menu-inner{display:flex;flex-direction:column;}
+.nav-link{
+  padding:12px 18px;text-decoration:none;color:#333;
+  border-bottom:1px solid #e0e0e0;font-size:14px;
+}
+.nav-link:hover{background:#7FB069;color:#fff;}
+.nav-menu-inner a:last-child{border-bottom:none;}
+
+/* ===== ページヘッダー ===== */
+.page-hero{
+  background:linear-gradient(135deg,#7FB069,#9BC87B);
+  color:#fff;padding:22px 20px;
+}
+.page-hero-inner{max-width:1200px;margin:0 auto;}
+.page-title{font-size:22px;font-weight:900;}
+.page-desc{font-size:13px;opacity:.95;}
+
+/* ===== レイアウト ===== */
+.wrapper{
+  max-width:1200px;margin:0 auto;
+  padding:20px;
+}
+.layout{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+/* ===== メイン（左） ===== */
+.main{flex:1;}
+.sitemap-list{
+  display:flex;flex-direction:column;gap:12px;
+}
+.link-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 14px;border-radius:14px;
+  border:1px solid #ededed;background:#fff;
+  text-decoration:none;color:#333;
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+.link-item:hover{
+  border-color:#7FB069;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+.link-name{font-size:14px;font-weight:800;}
+.link-desc{font-size:12px;color:#666;}
+.link-arrow{font-size:12px;color:#7FB069;font-weight:900;}
+
+/* ===== 右カラム（カテゴリー） ===== */
+.sidebar{
+  background:#f8f9fa;
+  border:1px solid #e5e5e5;
+  border-radius:14px;
+  padding:16px;
+}
+.sidebar-title{
+  font-size:14px;
+  font-weight:900;
+  color:#7FB069;
+  margin-bottom:10px;
+  padding-bottom:8px;
+  border-bottom:2px solid rgba(127,176,105,.45);
+}
+
+/* 「インデントを入れて配下に羅列」 */
+.category-tree{
+  list-style:none;
+  padding-left:14px; /* インデント */
+  margin-top:10px;
+  border-left:2px solid rgba(127,176,105,.25);
+}
+.category-tree li{
+  margin:8px 0;
+  position:relative;
+  padding-left:10px;
+}
+.category-tree li::before{
+  content:"";
+  position:absolute;
+  left:-14px;
+  top:12px;
+  width:10px;
+  height:2px;
+  background:rgba(127,176,105,.25);
+}
+.category-tree a{
+  text-decoration:none;
+  color:#333;
+  font-size:13px;
+}
+.category-tree a:hover{
+  color:#7FB069;
+  text-decoration:underline;
+}
+
+/* ===== フッター ===== */
+footer{
+  background:#f8f9fa;border-top:3px solid #7FB069;
+  padding:30px 20px;margin-top:40px;
+}
+.footer-content{max-width:1200px;margin:0 auto;}
+.footer-logo{text-align:center;margin-bottom:20px;}
+.footer-logo-icon{
+  width:50px;height:50px;border-radius:50%;
+  background:#7FB069;display:inline-flex;
+  align-items:center;justify-content:center;font-size:28px;
+}
+.footer-nav{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+.footer-nav a{
+  text-decoration:none;color:#666;font-size:12px;
+  padding:8px;text-align:center;border-radius:6px;
+}
+.footer-nav a:hover{background:#7FB069;color:#fff;}
+.copyright{
+  margin-top:20px;text-align:center;font-size:11px;color:#999;
+}
+
+/* ===== レスポンシブ ===== */
+@media(min-width:768px){
+  .layout{flex-direction:row;align-items:flex-start;}
+  .main{flex:0 0 50%;}
+  .sidebar{flex:0 0 50%;}
+}
+@media(min-width:1024px){
+  .menu-toggle{display:none;}
+  .nav-menu{display:block!important;position:static;background:none;border:none;}
+  .nav-menu-inner{flex-direction:row;gap:6px;justify-content:flex-end;}
+  .nav-link{border:none;border-radius:999px;padding:8px 12px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-icon">🌳</div>
+      <div>
+        <div class="site-title">くすの木ノート</div>
+        <div class="site-subtitle">性と健康について、もっと自然に</div>
+      </div>
+    </div>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <nav class="nav-menu" id="navMenu">
+      <div class="nav-menu-inner">
+        <a href="#" class="nav-link">カテゴリー1</a>
+        <a href="#" class="nav-link">カテゴリー2</a>
+        <a href="#" class="nav-link">カテゴリー3</a>
+        <a href="#" class="nav-link">カテゴリー4</a>
+        <a href="#" class="nav-link">カテゴリー5</a>
+        <a href="#" class="nav-link">カテゴリー6</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <h1 class="page-title">サイトマップ</h1>
+    <p class="page-desc">当サイト内のページ一覧</p>
+  </div>
+</section>
+
+<div class="wrapper">
+  <div class="layout">
+
+    <!-- 左カラム：サイトマップ -->
+    <main class="main">
+      <div class="sitemap-list">
+        <a class="link-item" href="index.html">
+          <div>
+            <div class="link-name">トップページ</div>
+            <div class="link-desc">新着記事・カテゴリーハブ</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+
+        <a class="link-item" href="company.html">
+          <div>
+            <div class="link-name">運営会社</div>
+            <div class="link-desc">クリニック情報・アクセス</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+
+        <a class="link-item" href="supervisor.html">
+          <div>
+            <div class="link-name">監修者紹介</div>
+            <div class="link-desc">医師・専門家プロフィール</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+
+        <a class="link-item" href="contact.html">
+          <div>
+            <div class="link-name">お問い合わせ</div>
+            <div class="link-desc">FAQ・フォーム</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+
+        <a class="link-item" href="privacy.html">
+          <div>
+            <div class="link-name">プライバシーポリシー</div>
+            <div class="link-desc">個人情報の取り扱い</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+      </div>
+    </main>
+
+    <!-- 右カラム：カテゴリー（見出し＋インデント配下） -->
+    <aside class="sidebar" aria-label="カテゴリー一覧">
+      <div class="sidebar-title">カテゴリー</div>
+      <ul class="category-tree">
+        <li><a href="#">カテゴリー1</a></li>
+        <li><a href="#">カテゴリー2</a></li>
+        <li><a href="#">カテゴリー3</a></li>
+        <li><a href="#">カテゴリー4</a></li>
+        <li><a href="#">カテゴリー5</a></li>
+        <li><a href="#">カテゴリー6</a></li>
+      </ul>
+    </aside>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo">
+      <div class="footer-logo-icon">🌳</div>
+      <div style="font-weight:700;color:#7FB069;">くすの木ノート</div>
+    </div>
+
+    <div class="footer-nav">
+      <a href="company.html">運営会社</a>
+      <a href="supervisor.html">監修者紹介</a>
+      <a href="contact.html">お問い合わせ</a>
+      <a href="sitemap.html">サイトマップ</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="https://www.kusunoki.tokyo/" target="_blank" rel="noopener">公式サイト</a>
+    </div>
+
+    <div class="copyright">
+      © 2024 くすの木レディースクリニック北千住
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('navMenu').classList.toggle('active');
+}
+</script>
+
+</body>
+</html>

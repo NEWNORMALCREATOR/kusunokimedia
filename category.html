@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>カテゴリー一覧 - くすの木ノート</title>
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body{
+      font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic','Meiryo',sans-serif;
+      background:#fff; color:#333; line-height:1.8;
+    }
+
+    /* ヘッダー */
+    header{
+      background:#fff;
+      border-bottom:3px solid #7FB069;
+      padding:15px 20px;
+      position:sticky; top:0; z-index:1000;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    }
+    .header-inner{
+      max-width:1200px; margin:0 auto;
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:nowrap; gap:12px;
+    }
+    .logo-area{
+      display:flex; align-items:center; gap:12px;
+      white-space:nowrap;
+      min-width:0;
+      flex:1 1 auto;
+    }
+    .logo-icon{
+      width:35px; height:35px; flex-shrink:0;
+      background:#7FB069; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:20px;
+    }
+    .site-text{ min-width:0; }
+    .site-title{ font-size:20px; font-weight:600; color:#7FB069; white-space:nowrap; }
+    .site-subtitle{ font-size:11px; color:#666; margin-top:-2px; white-space:nowrap; }
+
+    .menu-toggle{
+      background:none; border:none;
+      font-size:28px; cursor:pointer;
+      color:#7FB069; display:block; flex-shrink:0;
+      line-height: 1;
+    }
+
+    /* ナビ（モバイル） */
+    .nav-menu{
+      display:none;
+      background:#f8f9fa;
+      padding:15px 0;
+      margin-top:10px;
+      border-radius:8px;
+      position:absolute;
+      top:70px; right:20px; left:20px;
+      z-index:999;
+      border:1px solid #ededed;
+    }
+    .nav-menu.active{ display:block; }
+    .nav-menu-inner{ display:flex; flex-direction:column; }
+    .nav-link{
+      display:block;
+      padding:12px 20px;
+      color:#333; text-decoration:none;
+      border-bottom:1px solid #e0e0e0;
+      font-size:14px;
+      transition:all .3s;
+      white-space:nowrap;
+    }
+    .nav-link:hover{ background:#7FB069; color:#fff; }
+    .nav-menu-inner > .nav-link:last-child{ border-bottom:none; }
+
+    /* ページヘッダー（カテゴリーページ用） */
+    .page-hero{
+      background:linear-gradient(135deg,#7FB069 0%, #9BC87B 100%);
+      color:#fff;
+      padding:22px 20px;
+    }
+    .page-hero-inner{
+      max-width:1200px; margin:0 auto;
+    }
+    .breadcrumb{
+      font-size:12px; opacity:.95;
+      margin-bottom:6px;
+    }
+    .page-title{
+      font-size:22px;
+      font-weight:800;
+      line-height:1.35;
+      margin-bottom:6px;
+      text-shadow:0 2px 10px rgba(0,0,0,.18);
+    }
+    .page-desc{
+      font-size:13px;
+      opacity:.95;
+      text-shadow:0 2px 10px rgba(0,0,0,.18);
+    }
+
+    /* コンテンツ */
+    .container{
+      padding:20px;
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    /* カテゴリー切替（カテゴリーページ内のタブ） */
+    .category-switch{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin: 6px 0 18px 0;
+    }
+    .switch-btn{
+      appearance:none;
+      border:1px solid #e0e0e0;
+      background:#f8f9fa;
+      color:#666;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:13px;
+      cursor:pointer;
+      transition: all .25s;
+      white-space:nowrap;
+    }
+    .switch-btn:hover{
+      border-color:#7FB069;
+      color:#7FB069;
+    }
+    .switch-btn.active{
+      background:#7FB069;
+      color:#fff;
+      border-color:#7FB069;
+      font-weight:700;
+    }
+
+    /* 検索＆並び替え */
+    .toolbar{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin: 0 0 18px 0;
+    }
+    .searchbox{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      background:#fff;
+      border:1px solid #e0e0e0;
+      border-radius:10px;
+      padding:10px 12px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.03);
+    }
+    .searchbox span{ color:#7FB069; font-weight:900; }
+    .searchbox input{
+      width:100%;
+      border:none;
+      outline:none;
+      font-size:14px;
+    }
+    .sortbox{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .sortbox label{
+      font-size:12px;
+      color:#666;
+      white-space:nowrap;
+    }
+    .sortbox select{
+      width:100%;
+      max-width:240px;
+      border:1px solid #e0e0e0;
+      border-radius:10px;
+      padding:10px 12px;
+      font-size:13px;
+      background:#fff;
+      outline:none;
+    }
+
+    /* 注目記事（大：左サムネ／右テキスト） */
+    .featured-wrap{ margin: 6px 0 18px 0; }
+    .featured-card{
+      background:#fff;
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 6px 18px rgba(0,0,0,0.10);
+      border:1px solid rgba(127,176,105,.25);
+      transition:transform .3s, box-shadow .3s;
+      display:flex;
+      flex-direction:column; /* スマホは縦 */
+      text-decoration:none;
+      color:inherit;
+    }
+    .featured-card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 10px 24px rgba(0,0,0,0.14);
+    }
+    .featured-media{
+      position:relative;
+      width:100%;
+      height:210px;
+      background:linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%);
+      flex-shrink:0;
+    }
+    .featured-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .featured-badge{
+      position:absolute; top:12px; left:12px;
+      background:linear-gradient(135deg,#7FB069 0%, #9BC87B 100%);
+      color:#fff;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:900;
+      box-shadow:0 6px 16px rgba(127,176,105,.35);
+    }
+    .featured-body{
+      padding:16px;
+      display:flex; flex-direction:column;
+      gap:8px;
+    }
+    .featured-title{
+      font-size:17px;
+      font-weight:900;
+      line-height:1.45;
+      color:#222;
+    }
+    .featured-excerpt{
+      font-size:13px;
+      color:#555;
+      line-height:1.75;
+    }
+    .featured-meta{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:11px;
+      color:#888;
+      padding-top:10px;
+      border-top:1px solid #f0f0f0;
+      margin-top:6px;
+    }
+
+    /* 記事リスト（縦に並ぶ） */
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .list-item{
+      display:flex;
+      flex-direction:column; /* スマホは縦 */
+      gap:12px;
+      background:#fff;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid #ededed;
+      box-shadow:0 2px 8px rgba(0,0,0,0.06);
+      transition:transform .25s, box-shadow .25s;
+      text-decoration:none;
+      color:inherit;
+    }
+    .list-item:hover{
+      transform:translateY(-2px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.10);
+    }
+    .list-thumb{
+      position:relative;
+      width:100%;
+      height:180px;
+      background:linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%);
+      flex-shrink:0;
+    }
+    .list-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .list-cat{
+      position:absolute; top:10px; left:10px;
+      background:#7FB069; color:#fff;
+      padding:4px 12px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+    }
+    .list-body{
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .list-title{
+      font-size:15px;
+      font-weight:800;
+      line-height:1.5;
+      color:#222;
+    }
+    .list-excerpt{
+      font-size:13px;
+      color:#666;
+      line-height:1.7;
+    }
+    .list-meta{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:11px;
+      color:#999;
+      padding-top:10px;
+      border-top:1px solid #f0f0f0;
+      margin-top:6px;
+    }
+
+    /* ページネーション */
+    .pagination{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      margin: 22px 0 10px 0;
+      flex-wrap:wrap;
+    }
+    .page-btn{
+      border:1px solid #e0e0e0;
+      background:#fff;
+      padding:10px 12px;
+      border-radius:10px;
+      font-size:13px;
+      cursor:pointer;
+      transition: all .2s;
+      min-width:44px;
+      text-align:center;
+    }
+    .page-btn:hover{ border-color:#7FB069; color:#7FB069; }
+    .page-btn.active{
+      background:#7FB069;
+      border-color:#7FB069;
+      color:#fff;
+      font-weight:800;
+    }
+    .page-btn[disabled]{
+      opacity:.5;
+      cursor:not-allowed;
+    }
+
+    /* フッター */
+    footer{
+      background:#f8f9fa;
+      padding:30px 20px;
+      margin-top:40px;
+      border-top:3px solid #7FB069;
+    }
+    .footer-content{ max-width:1200px; margin:0 auto; }
+    .footer-logo{ text-align:center; margin-bottom:20px; }
+    .footer-logo-icon{
+      width:50px; height:50px;
+      background:#7FB069; border-radius:50%;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-size:28px; margin-bottom:8px;
+    }
+    .footer-nav{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-bottom:20px;
+    }
+    .footer-nav a{
+      color:#666; text-decoration:none;
+      font-size:12px; padding:8px; text-align:center;
+      border-radius:4px; transition:all .3s;
+    }
+    .footer-nav a:hover{ background:#7FB069; color:#fff; }
+    .copyright{
+      text-align:center;
+      font-size:11px;
+      color:#999;
+      margin-top:20px;
+    }
+
+    /* タブレット */
+    @media (min-width:768px){
+      .container{ padding:30px; }
+      .page-title{ font-size:28px; }
+      .page-desc{ font-size:14px; }
+
+      .toolbar{
+        flex-direction:row;
+        align-items:center;
+        justify-content:space-between;
+      }
+      .searchbox{ flex: 1 1 auto; }
+      .sortbox{ flex: 0 0 auto; }
+
+      .featured-media{ height:240px; }
+      .featured-title{ font-size:20px; }
+      .featured-excerpt{ font-size:14px; }
+
+      .list-item{
+        flex-direction:row; /* タブレットから横並び */
+      }
+      .list-thumb{
+        width:38%;
+        height:220px;
+      }
+      .list-body{
+        width:62%;
+        padding:16px;
+      }
+
+      .footer-nav{ grid-template-columns:repeat(4,1fr); }
+    }
+
+    /* PC */
+    @media (min-width:1024px){
+      header{ padding:20px 40px; }
+      .logo-icon{ width:45px; height:45px; font-size:24px; }
+      .site-title{ font-size:24px; }
+      .site-subtitle{ font-size:13px; }
+
+      .menu-toggle{ display:none; }
+
+      .nav-menu{
+        display:block !important;
+        position:static;
+        background:none;
+        padding:0;
+        margin:0;
+        max-width:70%;
+        border:none;
+      }
+      .nav-menu-inner{
+        flex-direction:row;
+        justify-content:flex-end;
+        gap:6px;
+        white-space:nowrap;
+        align-items:center;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        padding-bottom:2px;
+      }
+      .nav-menu-inner::-webkit-scrollbar{ height:6px; }
+      .nav-menu-inner::-webkit-scrollbar-thumb{
+        background:rgba(0,0,0,0.12);
+        border-radius:999px;
+      }
+      .nav-link{
+        border:none;
+        border-radius:999px;
+        padding:8px 14px;
+        font-size:13px;
+        white-space:nowrap;
+      }
+      .nav-link:hover{ background:#7FB069; color:#fff; }
+
+      /* 注目記事：PCは左右レイアウト固定 */
+      .featured-card{
+        flex-direction:row;
+        align-items:stretch;
+      }
+      .featured-media{
+        width:46%;
+        height:auto;
+        min-height:260px;
+      }
+      .featured-body{
+        width:54%;
+        padding:20px 22px;
+      }
+
+      .page-hero{ padding:28px 40px; }
+      footer{ padding:50px 40px; }
+      .footer-nav{ grid-template-columns:repeat(4,1fr); gap:15px; }
+      .footer-nav a{ font-size:13px; padding:12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .featured-card, .list-item{ transition:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-icon">🌳</div>
+        <div class="site-text">
+          <div class="site-title">くすの木ノート</div>
+          <div class="site-subtitle">性と健康について、もっと自然に</div>
+        </div>
+      </div>
+
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+      <!-- グローバルメニュー：カテゴリー1〜6（ドロップダウン撤廃） -->
+      <nav class="nav-menu" id="navMenu" aria-label="グローバルメニュー">
+        <div class="nav-menu-inner">
+          <a href="#category1" class="nav-link">カテゴリー1</a>
+          <a href="#category2" class="nav-link">カテゴリー2</a>
+          <a href="#category3" class="nav-link">カテゴリー3</a>
+          <a href="#category4" class="nav-link">カテゴリー4</a>
+          <a href="#category5" class="nav-link">カテゴリー5</a>
+          <a href="#category6" class="nav-link">カテゴリー6</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- カテゴリーページヘッダー -->
+  <section class="page-hero" id="category">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">ホーム / カテゴリー / <span id="crumbCurrent">カテゴリー1</span></div>
+      <h1 class="page-title" id="pageTitle">カテゴリー1</h1>
+      <p class="page-desc" id="pageDesc">このカテゴリーでは、思春期のからだ・生理・親子の会話など、基礎からやさしく整理する。</p>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- 検索／並び替え -->
+    <div class="toolbar">
+      <div class="searchbox">
+        <span>🔎</span>
+        <input id="searchInput" type="search" placeholder="記事タイトルや本文から検索（デモ）" />
+      </div>
+      <div class="sortbox">
+        <label for="sortSelect">並び替え</label>
+        <select id="sortSelect">
+          <option value="new">新しい順</option>
+          <option value="old">古い順</option>
+          <option value="popular">人気順（デモ）</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 注目記事（大） -->
+    <div class="featured-wrap" id="featuredWrap">
+      <!-- JSで差し替える -->
+      <a class="featured-card" href="#" id="featuredCard">
+        <div class="featured-media">
+          <img id="featuredImg" src="featured-cat1.jpg" alt="注目記事のサムネイル（差し替え）">
+          <div class="featured-badge" id="featuredBadge">思春期のからだ</div>
+        </div>
+
+        <div class="featured-body">
+          <h2 class="featured-title" id="featuredTitle">思春期のからだの変化、どう向き合う？不安を小さくする“3つの見方”</h2>
+          <p class="featured-excerpt" id="featuredExcerpt">
+            「自分だけおかしいのでは」と感じるときほど、まず知っておきたい“個人差”の話がある。
+            本記事では、からだの変化を安心して観察できる見方を整理する。
+          </p>
+          <div class="featured-meta">
+            <span id="featuredDate">📅 2024.11.28</span>
+            <span id="featuredAuthor">👤 院長 藤田聡子</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- 記事リスト（縦に並ぶ） -->
+    <div class="list" id="list"></div>
+
+    <!-- ページネーション（ダミー） -->
+    <div class="pagination" aria-label="ページネーション">
+      <button class="page-btn" id="prevBtn" type="button">‹</button>
+      <button class="page-btn active" data-page="1" type="button">1</button>
+      <button class="page-btn" data-page="2" type="button">2</button>
+      <button class="page-btn" data-page="3" type="button">3</button>
+      <button class="page-btn" id="nextBtn" type="button">›</button>
+    </div>
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">🌳</div>
+        <div style="font-size:16px;font-weight:600;color:#7FB069;">くすの木ノート</div>
+      </div>
+
+      <!-- フッター内メニュー：カテゴリー削除（ページ上部へも入れない） -->
+      <div class="footer-nav">
+        <a href="#company">運営会社</a>
+        <a href="#supervisor">監修者紹介</a>
+        <a href="#faq">よくある質問</a>
+        <a href="#contact">お問い合わせ</a>
+        <a href="#sitemap">サイトマップ</a>
+        <a href="#privacy">プライバシーポリシー</a>
+        <a href="https://www.kusunoki.tokyo/" target="_blank" rel="noopener">クリニック公式サイト</a>
+      </div>
+
+      <div class="copyright">
+        © 2024 くすの木レディースクリニック北千住 All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('navMenu');
+      menu.classList.toggle('active');
+    }
+
+    // メニュー外クリックで閉じる（モバイルのみ）
+    document.addEventListener('click', function(event) {
+      if (window.innerWidth < 1024) {
+        const menu = document.getElementById('navMenu');
+        const toggle = document.querySelector('.menu-toggle');
+        if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+          menu.classList.remove('active');
+        }
+      }
+    });
+
+    // ウィンドウリサイズ時の処理
+    window.addEventListener('resize', function() {
+      if (window.innerWidth >= 1024) {
+        document.getElementById('navMenu').classList.remove('active');
+      }
+    });
+
+    /* ===== デモデータ（カテゴリー別） ===== */
+    const CATEGORIES = {
+      cat1: {
+        name: "カテゴリー1",
+        title: "カテゴリー1",
+        desc: "このカテゴリーでは、思春期のからだ・生理・親子の会話など、基礎からやさしく整理する。",
+        featured: {
+          id: "c1-f",
+          catLabel: "思春期のからだ",
+          img: "featured-cat1.jpg",
+          title: "思春期のからだの変化、どう向き合う？不安を小さくする“3つの見方”",
+          excerpt: "「自分だけおかしいのでは」と感じるときほど、まず知っておきたい“個人差”の話がある。安心して観察できる見方を整理する。",
+          date: "2024.11.28",
+          author: "院長 藤田聡子"
+        },
+        posts: [
+          {id:"c1-01", cat:"生理のこと", img:"thumb1.jpg", title:"生理痛がつらいとき、どこまで我慢していい？受診の目安を知ろう", excerpt:"学校や仕事を休むほどの生理痛は、我慢すべき症状ではない。受診の目安とサインをまとめる。", date:"2024.11.25", author:"スタッフ 山田", popularity: 92},
+          {id:"c1-02", cat:"親子の会話", img:"thumb2.jpg", title:"「性のこと、子どもにどう伝える？」最初の一歩の言葉がけ", excerpt:"完璧な説明でなくても大丈夫。話を始めるための言葉選びとタイミングを紹介する。", date:"2024.11.22", author:"院長 藤田聡子", popularity: 78},
+          {id:"c1-03", cat:"LGBTQ+", img:"thumb3.jpg", title:"「ふつう」と違ってもいい。多様な性について子どもと話してみる", excerpt:"子どもから質問されたときの説明のしかた。基本の考え方を整理して解説する。", date:"2024.11.20", author:"スタッフ 佐藤", popularity: 70},
+          {id:"c1-04", cat:"パートナーシップ", img:"thumb4.jpg", title:"「イヤ」と言える関係は健全です。境界線を大切にするコミュニケーション", excerpt:"どの関係でも自分の気持ちを大切にする権利がある。ノーの伝え方の例を紹介する。", date:"2024.11.18", author:"院長 藤田聡子", popularity: 66},
+          {id:"c1-05", cat:"思春期のからだ", img:"thumb5.jpg", title:"胸がふくらんできたときに知っておきたいブラジャーの選び方", excerpt:"初めての下着選びは迷いやすい。締め付けない選び方と売り場で困らないコツをまとめる。", date:"2024.11.12", author:"スタッフ 田中", popularity: 61},
+        ]
+      },
+
+      cat2: {
+        name: "カテゴリー2",
+        title: "カテゴリー2",
+        desc: "受診前の不安、家庭での会話、学校生活の困りごとなど、テーマから探しやすいまとめ。",
+        featured: {
+          id: "c2-f",
+          catLabel: "親子の会話",
+          img: "featured-cat2.jpg",
+          title: "年齢別・性教育の伝え方。家庭で“自然に話せる”導入フレーズ集",
+          excerpt: "幼児期・小学生・中高生で必要な情報量は異なる。導入フレーズと避けたい言い回しを整理する。",
+          date: "2024.10.18",
+          author: "スタッフ 佐藤"
+        },
+        posts: [
+          {id:"c2-01", cat:"パートナーシップ", img:"thumb6.jpg", title:"付き合う前に話しておきたい「同意」と「境界線」のこと", excerpt:"言葉で確認することは、安心を増やす。デート前に知っておきたい考え方を整理する。", date:"2024.10.28", author:"院長 藤田聡子", popularity: 88},
+          {id:"c2-02", cat:"クリニックの日常", img:"thumb7.jpg", title:"婦人科で話してよいこと・悪いことなんてありません", excerpt:"医師にどう切り出せばよいか迷う方へ、問診の流れと例を紹介する。", date:"2024.10.25", author:"スタッフ 中村", popularity: 74},
+          {id:"c2-03", cat:"生理のこと", img:"thumb8.jpg", title:"部活と生理。パフォーマンスを落とさないためにできる準備", excerpt:"大会や試合と重なる不安を軽くする。事前準備と伝え方のヒントをまとめる。", date:"2024.10.22", author:"スタッフ 田中", popularity: 64},
+          {id:"c2-04", cat:"避妊と性感染症", img:"thumb9.jpg", title:"ピルってどんな薬？メリットと注意点をまとめて解説", excerpt:"飲み方や副作用、飲めないケースなど、受診前に知っておきたいポイントを整理する。", date:"2024.10.20", author:"院長 藤田聡子", popularity: 80},
+        ]
+      },
+
+      cat3: {
+        name: "カテゴリー3",
+        title: "カテゴリー3",
+        desc: "アクセスが多い記事を中心に、まず押さえたい基礎知識を最短で確認できる一覧。",
+        featured: {
+          id: "c3-f",
+          catLabel: "避妊と性感染症",
+          img: "featured-cat3.jpg",
+          title: "避妊と性感染症予防の基本。“知っているつもり”を整理するチェックリスト",
+          excerpt: "避妊と感染症予防の違い、併用の意味、相談先の選び方まで最小限で見直す。",
+          date: "2024.09.30",
+          author: "院長 藤田聡子"
+        },
+        posts: [
+          {id:"c3-01", cat:"クリニックの日常", img:"thumb10.jpg", title:"初めての婦人科受診、何を聞かれる？どんな検査をする？", excerpt:"来院のイメージが湧くように、問診や診察の流れを具体的に紹介する。", date:"2024.09.25", author:"スタッフ 佐藤", popularity: 95},
+          {id:"c3-02", cat:"院長の診察室から", img:"thumb11.jpg", title:"【連載】院長の診察室から vol.1 - 私が産婦人科医になった理由", excerpt:"院長が大切にしている価値観を語る連載。クリニックの原点を紹介する。", date:"2024.09.20", author:"院長 藤田聡子", popularity: 89},
+          {id:"c3-03", cat:"生理のこと", img:"thumb12.jpg", title:"生理周期アプリとの付き合い方。便利さと注意点を知っておこう", excerpt:"アプリは便利だが医療的診断ではない。受診が必要なサインも含めて説明する。", date:"2024.09.18", author:"スタッフ 山田", popularity: 82},
+        ]
+      }
+    };
+
+    /* ===== 状態 ===== */
+    let currentCatKey = "cat1";
+    let currentPage = 1;
+    const perPage = 5;
+
+    /* ===== DOM ===== */
+    const crumbCurrent = document.getElementById('crumbCurrent');
+    const pageTitle = document.getElementById('pageTitle');
+    const pageDesc = document.getElementById('pageDesc');
+
+    const featuredImg = document.getElementById('featuredImg');
+    const featuredBadge = document.getElementById('featuredBadge');
+    const featuredTitle = document.getElementById('featuredTitle');
+    const featuredExcerpt = document.getElementById('featuredExcerpt');
+    const featuredDate = document.getElementById('featuredDate');
+    const featuredAuthor = document.getElementById('featuredAuthor');
+
+    const listEl = document.getElementById('list');
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
+
+    const pageBtns = Array.from(document.querySelectorAll('.page-btn[data-page]'));
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    /* ===== レンダリング ===== */
+    function setActiveCat(catKey){
+      currentCatKey = catKey;
+      currentPage = 1;
+
+      // タブのactive
+      document.querySelectorAll('.switch-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.cat === catKey);
+      });
+
+      // パンくず & タイトル
+      const cat = CATEGORIES[catKey];
+      crumbCurrent.textContent = cat.name;
+      pageTitle.textContent = cat.title;
+      pageDesc.textContent = cat.desc;
+
+      // 注目記事
+      const f = cat.featured;
+      featuredImg.src = f.img;
+      featuredImg.alt = "注目記事のサムネイル（差し替え）";
+      featuredBadge.textContent = f.catLabel;
+      featuredTitle.textContent = f.title;
+      featuredExcerpt.textContent = f.excerpt;
+      featuredDate.textContent = "📅 " + f.date;
+      featuredAuthor.textContent = "👤 " + f.author;
+
+      // リスト
+      renderList();
+      updatePaginationUI();
+    }
+
+    function parseDateStr(d){ // "2024.11.25" -> Date
+      const [y,m,day] = d.split('.').map(n=>parseInt(n,10));
+      return new Date(y, m-1, day);
+    }
+
+    function getFilteredPosts(){
+      const cat = CATEGORIES[currentCatKey];
+      const q = (searchInput.value || "").trim().toLowerCase();
+      let posts = [...cat.posts];
+
+      // 検索（タイトル＋抜粋）
+      if (q){
+        posts = posts.filter(p =>
+          (p.title || "").toLowerCase().includes(q) ||
+          (p.excerpt || "").toLowerCase().includes(q) ||
+          (p.cat || "").toLowerCase().includes(q)
+        );
+      }
+
+      // 並び替え
+      const sort = sortSelect.value;
+      if (sort === "new"){
+        posts.sort((a,b)=> parseDateStr(b.date) - parseDateStr(a.date));
+      } else if (sort === "old"){
+        posts.sort((a,b)=> parseDateStr(a.date) - parseDateStr(b.date));
+      } else if (sort === "popular"){
+        posts.sort((a,b)=> (b.popularity||0) - (a.popularity||0));
+      }
+
+      return posts;
+    }
+
+    function renderList(){
+      const posts = getFilteredPosts();
+      const start = (currentPage - 1) * perPage;
+      const pageItems = posts.slice(start, start + perPage);
+
+      if (!pageItems.length){
+        listEl.innerHTML = `
+          <div style="padding:14px;border:1px solid #e0e0e0;border-radius:12px;background:#fff;">
+            <div style="font-weight:800;color:#7FB069;margin-bottom:6px;">該当する記事が見つかりませんでした</div>
+            <div style="font-size:13px;color:#666;">検索キーワードを変えるか、別のカテゴリーを選択してください。</div>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = pageItems.map(p => `
+        <a class="list-item" href="#">
+          <div class="list-thumb">
+            <span class="list-cat">${escapeHtml(p.cat)}</span>
+            <img src="${escapeAttr(p.img)}" alt="画像（差し替え）">
+          </div>
+          <div class="list-body">
+            <div class="list-title">${escapeHtml(p.title)}</div>
+            <div class="list-excerpt">${escapeHtml(p.excerpt)}</div>
+            <div class="list-meta">
+              <span>📅 ${escapeHtml(p.date)}</span>
+              <span>👤 ${escapeHtml(p.author)}</span>
+            </div>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    function updatePaginationUI(){
+      const total = getFilteredPosts().length;
+      const totalPages = Math.max(1, Math.ceil(total / perPage));
+
+      prevBtn.disabled = currentPage <= 1;
+      nextBtn.disabled = currentPage >= totalPages;
+
+      pageBtns.forEach(btn => {
+        const p = parseInt(btn.dataset.page, 10);
+        btn.classList.toggle('active', p === currentPage);
+        btn.disabled = p > totalPages;
+        btn.style.display = (p <= totalPages) ? 'inline-block' : 'none';
+      });
+    }
+
+    /* ===== イベント ===== */
+    document.querySelectorAll('.switch-btn').forEach(btn => {
+      btn.addEventListener('click', () => setActiveCat(btn.dataset.cat));
+    });
+
+    searchInput.addEventListener('input', () => {
+      currentPage = 1;
+      renderList();
+      updatePaginationUI();
+    });
+
+    sortSelect.addEventListener('change', () => {
+      currentPage = 1;
+      renderList();
+      updatePaginationUI();
+    });
+
+    pageBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentPage = parseInt(btn.dataset.page, 10);
+        renderList();
+        updatePaginationUI();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1){
+        currentPage -= 1;
+        renderList();
+        updatePaginationUI();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const total = getFilteredPosts().length;
+      const totalPages = Math.max(1, Math.ceil(total / perPage));
+      if (currentPage < totalPages){
+        currentPage += 1;
+        renderList();
+        updatePaginationUI();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+
+    /* ===== util ===== */
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[s]));
+    }
+    function escapeAttr(str){
+      return String(str).replace(/"/g, '&quot;');
+    }
+
+    /* 初期表示 */
+    setActiveCat("cat1");
+  </script>
+</body>
+</html>
