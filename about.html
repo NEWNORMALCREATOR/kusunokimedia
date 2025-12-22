@@ -1,528 +1,698 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>運営会社 - くすの木ノート</title>
+  <meta charset="UTF-8">
+  <title>れが・しおんについて | 終活ムービー れが・しおん</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- フォント -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-
-    body{
-      font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic','Meiryo',sans-serif;
-      background:#fff; color:#333; line-height:1.8;
+    :root{
+      --primary:#B983B7;
+      --primary-light:#EAD6EE;
+      --accent:#8B5A8B;
+      --bg:#FAF7FB;
+      --text:#333333;
+      --white:#ffffff;
+      --border:#E4D7EA;
     }
 
-    /* ヘッダー */
-    header{
-      background:#fff;
-      border-bottom:3px solid #7FB069;
-      padding:15px 20px;
-      position:sticky; top:0; z-index:1000;
-      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:'Noto Sans JP',sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.7;
+    }
+    img{max-width:100%;display:block;}
+    a{color:inherit;text-decoration:none;}
+
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 16px;
+    }
+
+    /* ===== header ===== */
+    .header{
+      position:fixed;
+      top:0;left:0;right:0;
+      z-index:1000;
+      background:var(--white);
+      box-shadow:0 2px 8px rgba(0,0,0,0.04);
     }
     .header-inner{
-      max-width:1200px; margin:0 auto;
-      display:flex; justify-content:space-between; align-items:center;
-      flex-wrap:nowrap; gap:12px;
-    }
-    .logo-area{
-      display:flex; align-items:center; gap:12px;
-      white-space:nowrap;
-      min-width:0;
-      flex:1 1 auto;
-    }
-    .logo-icon{
-      width:35px; height:35px; flex-shrink:0;
-      background:#7FB069; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:20px;
-    }
-    .site-text{ min-width:0; }
-    .site-title{ font-size:20px; font-weight:600; color:#7FB069; white-space:nowrap; }
-    .site-subtitle{ font-size:11px; color:#666; margin-top:-2px; white-space:nowrap; }
-
-    .menu-toggle{
-      background:none; border:none;
-      font-size:28px; cursor:pointer;
-      color:#7FB069; display:block; flex-shrink:0;
-    }
-
-    /* ナビ（モバイル） */
-    .nav-menu{
-      display:none;
-      background:#f8f9fa;
-      padding:15px 0;
-      margin-top:10px;
-      border-radius:8px;
-      position:absolute;
-      top:70px; right:20px; left:20px;
-      z-index:999;
-    }
-    .nav-menu.active{ display:block; }
-    .nav-menu-inner{ display:flex; flex-direction:column; }
-    .nav-link{
-      display:block;
-      padding:12px 20px;
-      color:#333; text-decoration:none;
-      border-bottom:1px solid #e0e0e0;
-      font-size:14px;
-      transition:all .3s;
-      white-space:nowrap;
-    }
-    .nav-link:hover{ background:#7FB069; color:#fff; }
-    .nav-menu-inner .nav-link:last-child{ border-bottom:none; }
-
-    /* ページヘッダー */
-    .page-hero{
-      background:linear-gradient(135deg,#7FB069 0%, #9BC87B 100%);
-      color:#fff;
-      padding:22px 20px;
-    }
-    .page-hero-inner{ max-width:1200px; margin:0 auto; }
-    .breadcrumb{
-      font-size:12px; opacity:.95;
-      margin-bottom:6px;
-    }
-    .page-title{
-      font-size:22px;
-      font-weight:800;
-      line-height:1.35;
-      margin-bottom:6px;
-      text-shadow:0 2px 10px rgba(0,0,0,.18);
-    }
-    .page-desc{
-      font-size:13px;
-      opacity:.95;
-      text-shadow:0 2px 10px rgba(0,0,0,.18);
-    }
-
-    /* コンテンツ */
-    .container{
-      padding:20px;
-      max-width:1200px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:8px 16px;
+      max-width:1100px;
       margin:0 auto;
     }
-
-    .section-title{
-      font-size:18px; font-weight:800; color:#7FB069;
-      margin:26px 0 12px 0; padding-bottom:8px;
-      border-bottom:2px solid #7FB069;
-      display:flex; align-items:center; gap:8px;
-    }
-    .section-title::before{ content:'🌿'; font-size:20px; }
-
-    .card{
-      background:#fff;
-      border:1px solid #ededed;
-      border-radius:14px;
-      padding:16px;
-      box-shadow:0 2px 10px rgba(0,0,0,0.06);
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:14px;
-      margin-top:12px;
-    }
-
-    .kv{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-    }
-    .kv-row{
-      display:grid;
-      grid-template-columns:110px 1fr;
-      gap:10px;
-      padding:10px 0;
-      border-bottom:1px solid #f0f0f0;
-      align-items:start;
-    }
-    .kv-row:last-child{ border-bottom:none; }
-    .kv-key{
-      font-size:12px;
-      color:#666;
-      font-weight:800;
+    .logo{
+      font-family:'Noto Serif JP',serif;
+      font-size:20px;
+      font-weight:700;
+      color:var(--primary);
       white-space:nowrap;
     }
-    .kv-val{
-      font-size:14px;
-      color:#333;
-    }
 
-    .note{
-      margin-top:10px;
-      font-size:13px;
-      color:#666;
-      line-height:1.75;
+    /* PCナビ */
+    .nav-desktop{
+      margin-left:32px;
+      flex:1;
     }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:#f8f9fa;
-      border:1px solid #e0e0e0;
-      color:#666;
-      font-size:12px;
-      margin: 6px 8px 0 0;
-    }
-
-    .access-steps{
-      margin-top:10px;
+    .nav-desktop ul{
       display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .step{
-      background:#fff;
-      border:1px solid #ededed;
-      border-radius:12px;
-      padding:14px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.05);
-    }
-    .step h3{
+      justify-content:flex-end;
+      gap:18px;
+      list-style:none;
       font-size:14px;
-      color:#222;
-      font-weight:900;
+      align-items:center;
+    }
+    .nav-desktop a{
+      position:relative;
+      padding:6px 0;
+      white-space:nowrap;
+    }
+    .nav-desktop a::after{
+      content:"";
+      position:absolute;
+      left:0;bottom:-4px;
+      width:0;
+      height:2px;
+      background:var(--primary);
+      transition:width .2s;
+    }
+    .nav-desktop a:hover::after{width:100%;}
+    .nav-desktop .is-current{
+      font-weight:600;
+      color:var(--accent);
+    }
+    .nav-desktop .is-current::after{width:100%;}
+
+    /* お問い合わせボタン（PC） */
+    .nav-desktop .nav-cta a{
+      padding:6px 14px;
+      border-radius:18px;
+      background:var(--primary);
+      color:#fff;
+      font-weight:600;
+    }
+    .nav-desktop .nav-cta a::after{display:none;}
+    .nav-desktop .nav-cta a:hover{background:var(--accent);}
+
+    /* ハンバーガー */
+    .mobile-toggle{
+      margin-left:auto;
+      background:none;
+      border:none;
+      cursor:pointer;
+      display:none;
+    }
+    .mobile-toggle span{
+      display:block;
+      width:22px;
+      height:2px;
+      background:var(--primary);
+      border-radius:999px;
+      margin:4px 0;
+    }
+
+    /* モバイルナビ */
+    .mobile-nav{
+      display:none;
+      background:var(--white);
+      border-top:1px solid var(--border);
+    }
+    .mobile-nav.open{display:block;}
+    .mobile-nav ul{
+      list-style:none;
+      padding:10px 16px 14px;
+    }
+    .mobile-nav li+li{margin-top:10px;}
+    .mobile-nav a{
+      display:block;
+      padding:8px 4px;
+      font-size:14px;
+    }
+    .mobile-nav .nav-cta a{
+      background:var(--primary);
+      color:#fff;
+      text-align:center;
+      border-radius:20px;
+      font-weight:600;
+    }
+
+    main{margin-top:70px;}
+
+    /* 共通セクション */
+    section{padding:56px 0;}
+    .section-title{
+      font-family:'Noto Serif JP',serif;
+      font-size:26px;
+      text-align:center;
+      margin-bottom:10px;
+      color:var(--accent);
+    }
+    .section-lead{
+      text-align:center;
+      font-size:14px;
+      color:#666;
+      margin-bottom:32px;
+      max-width:820px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    /* ===== sub hero ===== */
+    .page-hero{
+      background:linear-gradient(135deg,#fff, #F4E7F6);
+      padding:70px 0 40px;
+      border-bottom:1px solid var(--border);
+    }
+    .page-hero-inner{
+      max-width:1100px;
+      understanding:0;
+      margin:0 auto;
+      padding:0 16px;
+    }
+    .breadcrumb{
+      font-size:11px;
+      color:#7a6a85;
+      margin-bottom:10px;
+    }
+    .breadcrumb a{
+      text-decoration:underline;
+      text-underline-offset:2px;
+      color:#7a6a85;
+    }
+    .page-title{
+      font-family:'Noto Serif JP',serif;
+      font-size:26px;
+      color:var(--accent);
+      margin-bottom:8px;
+    }
+    .page-hero-lead{
+      font-size:14px;
+      color:#555;
+      max-width:720px;
+    }
+
+    /* ===== founder (single) ===== */
+    .section-founder{
+      background:var(--bg);
+    }
+    .founder-wrap{
+      max-width:920px;
+      margin:0 auto;
+    }
+    .founder-card{
+      background:#fff;
+      border-radius:18px;
+      padding:22px 20px 22px;
+      border:1px solid var(--border);
+      box-shadow:0 10px 24px rgba(0,0,0,0.03);
+    }
+    .founder-head{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:12px;
+    }
+    .founder-face{
+      width:96px;
+      height:96px;
+      border-radius:50%;
+      background:#EAD6EE;
+      overflow:hidden;
+      flex-shrink:0;
+      border:1px solid #E6D8F0;
+    }
+    .founder-face img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .founder-name{
+      font-size:18px;
+      font-weight:700;
+      color:var(--accent);
       margin-bottom:6px;
     }
-    .step p{
-      font-size:13px;
-      color:#666;
-      line-height:1.75;
+    .founder-role{
+      font-size:12px;
+      color:#7a6a85;
+      line-height:1.6;
+    }
+    .founder-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:10px;
+    }
+    .tag{
+      font-size:11px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:rgba(185,131,183,0.12);
+      color:var(--accent);
     }
 
-    .hours{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-      border-radius:12px;
-      border:1px solid #e0e0e0;
-      background:#fff;
+    .story{
+      margin-top:14px;
+      border-top:1px dashed #DDC8E7;
+      padding-top:14px;
     }
-    .hours th, .hours td{
-      padding:12px 12px;
+    .story h3{
+      font-size:16px;
+      color:var(--accent);
+      margin-bottom:8px;
+      line-height:1.6;
+    }
+    .story p{
+      font-size:14px;
+      color:#444;
+      margin-bottom:12px;
+    }
+    .story p:last-child{margin-bottom:0;}
+
+    .callout{
+      margin-top:16px;
+      background:linear-gradient(135deg,#fff, #F7EFFA);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px 16px 14px;
+    }
+    .callout-title{
       font-size:13px;
-      border-bottom:1px solid #f0f0f0;
+      font-weight:700;
+      color:#5b3b62;
+      margin-bottom:6px;
+    }
+    .callout ul{
+      list-style:none;
+      padding-left:0;
+      font-size:13px;
+      color:#444;
+    }
+    .callout li{
+      position:relative;
+      padding-left:18px;
+      margin:6px 0;
+    }
+    .callout li::before{
+      content:"✓";
+      position:absolute;
+      left:0;top:0;
+      color:var(--accent);
+      font-weight:700;
+    }
+
+    /* ===== company detail ===== */
+    .section-company-detail{
+      background:#fff;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+    .company-wrapper{
+      display:grid;
+      grid-template-columns:1.1fr 1fr;
+      gap:28px;
+      align-items:start;
+    }
+    .company-table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+      background:#fff;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 4px 14px rgba(0,0,0,0.02);
+    }
+    .company-table tr:nth-child(odd){background:#FBF7FF;}
+    .company-table th,
+    .company-table td{
+      padding:10px 12px;
+      border-bottom:1px solid #E9DFF1;
+    }
+    .company-table tr:last-child th,
+    .company-table tr:last-child td{border-bottom:none;}
+    .company-table th{
+      width:120px;
+      font-weight:600;
+      color:#6F5A88;
       text-align:left;
       vertical-align:top;
-    }
-    .hours tr:last-child th, .hours tr:last-child td{ border-bottom:none; }
-    .hours th{
-      width:140px;
-      color:#666;
-      font-weight:900;
-      background:#f8f9fa;
       white-space:nowrap;
     }
-
-    .map{
-      width:100%;
-      height:320px;
-      border:1px solid #e0e0e0;
-      border-radius:14px;
-      overflow:hidden;
-      background:#f8f9fa;
-      box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    .company-table td{color:#444;}
+    .company-note{
+      font-size:12px;
+      color:#888;
+      margin-top:8px;
     }
-    .map iframe{
+
+    .company-map-block{
+      background:#FAF5FF;
+      border-radius:12px;
+      padding:10px;
+      box-shadow:0 4px 14px rgba(0,0,0,0.02);
+    }
+    .company-map-title{
+      font-size:13px;
+      font-weight:600;
+      color:#6F5A88;
+      margin-bottom:6px;
+    }
+    .map-frame{
+      width:100%;
+      height:260px;
+      border-radius:10px;
+      overflow:hidden;
+      background:#ddd;
+    }
+    .map-frame iframe{
       width:100%;
       height:100%;
       border:0;
-      display:block;
+    }
+    .map-caption{
+      font-size:11px;
+      color:#777;
+      margin-top:6px;
+      line-height:1.6;
     }
 
-    /* フッター */
-    footer{
-      background:#f8f9fa;
-      padding:30px 20px;
-      margin-top:40px;
-      border-top:3px solid #7FB069;
+    /* ===== contact CTA ===== */
+    .section-contact{
+      background:var(--primary);
+      color:#fff;
+      text-align:center;
     }
-    .footer-content{ max-width:1200px; margin:0 auto; }
-    .footer-logo{ text-align:center; margin-bottom:20px; }
-    .footer-logo-icon{
-      width:50px; height:50px;
-      background:#7FB069; border-radius:50%;
-      display:inline-flex; align-items:center; justify-content:center;
-      font-size:28px; margin-bottom:8px;
+    .section-contact p{
+      font-size:14px;
+      margin:8px 0 18px;
+    }
+    .btn-contact-white{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 26px;
+      border-radius:999px;
+      background:#fff;
+      color:var(--accent);
+      font-weight:600;
+      font-size:14px;
+    }
+    .btn-contact-white:hover{background:#F5F1FA;}
+
+    /* ===== footer ===== */
+    footer{
+      background:#2E2733;
+      color:#ddd;
+      padding:24px 0 18px;
+      font-size:12px;
+    }
+    .footer-inner{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 16px;
     }
     .footer-nav{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-bottom:20px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom:10px;
     }
-    .footer-nav a{
-      color:#666; text-decoration:none;
-      font-size:12px; padding:8px; text-align:center;
-      border-radius:4px; transition:all .3s;
+    .footer-nav a{color:#ddd;font-size:11px;}
+    .footer-copy{color:#9a8fa6;font-size:11px;}
+
+    /* ===== responsive ===== */
+    @media(max-width:900px){
+      .company-wrapper{grid-template-columns:1fr;}
     }
-    .footer-nav a:hover{ background:#7FB069; color:#fff; }
-    .copyright{
-      text-align:center;
-      font-size:11px;
-      color:#999;
-      margin-top:20px;
-    }
-
-    /* タブレット */
-    @media (min-width:768px){
-      .container{ padding:30px; }
-      .page-title{ font-size:28px; }
-      .page-desc{ font-size:14px; }
-
-      .grid{
-        grid-template-columns:1fr 1fr;
-        gap:16px;
-      }
-
-      .kv-row{ grid-template-columns:140px 1fr; }
-
-      .footer-nav{ grid-template-columns:repeat(4,1fr); }
-    }
-
-    /* PC */
-    @media (min-width:1024px){
-      header{ padding:20px 40px; }
-      .logo-icon{ width:45px; height:45px; font-size:24px; }
-      .site-title{ font-size:24px; }
-      .site-subtitle{ font-size:13px; }
-
-      .menu-toggle{ display:none; }
-
-      .nav-menu{
-        display:block !important;
-        position:static;
-        background:none;
-        padding:0;
-        margin:0;
-        max-width:70%;
-      }
-      .nav-menu-inner{
-        flex-direction:row;
-        justify-content:flex-end;
-        gap:5px;
-        white-space:nowrap;
-        align-items:center;
-      }
-      .nav-link{
-        border:none;
-        border-radius:20px;
-        padding:8px 14px;
-        font-size:13px;
-      }
-
-      .page-hero{ padding:28px 40px; }
-      footer{ padding:50px 40px; }
-      .footer-nav{ grid-template-columns:repeat(4,1fr); gap:15px; }
-      .footer-nav a{ font-size:13px; padding:12px; }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .nav-link{ transition:none; }
+    @media(max-width:640px){
+      .header-inner{padding:8px 12px;}
+      .nav-desktop{display:none;}
+      .mobile-toggle{display:block;}
+      main{margin-top:64px;}
+      section{padding:42px 0;}
+      .page-hero{padding:62px 0 30px;}
+      .page-title{font-size:22px;}
+      .founder-head{align-items:flex-start;}
+      .founder-face{width:84px;height:84px;}
     }
   </style>
 </head>
-
 <body>
-  <!-- ヘッダー -->
-  <header>
-    <div class="header-inner">
-      <div class="logo-area">
-        <div class="logo-icon">🌳</div>
-        <div class="site-text">
-          <div class="site-title">くすの木ノート</div>
-          <div class="site-subtitle">性と健康について、もっと自然に</div>
-        </div>
-      </div>
 
-      <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニューを開閉">☰</button>
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">終活ムービー れが・しおん</a>
 
-      <!-- グローバルメニュー：カテゴリー1〜6 -->
-      <nav class="nav-menu" id="navMenu" aria-label="グローバルメニュー">
-        <div class="nav-menu-inner">
-          <a href="category1.html" class="nav-link">カテゴリー1</a>
-          <a href="category2.html" class="nav-link">カテゴリー2</a>
-          <a href="category3.html" class="nav-link">カテゴリー3</a>
-          <a href="category4.html" class="nav-link">カテゴリー4</a>
-          <a href="category5.html" class="nav-link">カテゴリー5</a>
-          <a href="category6.html" class="nav-link">カテゴリー6</a>
-        </div>
-      </nav>
-    </div>
-  </header>
+    <nav class="nav-desktop">
+      <ul>
+        <li><a href="/">トップ</a></li>
+        <li><a href="/company/" class="is-current">れが・しおんについて</a></li>
+        <li><a href="/services/">事業内容</a></li>
+        <li><a href="/cases/">お客様の声・制作事例</a></li>
+        <li><a href="/column/">コラム</a></li>
+        <li class="nav-cta"><a href="/contact/">お問い合わせ</a></li>
+      </ul>
+    </nav>
 
-  <!-- ページヘッダー -->
+    <button class="mobile-toggle" aria-label="メニューを開く" id="mobileToggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="/">トップ</a></li>
+      <li><a href="/company/">れが・しおんについて</a></li>
+      <li><a href="/services/">事業内容</a></li>
+      <li><a href="/cases/">お客様の声・制作事例</a></li>
+      <li><a href="/column/">コラム</a></li>
+      <li class="nav-cta"><a href="/contact/">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- サブヒーロー -->
   <section class="page-hero">
     <div class="page-hero-inner">
-      <div class="breadcrumb">ホーム / 運営会社</div>
-      <h1 class="page-title">運営会社</h1>
-      <p class="page-desc">くすの木ノートの運営情報、アクセス、診療時間のご案内です。</p>
+      <div class="breadcrumb">
+        <a href="/">トップ</a> &gt; れが・しおんについて
+      </div>
+      <h1 class="page-title">れが・しおんについて</h1>
+      <p class="page-hero-lead">
+        映像は、言葉にできなかった想いまで、静かに残してくれます。<br>
+        れが・しおんは、テレビ報道の現場で「人生の瞬間」を撮り続けてきた代表・関が、
+        ご本人とご家族の“これから”を前向きにするために立ち上げた、終活ムービーの制作サービスです。
+      </p>
     </div>
   </section>
 
-  <main class="container">
-    <h2 class="section-title">運営情報</h2>
+  <!-- 代表者紹介 & バックグラウンドストーリー（関氏のみ） -->
+  <section class="section-founder">
+    <div class="container">
+      <h2 class="section-title">代表・関 圭一朗の紹介</h2>
+      <p class="section-lead">
+        「上手に話せなくてもいい。照れて言えなくてもいい。」<br>
+        その人らしい表情と声が残るだけで、家族の心は救われる——。れが・しおんは、その実感から生まれました。
+      </p>
 
-    <div class="grid">
-      <section class="card" aria-label="運営主体">
-        <div class="kv" role="list">
-          <div class="kv-row" role="listitem">
-            <div class="kv-key">運営主体</div>
-            <div class="kv-val">くすの木レディースクリニック北千住</div>
-          </div>
-          <div class="kv-row" role="listitem">
-            <div class="kv-key">所在地</div>
-            <div class="kv-val">東京都足立区千住2‐33‐3 千住第二横山ビル３F</div>
-          </div>
-          <div class="kv-row" role="listitem">
-            <div class="kv-key">電話番号</div>
-            <div class="kv-val">03-6806-2500</div>
-          </div>
-          <div class="kv-row" role="listitem">
-            <div class="kv-key">補足</div>
-            <div class="kv-val">
-              当院は完全予約制です。<br />
-              ※お電話は日本語でのご案内となります。
+      <div class="founder-wrap">
+        <article class="founder-card">
+          <div class="founder-head">
+            <div class="founder-face">
+              <!-- 実装時に差し替え -->
+              <!-- <img src="/images/seki.jpg" alt="代表 関 圭一朗"> -->
+            </div>
+            <div>
+              <div class="founder-name">関 圭一朗</div>
+              <div class="founder-role">
+                放送作家 / ドキュメンタリー ディレクター<br>
+                終活ムービー れが・しおん 代表
+              </div>
+              <div class="founder-tags">
+                <span class="tag">報道・ドキュメンタリー制作</span>
+                <span class="tag">人生の「語り」を設計</span>
+                <span class="tag">自然な表情を引き出す撮影</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="note">
-          <span class="pill">📞 03-6806-2500</span>
-          <span class="pill">📍 北千住</span>
-          <span class="pill">🕒 月〜土</span>
-        </div>
-      </section>
+          <div class="story">
+            <h3>報道の現場で学んだのは、「人は言葉だけで語れない」ということでした。</h3>
+            <p>
+              これまで関は、報道・情報番組の制作に携わり、事件や災害、医療や介護など、さまざまな現場を取材してきました。
+              その中で何度も目にしてきたのは、当事者の“コメント”よりも、ふとした沈黙や目線、手の動き、笑い方といった
+              <strong>言葉にならない部分にこそ、その人の人生が映る</strong>という事実です。
+            </p>
 
-      <section class="card" aria-label="診療時間">
-        <table class="hours" aria-label="診療時間">
-          <tr>
-            <th>診療日</th>
-            <td>月曜日〜土曜日</td>
-          </tr>
-          <tr>
-            <th>午前</th>
-            <td>9:30 〜 12:30</td>
-          </tr>
-          <tr>
-            <th>午後</th>
-            <td>14:00 〜 17:30</td>
-          </tr>
-          <tr>
-            <th>受付終了</th>
-            <td>17:15</td>
-          </tr>
-          <tr>
-            <th>休診</th>
-            <td>日曜日・祝日</td>
-          </tr>
-        </table>
+            <h3>家族の死をきっかけに、「残せなかったもの」の大きさを知りました。</h3>
+            <p>
+              ある日、身近な家族を亡くしたとき、頭に残っていたのは、立派な言葉ではなく、
+              何気ない声のトーン、笑ったときの表情、いつもの言い回しでした。
+              しかしそれらは、時間が経つほど薄れていきます。
+              「写真はある。でも声がない」「文字は残る。でも表情がない」——その喪失感が、
+              “映像で残す”という選択を現実のものにしました。
+            </p>
 
-        <div class="note">
-          ※上記はご案内用の表示です。最新情報は公式サイトの案内もあわせてご確認ください。
-        </div>
-      </section>
-    </div>
+            <h3>終活ムービーは、「別れの準備」ではなく「これからを前向きにする時間」です。</h3>
+            <p>
+              れが・しおんが大切にしているのは、撮影の一日だけではありません。
+              その前のヒアリングで人生をゆっくり言葉にし、家族と話すきっかけが生まれること。
+              撮影後に一緒に見返し、「こんな話、初めて聞いたね」と笑い合えること。
+              そうしたプロセスそのものが、<strong>ご本人の“これから”を整え、家族の距離を近づける</strong>と考えています。
+            </p>
 
-    <h2 class="section-title">アクセス</h2>
-
-    <div class="grid">
-      <section class="card" aria-label="アクセス案内">
-        <div class="access-steps">
-          <div class="step">
-            <h3>北千住駅 西口から</h3>
-            <p>北千住駅の西口を出て、ドン・キホーテの角を左折します。</p>
+            <h3>「上手に話す」より「その人らしさ」が残る構成へ。</h3>
+            <p>
+              カメラの前で緊張するのは当たり前です。だから、台本どおりに話してもらうことを目的にしません。
+              雑談の中で出る一言、照れ笑い、言い直し——それらを否定せず、
+              <strong>“その人らしい温度”が伝わる形</strong>に編集していきます。
+              報道の現場で培った構成力を、今度は「家族の物語」のために使いたい。
+              それが、れが・しおんの原点です。
+            </p>
           </div>
-          <div class="step">
-            <h3>目印</h3>
-            <p>右側にある吉野家を過ぎて、柏屋というお蕎麦屋さんの隣です。</p>
+
+          <div class="callout">
+            <div class="callout-title">れが・しおんが約束すること</div>
+            <ul>
+              <li>無理に話させない。自然な会話から「らしさ」を引き出す</li>
+              <li>ご本人とご家族の気持ちを最優先し、撮影のペースも調整する</li>
+              <li>感情が動く“ストーリー”として編集し、見返せる形で残す</li>
+              <li>「撮ってよかった」と思える、前向きな時間そのものを設計する</li>
+            </ul>
           </div>
-          <div class="step">
-            <h3>ビル・フロア</h3>
-            <p>1階は薬局の入っているビルの3階です。</p>
-          </div>
-          <div class="step">
-            <h3>エレベーター</h3>
-            <p>薬局の左側の通路を奥に進むと、上の階に上がるエレベーターがあります。</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="card" aria-label="地図">
-        <div class="map" aria-label="Googleマップ">
-          <!-- 必要に応じて埋め込みURLを差し替えてください -->
-          <iframe
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E8%B6%B3%E7%AB%8B%E5%8C%BA%E5%8D%83%E4%BD%8F2-33-3%20%E5%8D%83%E4%BD%8F%E7%AC%AC%E4%BA%8C%E6%A8%AA%E5%B1%B1%E3%83%93%E3%83%AB&output=embed"
-            title="くすの木レディースクリニック北千住（地図）"
-            aria-label="地図（埋め込み）"
-          ></iframe>
-        </div>
-
-        <div class="note">
-          ※地図が表示されない場合は、ネットワーク設定やブラウザの制限をご確認ください。
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <!-- フッター（「カテゴリー」削除、「ページ上部へ」無し） -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">
-        <div class="footer-logo-icon">🌳</div>
-        <div style="font-size:16px;font-weight:600;color:#7FB069;">くすの木ノート</div>
-      </div>
-
-      <div class="footer-nav" aria-label="フッターメニュー">
-        <a href="company.html">運営会社</a>
-        <a href="supervisor.html">監修者紹介</a>
-        <a href="faq.html">よくある質問</a>
-        <a href="contact.html">お問い合わせ</a>
-        <a href="sitemap.html">サイトマップ</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="https://www.kusunoki.tokyo/" target="_blank" rel="noopener">クリニック公式サイト</a>
-        <a href="index.html">トップページ</a>
-      </div>
-
-      <div class="copyright">
-        © 2024 くすの木レディースクリニック北千住 All Rights Reserved.
+        </article>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('navMenu');
-      menu.classList.toggle('active');
+  <!-- 事業者情報（表は維持しつつ、文言を関氏中心に調整） -->
+  <section class="section-company-detail">
+    <div class="container">
+      <h2 class="section-title">事業者情報</h2>
+      <p class="section-lead">
+        小さな制作チームだからこそ、一件一件の背景やご事情に寄り添った対応を心がけています。
+        訪問撮影を基本とし、オンライン相談・対面相談のどちらにも対応しています。
+      </p>
+
+      <div class="company-wrapper">
+        <div>
+          <table class="company-table">
+            <tr>
+              <th>屋号</th>
+              <td>終活ムービー れが・しおん</td>
+            </tr>
+            <tr>
+              <th>設立</th>
+              <td>2023年4月</td>
+            </tr>
+            <tr>
+              <th>代表者</th>
+              <td>関 圭一朗</td>
+            </tr>
+            <tr>
+              <th>事業内容</th>
+              <td>
+                ・個人・家族向け終活ムービーの企画・撮影・編集・納品<br>
+                ・施設・医療・士業向けの紹介動画／ドキュメンタリー制作<br>
+                ・終活ムービー制作ワークショップ、講演・セミナー ほか
+              </td>
+            </tr>
+            <tr>
+              <th>所在地</th>
+              <td>
+                東京都〇〇区〇〇&nbsp;※詳しい住所はお問い合わせ時にご案内いたします。
+              </td>
+            </tr>
+            <tr>
+              <th>電話番号</th>
+              <td>※撮影中・移動中が多いため、原則メールにてお問い合わせください。</td>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <td>info@example-regashion.jp</td>
+            </tr>
+          </table>
+          <p class="company-note">
+            ※所在地・連絡先などはダミー表記です。実際の情報に差し替えてご利用ください。
+          </p>
+        </div>
+
+        <div>
+          <div class="company-map-block">
+            <div class="company-map-title">アクセス</div>
+            <div class="map-frame">
+              <!-- 実際にはGoogleマップの埋め込みコードを差し替えてください -->
+              <!-- <iframe src="https://www.google.com/maps/embed?pb=..."></iframe> -->
+            </div>
+            <p class="map-caption">
+              ※ご自宅や施設などへの訪問撮影が中心のため、常設のスタジオは設けておりません。<br>
+              対面でのご相談は、都内近郊のカフェやレンタルスペースなどで実施しております。
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- お問い合わせ CTA -->
+  <section class="section-contact">
+    <div class="container">
+      <h2 class="section-title" style="color:#fff;">まずはお気軽にご相談ください。</h2>
+      <p>
+        「自分たちの場合はどんな形のムービーが合うのか知りたい」  
+        「家族にはまだ話していないけれど、まずは相談だけしてみたい」  
+        ──そんな段階でも大歓迎です。オンライン・対面どちらも対応しております。
+      </p>
+      <a href="/contact/" class="btn-contact-white">無料相談フォームへ</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="/">トップ</a>
+      <a href="/company/">れが・しおんについて</a>
+      <a href="/services/">事業内容</a>
+      <a href="/cases/">お客様の声・制作事例</a>
+      <a href="/column/">コラム</a>
+      <a href="/sitemap/">サイトマップ</a>
+      <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/contact/">お問い合わせ</a>
+    </div>
+    <div class="footer-copy">© 2025 終活ムービー れが・しおん</div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('mobileToggle');
+  const mobileNav = document.getElementById('mobileNav');
+
+  toggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    mobileNav.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function(e){
+    if(!mobileNav.contains(e.target) && !toggle.contains(e.target)){
+      mobileNav.classList.remove('open');
     }
+  });
+</script>
 
-    // メニュー外クリックで閉じる（モバイルのみ）
-    document.addEventListener('click', function(event) {
-      if (window.innerWidth < 1024) {
-        const menu = document.getElementById('navMenu');
-        const toggle = document.querySelector('.menu-toggle');
-        if (!menu.contains(event.target) && !toggle.contains(event.target)) {
-          menu.classList.remove('active');
-        }
-      }
-    });
-
-    // ウィンドウリサイズ時の処理
-    window.addEventListener('resize', function() {
-      if (window.innerWidth >= 1024) {
-        document.getElementById('navMenu').classList.remove('active');
-      }
-    });
-  </script>
 </body>
 </html>

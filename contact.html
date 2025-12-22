@@ -1,647 +1,565 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>お問い合わせ - くすの木ノート</title>
+  <meta charset="UTF-8">
+  <title>お問い合わせ | 終活ムービー れが・しおおん</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- フォント -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-
-    body{
-      font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic','Meiryo',sans-serif;
-      background:#fff; color:#333; line-height:1.8;
+    :root{
+      --primary:#B983B7;
+      --primary-light:#EAD6EE;
+      --accent:#8B5A8B;
+      --bg:#FAF7FB;
+      --text:#333333;
+      --white:#ffffff;
+      --border:#E4D7EA;
+      --muted:#6f5a88;
+      --danger:#B94A48;
     }
 
-    /* ===== ヘッダー ===== */
-    header{
-      background:#fff;
-      border-bottom:3px solid #7FB069;
-      padding:15px 20px;
-      position:sticky; top:0; z-index:1000;
-      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:'Noto Sans JP',sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.7;
+    }
+    img{max-width:100%;display:block;}
+    a{color:inherit;text-decoration:none;}
+    .container{
+      max-width:900px; /* 1カラム想定 */
+      margin:0 auto;
+      padding:0 16px;
+    }
+
+    /* ===== header ===== */
+    .header{
+      position:fixed;
+      top:0;left:0;right:0;
+      z-index:1000;
+      background:var(--white);
+      box-shadow:0 2px 8px rgba(0,0,0,0.04);
     }
     .header-inner{
-      max-width:1200px; margin:0 auto;
-      display:flex; justify-content:space-between; align-items:center;
-      flex-wrap:nowrap; gap:12px;
-    }
-    .logo-area{
-      display:flex; align-items:center; gap:12px;
-      white-space:nowrap; min-width:0;
-      flex:1 1 auto;
-    }
-    .logo-icon{
-      width:35px; height:35px; flex-shrink:0;
-      background:#7FB069; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:20px;
-    }
-    .site-text{ min-width:0; }
-    .site-title{ font-size:20px; font-weight:600; color:#7FB069; white-space:nowrap; }
-    .site-subtitle{ font-size:11px; color:#666; margin-top:-2px; white-space:nowrap; }
-
-    .menu-toggle{
-      background:none; border:none;
-      font-size:28px; cursor:pointer;
-      color:#7FB069; display:block; flex-shrink:0;
-    }
-
-    /* ナビ（モバイル） */
-    .nav-menu{
-      display:none;
-      background:#f8f9fa;
-      padding:12px 0;
-      margin-top:10px;
-      border-radius:10px;
-      position:absolute;
-      top:70px; right:20px; left:20px;
-      z-index:999;
-      border:1px solid #e9e9e9;
-    }
-    .nav-menu.active{ display:block; }
-    .nav-menu-inner{ display:flex; flex-direction:column; }
-
-    .nav-link{
-      display:block;
-      padding:12px 18px;
-      color:#333; text-decoration:none;
-      border-bottom:1px solid #e0e0e0;
-      font-size:14px;
-      transition:all .25s;
-    }
-    .nav-link:hover{ background:#7FB069; color:#fff; }
-    .nav-menu-inner > a:last-child{ border-bottom:none; }
-
-    /* ===== ページヘッダー ===== */
-    .page-hero{
-      background:linear-gradient(135deg,#7FB069 0%, #9BC87B 100%);
-      color:#fff;
-      padding:22px 20px;
-    }
-    .page-hero-inner{ max-width:1200px; margin:0 auto; }
-    .breadcrumb{ font-size:12px; opacity:.95; margin-bottom:6px; }
-    .page-title{
-      font-size:22px; font-weight:900; line-height:1.35;
-      margin-bottom:6px;
-      text-shadow:0 2px 10px rgba(0,0,0,.18);
-    }
-    .page-desc{
-      font-size:13px; opacity:.95;
-      text-shadow:0 2px 10px rgba(0,0,0,.18);
-    }
-
-    /* ===== コンテンツ ===== */
-    .container{
-      padding:20px;
-      max-width:1200px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:8px 16px;
+      max-width:1100px;
       margin:0 auto;
     }
-
-    .section-title{
-      font-size:18px; font-weight:800; color:#7FB069;
-      margin:24px 0 12px 0; padding-bottom:8px;
-      border-bottom:2px solid #7FB069;
-      display:flex; align-items:center; gap:8px;
-    }
-    .section-title::before{ content:'🌿'; font-size:20px; }
-
-    /* ===== FAQ ===== */
-    .faq{
-      background:#fff;
-      border:1px solid #ededed;
-      border-radius:14px;
-      overflow:hidden;
-      box-shadow:0 2px 10px rgba(0,0,0,0.05);
-    }
-    .faq-item + .faq-item{ border-top:1px solid #f0f0f0; }
-    .faq-q{
-      width:100%;
-      text-align:left;
-      background:#fff;
-      border:none;
-      padding:14px 14px;
-      cursor:pointer;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      font-size:14px;
-      font-weight:800;
-      color:#222;
-    }
-    .faq-q .hint{
-      font-size:12px;
-      color:#7FB069;
-      font-weight:900;
-      border:1px solid rgba(127,176,105,.35);
-      padding:4px 10px;
-      border-radius:999px;
+    .logo{
+      font-family:'Noto Serif JP',serif;
+      font-size:20px;
+      font-weight:700;
+      color:var(--primary);
       white-space:nowrap;
-      background:#f7fbf5;
     }
-    .faq-a{
+
+    /* PCナビ */
+    .nav-desktop{margin-left:32px;flex:1;}
+    .nav-desktop ul{
+      display:flex;
+      justify-content:flex-end;
+      gap:18px;
+      list-style:none;
+      font-size:14px;
+      align-items:center;
+    }
+    .nav-desktop a{
+      position:relative;
+      padding:6px 0;
+      white-space:nowrap;
+    }
+    .nav-desktop a::after{
+      content:"";
+      position:absolute;
+      left:0;bottom:-4px;
+      width:0;height:2px;
+      background:var(--primary);
+      transition:width .2s;
+    }
+    .nav-desktop a:hover::after{width:100%;}
+    .nav-desktop .nav-cta a{
+      padding:6px 14px;
+      border-radius:18px;
+      background:var(--primary);
+      color:#fff;
+      font-weight:600;
+    }
+    .nav-desktop .nav-cta a::after{display:none;}
+    .nav-desktop .nav-cta a:hover{background:var(--accent);}
+
+    /* ハンバーガー（SPのみ表示） */
+    .mobile-toggle{
+      margin-left:auto;
+      background:none;border:none;
+      cursor:pointer;
       display:none;
-      padding:0 14px 14px 14px;
-      color:#666;
-      font-size:13px;
-      line-height:1.8;
     }
-    .faq-item.open .faq-a{ display:block; }
-    .faq-item.open .faq-q{ background:#f7fbf5; }
-    .faq-q .icon{
-      width:34px; height:34px;
+    .mobile-toggle span{
+      display:block;
+      width:22px;height:2px;
+      background:var(--primary);
       border-radius:999px;
-      border:1px solid #e7e7e7;
-      display:flex; align-items:center; justify-content:center;
-      color:#7FB069;
-      font-weight:900;
-      flex-shrink:0;
-      background:#fff;
+      margin:4px 0;
     }
 
-    /* ===== お問い合わせフォーム ===== */
-    .form-wrap{
-      margin-top:16px;
-      background:#fff;
-      border:1px solid #ededed;
-      border-radius:14px;
-      box-shadow:0 2px 10px rgba(0,0,0,0.05);
-      overflow:hidden;
+    /* モバイルナビ */
+    .mobile-nav{
+      display:none;
+      background:var(--white);
+      border-top:1px solid var(--border);
     }
+    .mobile-nav.open{display:block;}
+    .mobile-nav ul{list-style:none;padding:10px 16px 14px;}
+    .mobile-nav li+li{margin-top:10px;}
+    .mobile-nav a{display:block;padding:8px 4px;font-size:14px;}
+    .mobile-nav .nav-cta a{
+      background:var(--primary);
+      color:#fff;
+      text-align:center;
+      border-radius:20px;
+      font-weight:600;
+    }
+
+    main{margin-top:70px;}
+
+    /* ===== page hero ===== */
+    .page-hero{
+      background:linear-gradient(135deg,#fff, #F4E7F6);
+      padding:70px 0 42px;
+      border-bottom:1px solid var(--border);
+    }
+    .breadcrumb{
+      font-size:11px;
+      color:#7a6a85;
+      margin-bottom:10px;
+    }
+    .breadcrumb a{
+      text-decoration:underline;
+      text-underline-offset:2px;
+      color:#7a6a85;
+    }
+    .page-title{
+      font-family:'Noto Serif JP',serif;
+      font-size:28px;
+      line-height:1.5;
+      color:var(--accent);
+      margin-bottom:10px;
+    }
+    .page-lead{
+      font-size:14px;
+      color:var(--muted);
+      max-width:46em;
+    }
+
+    /* ===== card ===== */
+    section{padding:46px 0;}
+    .card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.04);
+    }
+    .card-pad{padding:18px;}
+
+    /* ===== form ===== */
     .form-head{
-      padding:16px 14px;
-      background:#f7fbf5;
-      border-bottom:1px solid #eef3ec;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+      margin-bottom:14px;
     }
-    .form-head p{
-      font-size:13px;
-      color:#555;
-      margin-top:6px;
+    .required-note{
+      font-size:12px;
+      color:var(--muted);
     }
-    .form-body{ padding:14px; }
+    .req{
+      display:inline-block;
+      margin-left:8px;
+      font-size:11px;
+      padding:2px 8px;
+      border-radius:999px;
+      background:rgba(185,131,183,0.12);
+      border:1px solid rgba(185,131,183,0.25);
+      color:var(--accent);
+      font-weight:700;
+      vertical-align:middle;
+      white-space:nowrap;
+    }
 
-    .grid{
+    .form-grid{
       display:grid;
       grid-template-columns:1fr;
-      gap:12px;
+      gap:14px;
     }
-
     .field{
+      display:grid;
+      grid-template-columns:190px 1fr;
+      gap:12px;
+      align-items:start;
+      padding:12px;
+      border:1px solid #EEE2F2;
+      border-radius:14px;
+      background:#FBF8FD;
+    }
+    .field label{
+      font-weight:700;
+      font-size:13px;
+      color:#3b2f47;
+      padding-top:6px;
+      line-height:1.4;
+    }
+    .control{
       display:flex;
       flex-direction:column;
       gap:6px;
     }
-    .label{
-      display:flex; align-items:center; gap:8px;
-      font-size:13px;
-      font-weight:800;
-      color:#222;
+    .help{
+      font-size:12px;
+      color:var(--muted);
     }
-    .req{
-      font-size:11px;
-      font-weight:900;
-      color:#fff;
-      background:#7FB069;
-      padding:2px 8px;
-      border-radius:999px;
-    }
-    input[type="text"], input[type="email"], input[type="tel"], select, textarea{
+    input, select, textarea{
       width:100%;
-      border:1px solid #e0e0e0;
+      border:1px solid #E4D7EA;
+      background:#fff;
       border-radius:12px;
-      padding:12px 12px;
+      padding:10px 12px;
       font-size:14px;
       outline:none;
-      background:#fff;
+      transition: box-shadow .15s, border-color .15s;
+      font-family:inherit;
     }
+    textarea{min-height:140px;resize:vertical;}
     input:focus, select:focus, textarea:focus{
-      border-color:#7FB069;
-      box-shadow:0 0 0 4px rgba(127,176,105,.12);
+      border-color:rgba(185,131,183,0.7);
+      box-shadow:0 0 0 4px rgba(185,131,183,0.15);
     }
-    textarea{ min-height:140px; resize:vertical; }
 
-    .checks{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px 14px;
-      padding:12px 12px;
-      border:1px solid #e0e0e0;
-      border-radius:12px;
-      background:#fff;
-    }
-    .check{
-      display:flex; align-items:center; gap:8px;
+    .policy-row{
+      margin-top:14px;
+      padding:12px;
+      border-radius:14px;
+      background:rgba(185,131,183,0.10);
+      border:1px solid rgba(185,131,183,0.22);
       font-size:13px;
-      color:#444;
+      color:#3b2f47;
     }
-    .check input{ transform:scale(1.1); }
-
-    .consent{
-      margin-top:10px;
-      padding:12px 12px;
-      border:1px solid #e0e0e0;
-      border-radius:12px;
-      background:#fff;
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      font-size:13px;
-      color:#555;
+    .policy-row a{
+      color:var(--accent);
+      text-decoration:underline;
+      text-underline-offset:2px;
     }
-    .consent a{ color:#7FB069; font-weight:800; text-decoration:none; }
-    .consent a:hover{ text-decoration:underline; }
 
     .actions{
       margin-top:14px;
       display:flex;
-      flex-direction:column;
       gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
     }
-    .btn{
-      width:100%;
-      border:none;
-      border-radius:12px;
-      padding:12px 14px;
-      font-size:14px;
-      font-weight:900;
-      cursor:pointer;
-      transition:transform .2s, box-shadow .2s, opacity .2s;
-    }
-    .btn:active{ transform:translateY(1px); }
     .btn-primary{
-      background:linear-gradient(135deg,#7FB069 0%, #9BC87B 100%);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:11px 22px;
+      border-radius:999px;
+      background:var(--primary);
       color:#fff;
-      box-shadow:0 10px 22px rgba(127,176,105,.22);
+      font-size:14px;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      min-width:220px;
     }
-    .btn-primary:hover{ opacity:.95; }
-    .btn-ghost{
+    .btn-primary:hover{background:var(--accent);}
+    .btn-secondary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 18px;
+      border-radius:999px;
+      border:1px solid var(--primary);
+      font-size:13px;
+      color:var(--accent);
       background:#fff;
-      color:#7FB069;
-      border:1px solid rgba(127,176,105,.45);
+      cursor:pointer;
     }
-    .btn-ghost:hover{ background:#f7fbf5; }
+    .btn-secondary:hover{background:#FAF5FF;}
 
-    .note{
-      margin-top:10px;
-      font-size:12px;
-      color:#777;
-      line-height:1.8;
+    .error{
+      display:none;
+      margin-top:12px;
+      padding:12px;
+      border-radius:14px;
+      background:#FFF2F2;
+      border:1px solid rgba(185,74,72,0.35);
+      color:#7a1f1d;
+      font-size:13px;
     }
+    .error strong{display:block;margin-bottom:4px;}
 
-    /* ===== フッター ===== */
+    /* ===== footer ===== */
     footer{
-      background:#f8f9fa;
-      padding:30px 20px;
-      margin-top:40px;
-      border-top:3px solid #7FB069;
+      background:#2E2733;
+      color:#ddd;
+      padding:24px 0 18px;
+      font-size:12px;
+      margin-top:28px;
     }
-    .footer-content{ max-width:1200px; margin:0 auto; }
-    .footer-logo{ text-align:center; margin-bottom:20px; }
-    .footer-logo-icon{
-      width:50px; height:50px;
-      background:#7FB069; border-radius:50%;
-      display:inline-flex; align-items:center; justify-content:center;
-      font-size:28px; margin-bottom:8px;
+    .footer-inner{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 16px;
     }
     .footer-nav{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-bottom:20px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom:10px;
     }
-    .footer-nav a{
-      color:#666; text-decoration:none;
-      font-size:12px; padding:8px; text-align:center;
-      border-radius:6px; transition:all .25s;
-    }
-    .footer-nav a:hover{ background:#7FB069; color:#fff; }
-    .copyright{
-      text-align:center;
-      font-size:11px;
-      color:#999;
-      margin-top:20px;
-    }
+    .footer-nav a{color:#ddd;font-size:11px;}
+    .footer-copy{color:#9a8fa6;font-size:11px;}
 
-    /* ===== タブレット ===== */
-    @media (min-width:768px){
-      .container{ padding:30px; }
-      .page-title{ font-size:28px; }
-      .page-desc{ font-size:14px; }
-
-      .grid{ grid-template-columns:1fr 1fr; }
-      .span-2{ grid-column:1 / -1; }
-
-      .footer-nav{ grid-template-columns:repeat(4,1fr); }
-
-      .actions{
-        flex-direction:row;
-        justify-content:flex-end;
-      }
-      .btn{ width:auto; min-width:220px; }
-    }
-
-    /* ===== PC ===== */
-    @media (min-width:1024px){
-      header{ padding:20px 40px; }
-      .logo-icon{ width:45px; height:45px; font-size:24px; }
-      .site-title{ font-size:24px; }
-      .site-subtitle{ font-size:13px; }
-
-      .menu-toggle{ display:none; }
-
-      .nav-menu{
-        display:block !important;
-        position:static;
-        background:none;
-        padding:0;
-        margin:0;
-        max-width: 78%;
-      }
-      .nav-menu-inner{
-        flex-direction:row;
-        justify-content:flex-end;
-        gap:6px;
-        white-space:nowrap;
-        align-items:center;
-        flex-wrap:wrap;
-      }
-      .nav-link{
-        border:none;
-        border-radius:999px;
-        padding:8px 12px;
-        font-size:13px;
-        white-space:nowrap;
-      }
-
-      .page-hero{ padding:28px 40px; }
-      footer{ padding:50px 40px; }
-      .footer-nav{ grid-template-columns:repeat(4,1fr); gap:15px; }
-      .footer-nav a{ font-size:13px; padding:12px; }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .btn{ transition:none; }
+    /* ===== responsive ===== */
+    @media(max-width:640px){
+      .header-inner{padding:8px 12px;}
+      .nav-desktop{display:none;}
+      .mobile-toggle{display:block;}
+      main{margin-top:64px;}
+      .page-hero{padding:62px 0 34px;}
+      .page-title{font-size:22px;}
+      section{padding:40px 0;}
+      .card-pad{padding:16px;}
+      .field{grid-template-columns:1fr;gap:8px;}
+      .field label{padding-top:0;}
     }
   </style>
 </head>
-
 <body>
-  <!-- ヘッダー -->
-  <header>
-    <div class="header-inner">
-      <div class="logo-area">
-        <div class="logo-icon">🌳</div>
-        <div class="site-text">
-          <div class="site-title">くすの木ノート</div>
-          <div class="site-subtitle">性と健康について、もっと自然に</div>
-        </div>
-      </div>
 
-      <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニューを開く">☰</button>
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">終活ムービー れが・しおん</a>
 
-      <!-- グローバルメニュー：カテゴリー1〜6 -->
-      <nav class="nav-menu" id="navMenu" aria-label="グローバルメニュー">
-        <div class="nav-menu-inner">
-          <a href="#category1" class="nav-link">カテゴリー1</a>
-          <a href="#category2" class="nav-link">カテゴリー2</a>
-          <a href="#category3" class="nav-link">カテゴリー3</a>
-          <a href="#category4" class="nav-link">カテゴリー4</a>
-          <a href="#category5" class="nav-link">カテゴリー5</a>
-          <a href="#category6" class="nav-link">カテゴリー6</a>
-        </div>
-      </nav>
-    </div>
-  </header>
+    <nav class="nav-desktop">
+      <ul>
+        <li><a href="/">トップ</a></li>
+        <li><a href="/company/">れが・しおんについて</a></li>
+        <li><a href="/services/">事業内容</a></li>
+        <li><a href="/cases/">お客様の声・制作事例</a></li>
+        <li><a href="/column/">コラム</a></li>
+        <li class="nav-cta"><a href="/contact/">お問い合わせ</a></li>
+      </ul>
+    </nav>
+
+    <button class="mobile-toggle" aria-label="メニューを開く" id="mobileToggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="/">トップ</a></li>
+      <li><a href="/company/">れが・しおんについて</a></li>
+      <li><a href="/services/">事業内容</a></li>
+      <li><a href="/cases/">お客様の声・制作事例</a></li>
+      <li><a href="/column/">コラム</a></li>
+      <li class="nav-cta"><a href="/contact/">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
 
   <!-- ページヘッダー -->
-  <section class="page-hero" id="contact">
-    <div class="page-hero-inner">
-      <div class="breadcrumb">ホーム / お問い合わせ</div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">トップ</a> &gt; お問い合わせ
+      </div>
       <h1 class="page-title">お問い合わせ</h1>
-      <p class="page-desc">
-        取材依頼・記事に関するご連絡・ご相談などは、下記フォームよりお送りください。
-        内容によっては回答できない場合があります。あらかじめご了承ください。
+      <p class="page-lead">
+        ご相談だけでも歓迎です。内容を確認のうえ、担当よりご連絡いたします。<br>
+        下記フォームにご入力ください。
       </p>
     </div>
   </section>
 
-  <main class="container">
-    <!-- FAQ（フォーム上部に5問） -->
-    <h2 class="section-title" id="faq">よくある質問</h2>
-    <div class="faq" aria-label="よくある質問（FAQ）">
-      <div class="faq-item open">
-        <button class="faq-q" type="button" aria-expanded="true">
-          <span>返信までにどのくらいかかりますか？</span>
-          <span class="icon">−</span>
-        </button>
-        <div class="faq-a">
-          通常、数営業日以内を目安にご連絡します。内容や混雑状況により前後する場合があります。
+  <!-- フォーム（1カラム） -->
+  <section>
+    <div class="container">
+
+      <div class="card card-pad">
+        <div class="form-head">
+          <div class="required-note">※ <span class="req">必須</span> が付いた項目は入力必須です</div>
+          <div class="required-note">送信前に入力内容をご確認ください</div>
         </div>
-      </div>
 
-      <div class="faq-item">
-        <button class="faq-q" type="button" aria-expanded="false">
-          <span>取材・掲載の相談はどれを選べば良いですか？</span>
-          <span class="icon">＋</span>
-        </button>
-        <div class="faq-a">
-          フォーム内の「お問い合わせの種類」から「取材依頼」または「商品掲載について（掲載相談）」をご選択ください。
-          目的・希望時期・掲載希望内容を「お問い合わせ内容」にご記入いただくとスムーズです。
-        </div>
-      </div>
+        <!-- 実運用時は action/method を差し替え -->
+        <form id="contactForm" action="#" method="post" novalidate>
 
-      <div class="faq-item">
-        <button class="faq-q" type="button" aria-expanded="false">
-          <span>個人情報の取り扱いはどうなりますか？</span>
-          <span class="icon">＋</span>
-        </button>
-        <div class="faq-a">
-          お預かりした情報はお問い合わせ対応のために利用します。詳しくは「プライバシーポリシー」をご確認ください。
-        </div>
-      </div>
+          <div class="form-grid">
 
-      <div class="faq-item">
-        <button class="faq-q" type="button" aria-expanded="false">
-          <span>電話での問い合わせは可能ですか？</span>
-          <span class="icon">＋</span>
-        </button>
-        <div class="faq-a">
-          原則としてフォームからのご連絡をお願いしています。緊急性が高い場合は、運営方針に沿って別途ご案内します。
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button" aria-expanded="false">
-          <span>資料や画像を添付したいのですが？</span>
-          <span class="icon">＋</span>
-        </button>
-        <div class="faq-a">
-          本デモフォームでは添付機能を省略しています。必要な場合は、まずは概要を本文に記載のうえ送信してください。
-          追って共有方法をご案内します。
-        </div>
-      </div>
-    </div>
-
-    <!-- お問い合わせフォーム -->
-    <h2 class="section-title">お問い合わせフォーム</h2>
-
-    <section class="form-wrap" aria-label="お問い合わせフォーム">
-      <div class="form-head">
-        <div style="font-weight:900;color:#2f6a2c;">入力フォーム</div>
-        <p>「*」は必須項目です。内容を確認のうえ送信してください。</p>
-      </div>
-
-      <div class="form-body">
-        <!-- ※ 実運用では action / method を設定してください -->
-        <form action="#" method="post">
-          <div class="grid">
+            <!-- お問い合わせの種類 -->
             <div class="field">
-              <div class="label">お名前 <span class="req">必須</span></div>
-              <input type="text" name="name" placeholder="例：山田 花子" required />
-            </div>
-
-            <div class="field">
-              <div class="label">メールアドレス <span class="req">必須</span></div>
-              <input type="email" name="email" placeholder="例：example@domain.com" required />
-            </div>
-
-            <div class="field">
-              <div class="label">電話番号</div>
-              <input type="tel" name="tel" placeholder="例：090-1234-5678" />
-            </div>
-
-            <div class="field">
-              <div class="label">会社名</div>
-              <input type="text" name="company" placeholder="例：株式会社◯◯（任意）" />
-            </div>
-
-            <div class="field span-2">
-              <div class="label">当メディアのことを何で知りましたか？ <span class="req">必須</span></div>
-              <div class="checks" role="group" aria-label="流入経路">
-                <label class="check"><input type="checkbox" name="source[]" value="facebook" required /> Facebook</label>
-                <label class="check"><input type="checkbox" name="source[]" value="instagram" /> Instagram</label>
-                <label class="check"><input type="checkbox" name="source[]" value="x" /> X</label>
-                <label class="check"><input type="checkbox" name="source[]" value="line" /> LINE</label>
-                <label class="check"><input type="checkbox" name="source[]" value="store" /> クリニック</label>
-                <label class="check"><input type="checkbox" name="source[]" value="other" /> その他</label>
+              <label for="type">お問い合わせの種類 <span class="req">必須</span></label>
+              <div class="control">
+                <select id="type" name="type" required>
+                  <option value="" selected disabled>選択してください</option>
+                  <option value="無料相談">無料相談について</option>
+                  <option value="制作プラン">制作プラン・料金について</option>
+                  <option value="撮影について">撮影・日程について</option>
+                  <option value="制作事例">制作事例・納品物について</option>
+                  <option value="その他">その他</option>
+                </select>
+                <div class="help">該当するものを選択してください。</div>
               </div>
-              <div class="note">※チェックは最低1つ必要です（デモ）。</div>
             </div>
 
-            <div class="field span-2">
-              <div class="label">お問い合わせの種類 <span class="req">必須</span></div>
-              <select name="type" required>
-                <option value="" selected disabled>選択してください</option>
-                <option value="interview">取材依頼</option>
-                <option value="feature">商品掲載について</option>
-                <option value="info">情報提供について</option>
-                <option value="ads">広告掲載について</option>
-                <option value="other">その他</option>
-              </select>
+            <!-- お名前 -->
+            <div class="field">
+              <label for="name">お名前 <span class="req">必須</span></label>
+              <div class="control">
+                <input id="name" name="name" type="text" placeholder="例）山田 太郎" autocomplete="name" required>
+              </div>
             </div>
 
-            <div class="field span-2">
-              <div class="label">お問い合わせ内容 <span class="req">必須</span></div>
-              <textarea name="message" placeholder="ご用件の詳細をご記入ください。" required></textarea>
+            <!-- お電話番号 -->
+            <div class="field">
+              <label for="tel">お電話番号 <span class="req">必須</span></label>
+              <div class="control">
+                <input id="tel" name="tel" type="tel" placeholder="例）09012345678" inputmode="tel" autocomplete="tel" required>
+                <div class="help">ハイフンなしでも入力できます。</div>
+              </div>
             </div>
+
+            <!-- メールアドレス -->
+            <div class="field">
+              <label for="email">メールアドレス <span class="req">必須</span></label>
+              <div class="control">
+                <input id="email" name="email" type="email" placeholder="例）example@example.com" autocomplete="email" required>
+              </div>
+            </div>
+
+            <!-- メールアドレス確認用（ユーザー記載の「確認尿」は誤字想定で「確認用」にしています） -->
+            <div class="field">
+              <label for="email2">メールアドレス確認用 <span class="req">必須</span></label>
+              <div class="control">
+                <input id="email2" name="email_confirm" type="email" placeholder="確認のためもう一度入力してください" autocomplete="email" required>
+                <div class="help">上のメールアドレスと同じ内容を入力してください。</div>
+              </div>
+            </div>
+
+            <!-- お問い合わせ内容 -->
+            <div class="field">
+              <label for="message">お問い合わせ内容 <span class="req">必須</span></label>
+              <div class="control">
+                <textarea id="message" name="message" placeholder="例）撮影は自宅でも可能ですか？希望の時期は来月頃です。" required></textarea>
+                <div class="help">ご相談内容・ご希望の時期などをご自由にお書きください。</div>
+              </div>
+            </div>
+
           </div>
 
-          <div class="consent">
-            <input id="consent" type="checkbox" required />
-            <label for="consent">
-              <a href="#terms">利用規約</a>と<a href="#privacy">プライバシーポリシー</a>について同意する
-            </label>
+          <div class="policy-row">
+            個人情報の取り扱いについては、「 <a href="/privacy/">プライバシーポリシー</a> 」をご確認ください。
+          </div>
+
+          <div class="error" id="formError">
+            <strong>入力内容をご確認ください。</strong>
+            未入力の必須項目、またはメールアドレス確認用が一致していない可能性があります。
           </div>
 
           <div class="actions">
-            <button class="btn btn-primary" type="submit">送信</button>
+            <button type="submit" class="btn-primary">送信する</button>
+            <button type="button" class="btn-secondary" onclick="window.location.href='/'">トップへ戻る</button>
           </div>
 
-          <div class="note">
-            ※本ページはデモ用の静的HTMLです。送信処理は実装されていません。<br>
-            ※フォーム項目は「となりのカインズさん」のお問い合わせページ構成を参考にしています。
-          </div>
         </form>
       </div>
-    </section>
-  </main>
 
-  <!-- フッター（「カテゴリー」削除／「ページ上部へ」無し） -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">
-        <div class="footer-logo-icon">🌳</div>
-        <div style="font-size:16px;font-weight:600;color:#7FB069;">くすの木ノート</div>
-      </div>
-
-      <div class="footer-nav">
-        <a href="#company">運営会社</a>
-        <a href="#supervisor">監修者紹介</a>
-        <a href="#faq">よくある質問</a>
-        <a href="#contact">お問い合わせ</a>
-        <a href="#sitemap">サイトマップ</a>
-        <a href="#privacy">プライバシーポリシー</a>
-        <a href="https://www.kusunoki.tokyo/" target="_blank" rel="noopener">クリニック公式サイト</a>
-      </div>
-
-      <div class="copyright">
-        © 2024 くすの木レディースクリニック北千住 All Rights Reserved.
-      </div>
     </div>
-  </footer>
+  </section>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('navMenu');
-      menu.classList.toggle('active');
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="/">トップ</a>
+      <a href="/company/">れが・しおんについて</a>
+      <a href="/services/">事業内容</a>
+      <a href="/cases/">お客様の声・制作事例</a>
+      <a href="/column/">コラム</a>
+      <a href="/sitemap/">サイトマップ</a>
+      <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/contact/">お問い合わせ</a>
+    </div>
+    <div class="footer-copy">© 2025 終活ムービー れが・しおん</div>
+  </div>
+</footer>
+
+<script>
+  // モバイルメニュー
+  const toggle = document.getElementById('mobileToggle');
+  const mobileNav = document.getElementById('mobileNav');
+
+  toggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    mobileNav.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function(e){
+    if(!mobileNav.contains(e.target) && !toggle.contains(e.target)){
+      mobileNav.classList.remove('open');
+    }
+  });
+
+  // かんたんなフロント側バリデーション（メール一致チェック）
+  const form = document.getElementById('contactForm');
+  const errorBox = document.getElementById('formError');
+
+  form.addEventListener('submit', function(e){
+    const type = document.getElementById('type');
+    const name = document.getElementById('name');
+    const tel = document.getElementById('tel');
+    const email = document.getElementById('email');
+    const email2 = document.getElementById('email2');
+    const msg = document.getElementById('message');
+
+    const requiredOk =
+      type.value &&
+      name.value.trim() &&
+      tel.value.trim() &&
+      email.value.trim() &&
+      email2.value.trim() &&
+      msg.value.trim();
+
+    const emailMatch = email.value.trim() && (email.value.trim() === email2.value.trim());
+
+    if(!requiredOk || !emailMatch){
+      e.preventDefault();
+      errorBox.style.display = 'block';
+      errorBox.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
     }
 
-    // メニュー外クリックで閉じる（モバイルのみ）
-    document.addEventListener('click', function(event) {
-      if (window.innerWidth < 1024) {
-        const menu = document.getElementById('navMenu');
-        const toggle = document.querySelector('.menu-toggle');
-        if (!menu.contains(event.target) && !toggle.contains(event.target)) {
-          menu.classList.remove('active');
-        }
-      }
-    });
+    // デモ用：実運用ではここで送信
+    // このHTML単体プレビュー時に「送信完了」風の挙動にする
+    e.preventDefault();
+    errorBox.style.display = 'none';
+    alert('送信内容を受け付けました（デモ表示）。実運用時は action を設定してください。');
+    form.reset();
+  });
+</script>
 
-    // ウィンドウリサイズ時の処理
-    window.addEventListener('resize', function() {
-      if (window.innerWidth >= 1024) {
-        document.getElementById('navMenu').classList.remove('active');
-      }
-    });
-
-    // FAQ アコーディオン
-    document.querySelectorAll('.faq-item .faq-q').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-item');
-        const isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(i => {
-          i.classList.remove('open');
-          i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-          i.querySelector('.icon').textContent = '＋';
-        });
-        if (!isOpen){
-          item.classList.add('open');
-          btn.setAttribute('aria-expanded', 'true');
-          item.querySelector('.icon').textContent = '−';
-        }
-      });
-    });
-
-    // 「流入経路」最低1つチェック（requiredの補助：グループ必須っぽい挙動）
-    const sourceChecks = Array.from(document.querySelectorAll('input[name="source[]"]'));
-    const firstRequired = sourceChecks[0];
-    function syncRequired(){
-      const anyChecked = sourceChecks.some(c => c.checked);
-      firstRequired.required = !anyChecked;
-    }
-    sourceChecks.forEach(c => c.addEventListener('change', syncRequired));
-    syncRequired();
-  </script>
 </body>
 </html>

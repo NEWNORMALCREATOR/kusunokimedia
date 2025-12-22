@@ -1,466 +1,454 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>プライバシーポリシー - くすの木ノート</title>
+  <meta charset="UTF-8">
+  <title>プライバシーポリシー | 終活ムービー れが・しおん</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- フォント -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-
-    body{
-      font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic','Meiryo',sans-serif;
-      background:#fff; color:#333; line-height:1.8;
+    :root{
+      --primary:#B983B7;
+      --primary-light:#EAD6EE;
+      --accent:#8B5A8B;
+      --bg:#FAF7FB;
+      --text:#333333;
+      --white:#ffffff;
+      --border:#E4D7EA;
+      --muted:#6f5a88;
     }
 
-    /* ===== ヘッダー（固定条件厳守） ===== */
-    header{
-      background:#fff;
-      border-bottom:3px solid #7FB069;
-      padding:15px 20px;
-      position:sticky; top:0; z-index:1000;
-      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:'Noto Sans JP',sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.8;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{
+      max-width:900px;
+      margin:0 auto;
+      padding:0 16px;
+    }
+
+    /* ===== header ===== */
+    .header{
+      position:fixed;
+      top:0;left:0;right:0;
+      z-index:1000;
+      background:var(--white);
+      box-shadow:0 2px 8px rgba(0,0,0,0.04);
     }
     .header-inner{
-      max-width:1200px; margin:0 auto;
-      display:flex; justify-content:space-between; align-items:center;
-      flex-wrap:nowrap; gap:12px;
-    }
-    .logo-area{
-      display:flex; align-items:center; gap:12px;
-      white-space:nowrap; min-width:0;
-      flex:1 1 auto;
-    }
-    .logo-icon{
-      width:35px; height:35px; flex-shrink:0;
-      background:#7FB069; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:20px;
-    }
-    .site-text{ min-width:0; }
-    .site-title{ font-size:20px; font-weight:600; color:#7FB069; white-space:nowrap; }
-    .site-subtitle{ font-size:11px; color:#666; margin-top:-2px; white-space:nowrap; }
-
-    .menu-toggle{
-      background:none; border:none;
-      font-size:28px; cursor:pointer;
-      color:#7FB069; display:block; flex-shrink:0;
-    }
-
-    .nav-menu{
-      display:none;
-      background:#f8f9fa;
-      padding:12px 0;
-      margin-top:10px;
-      border-radius:10px;
-      position:absolute;
-      top:70px; right:20px; left:20px;
-      z-index:999;
-      border:1px solid #e9e9e9;
-    }
-    .nav-menu.active{ display:block; }
-    .nav-menu-inner{ display:flex; flex-direction:column; }
-
-    .nav-link{
-      display:block;
-      padding:12px 18px;
-      color:#333; text-decoration:none;
-      border-bottom:1px solid #e0e0e0;
-      font-size:14px;
-      transition:all .25s;
-    }
-    .nav-link:hover{ background:#7FB069; color:#fff; }
-    .nav-menu-inner > a:last-child{ border-bottom:none; }
-
-    /* ===== ページヘッダー ===== */
-    .page-hero{
-      background:linear-gradient(135deg,#7FB069 0%, #9BC87B 100%);
-      color:#fff;
-      padding:22px 20px;
-    }
-    .page-hero-inner{ max-width:1200px; margin:0 auto; }
-    .breadcrumb{ font-size:12px; opacity:.95; margin-bottom:6px; }
-    .page-title{
-      font-size:22px; font-weight:900; line-height:1.35;
-      margin-bottom:6px;
-      text-shadow:0 2px 10px rgba(0,0,0,.18);
-    }
-    .page-desc{
-      font-size:13px; opacity:.95;
-      text-shadow:0 2px 10px rgba(0,0,0,.18);
-    }
-
-    /* ===== コンテンツ ===== */
-    .container{
-      padding:20px;
-      max-width:1200px;
-      margin:0 auto;
-    }
-
-    .card{
-      background:#fff;
-      border:1px solid #ededed;
-      border-radius:14px;
-      box-shadow:0 2px 10px rgba(0,0,0,0.05);
-      padding:18px 14px;
-    }
-
-    .lead{
-      font-size:13px;
-      color:#555;
-      line-height:1.9;
-      margin-bottom:14px;
-    }
-
-    .section{
-      padding:14px 0;
-      border-top:1px solid #f0f0f0;
-    }
-    .section:first-of-type{ border-top:none; padding-top:0; }
-
-    .h2{
       display:flex;
       align-items:center;
-      gap:8px;
-      font-size:16px;
-      font-weight:900;
-      color:#2f6a2c;
-      margin-bottom:8px;
+      justify-content:space-between;
+      padding:8px 16px;
+      max-width:1100px;
+      margin:0 auto;
     }
-    .h2::before{ content:"🌿"; }
-
-    .p{
-      font-size:13px;
-      color:#444;
-      line-height:1.95;
-    }
-
-    .list{
-      margin:10px 0 0 0;
-      padding-left:18px;
-      color:#444;
-      font-size:13px;
-      line-height:1.9;
-    }
-    .list li{ margin:6px 0; }
-
-    .note{
-      margin-top:10px;
-      padding:10px 12px;
-      border-radius:12px;
-      background:#f7fbf5;
-      border:1px solid rgba(127,176,105,.35);
-      font-size:12px;
-      color:#3b3b3b;
-      line-height:1.85;
+    .logo{
+      font-family:'Noto Serif JP',serif;
+      font-size:20px;
+      font-weight:700;
+      color:var(--primary);
+      white-space:nowrap;
     }
 
-    .meta{
-      margin-top:14px;
-      padding-top:12px;
-      border-top:1px solid #f0f0f0;
-      font-size:12px;
-      color:#666;
+    .nav-desktop{margin-left:32px;flex:1;}
+    .nav-desktop ul{
       display:flex;
-      flex-direction:column;
-      gap:6px;
+      justify-content:flex-end;
+      gap:18px;
+      list-style:none;
+      font-size:14px;
+      align-items:center;
+    }
+    .nav-desktop a{
+      position:relative;
+      padding:6px 0;
+      white-space:nowrap;
+    }
+    .nav-desktop a::after{
+      content:"";
+      position:absolute;
+      left:0;bottom:-4px;
+      width:0;height:2px;
+      background:var(--primary);
+      transition:width .2s;
+    }
+    .nav-desktop a:hover::after{width:100%;}
+    .nav-desktop .nav-cta a{
+      padding:6px 14px;
+      border-radius:18px;
+      background:var(--primary);
+      color:#fff;
+      font-weight:600;
+    }
+    .nav-desktop .nav-cta a::after{display:none;}
+    .nav-desktop .nav-cta a:hover{background:var(--accent);}
+
+    .mobile-toggle{
+      margin-left:auto;
+      background:none;border:none;
+      cursor:pointer;
+      display:none;
+    }
+    .mobile-toggle span{
+      display:block;
+      width:22px;height:2px;
+      background:var(--primary);
+      border-radius:999px;
+      margin:4px 0;
     }
 
-    /* ===== フッター（固定条件厳守：カテゴリー無し／ページ上部へ無し） ===== */
-    footer{
-      background:#f8f9fa;
-      padding:30px 20px;
-      margin-top:40px;
-      border-top:3px solid #7FB069;
+    .mobile-nav{
+      display:none;
+      background:var(--white);
+      border-top:1px solid var(--border);
     }
-    .footer-content{ max-width:1200px; margin:0 auto; }
-    .footer-logo{ text-align:center; margin-bottom:20px; }
-    .footer-logo-icon{
-      width:50px; height:50px;
-      background:#7FB069; border-radius:50%;
-      display:inline-flex; align-items:center; justify-content:center;
-      font-size:28px; margin-bottom:8px;
+    .mobile-nav.open{display:block;}
+    .mobile-nav ul{list-style:none;padding:10px 16px 14px;}
+    .mobile-nav li+li{margin-top:10px;}
+    .mobile-nav a{display:block;padding:8px 4px;font-size:14px;}
+    .mobile-nav .nav-cta a{
+      background:var(--primary);
+      color:#fff;
+      text-align:center;
+      border-radius:20px;
+      font-weight:600;
+    }
+
+    main{margin-top:70px;}
+
+    /* ===== page hero ===== */
+    .page-hero{
+      background:linear-gradient(135deg,#fff, #F4E7F6);
+      padding:70px 0 42px;
+      border-bottom:1px solid var(--border);
+    }
+    .breadcrumb{
+      font-size:11px;
+      color:#7a6a85;
+      margin-bottom:10px;
+    }
+    .breadcrumb a{
+      text-decoration:underline;
+      text-underline-offset:2px;
+      color:#7a6a85;
+    }
+    .page-title{
+      font-family:'Noto Serif JP',serif;
+      font-size:28px;
+      line-height:1.5;
+      color:var(--accent);
+      margin-bottom:10px;
+    }
+    .page-lead{
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    section{padding:46px 0;}
+
+    /* ===== policy body ===== */
+    .policy{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:28px;
+    }
+
+    .policy p{font-size:14px;margin:12px 0;}
+    .policy .updated{
+      margin-top:16px;
+      font-size:12px;
+      color:#7a6a85;
+    }
+
+    .policy h2{
+      font-size:18px;
+      color:var(--accent);
+      margin-top:22px;
+      margin-bottom:10px;
+      padding-top:18px;
+      border-top:1px dashed #E8DCEF;
+    }
+    .policy h2:first-of-type{
+      border-top:none;
+      padding-top:0;
+      margin-top:18px;
+    }
+    .policy ul{
+      margin:8px 0 12px 1.2em;
+      font-size:14px;
+    }
+    .policy li{margin:6px 0;}
+
+    .note-box{
+      margin-top:18px;
+      background:var(--primary-light);
+      border:1px solid #E6D8F0;
+      border-radius:14px;
+      padding:16px;
+      font-size:13px;
+      color:#3b2f47;
+    }
+    .note-box a{
+      text-decoration:underline;
+      text-underline-offset:3px;
+      color:var(--accent);
+      font-weight:600;
+    }
+
+    .contact-box{
+      margin-top:18px;
+      border:1px solid var(--border);
+      background:#FCFAFF;
+      border-radius:14px;
+      padding:16px;
+      font-size:14px;
+    }
+    .contact-box .label{
+      font-size:12px;
+      color:#7a6a85;
+      margin-bottom:6px;
+    }
+    .contact-box p{margin:6px 0;}
+    .contact-box a{
+      text-decoration:underline;
+      text-underline-offset:3px;
+      color:var(--accent);
+      font-weight:600;
+    }
+
+    /* ===== footer ===== */
+    footer{
+      background:#2E2733;
+      color:#ddd;
+      padding:24px 0 18px;
+      font-size:12px;
+      margin-top:28px;
+    }
+    .footer-inner{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 16px;
     }
     .footer-nav{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-bottom:20px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom:10px;
     }
-    .footer-nav a{
-      color:#666; text-decoration:none;
-      font-size:12px; padding:8px; text-align:center;
-      border-radius:6px; transition:all .25s;
-    }
-    .footer-nav a:hover{ background:#7FB069; color:#fff; }
-    .copyright{
-      text-align:center;
-      font-size:11px;
-      color:#999;
-      margin-top:20px;
-    }
+    .footer-nav a{color:#ddd;font-size:11px;}
+    .footer-copy{color:#9a8fa6;font-size:11px;}
 
-    @media (min-width:768px){
-      .container{ padding:30px; }
-      .page-title{ font-size:28px; }
-      .page-desc{ font-size:14px; }
-      .card{ padding:20px 20px; }
-      .h2{ font-size:17px; }
-      .footer-nav{ grid-template-columns:repeat(4,1fr); }
-      .meta{ flex-direction:row; justify-content:space-between; align-items:center; }
-    }
-
-    @media (min-width:1024px){
-      header{ padding:20px 40px; }
-      .logo-icon{ width:45px; height:45px; font-size:24px; }
-      .site-title{ font-size:24px; }
-      .site-subtitle{ font-size:13px; }
-      .menu-toggle{ display:none; }
-
-      .nav-menu{
-        display:block !important;
-        position:static;
-        background:none;
-        padding:0;
-        margin:0;
-        max-width:78%;
-        border:none;
-      }
-      .nav-menu-inner{
-        flex-direction:row;
-        justify-content:flex-end;
-        gap:6px;
-        white-space:nowrap;
-        align-items:center;
-        flex-wrap:wrap;
-      }
-      .nav-link{
-        border:none;
-        border-radius:999px;
-        padding:8px 12px;
-        font-size:13px;
-        white-space:nowrap;
-      }
-
-      .page-hero{ padding:28px 40px; }
-      footer{ padding:50px 40px; }
-      .footer-nav{ grid-template-columns:repeat(4,1fr); gap:15px; }
-      .footer-nav a{ font-size:13px; padding:12px; }
+    @media(max-width:640px){
+      .nav-desktop{display:none;}
+      .mobile-toggle{display:block;}
+      main{margin-top:64px;}
+      .page-title{font-size:22px;}
+      section{padding:38px 0;}
+      .policy{padding:20px;}
     }
   </style>
 </head>
-
 <body>
-  <!-- ヘッダー（固定条件厳守） -->
-  <header>
-    <div class="header-inner">
-      <div class="logo-area">
-        <div class="logo-icon">🌳</div>
-        <div class="site-text">
-          <div class="site-title">くすの木ノート</div>
-          <div class="site-subtitle">性と健康について、もっと自然に</div>
-        </div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">終活ムービー れが・しおん</a>
+
+    <nav class="nav-desktop">
+      <ul>
+        <li><a href="/">トップ</a></li>
+        <li><a href="/company/">れが・しおんについて</a></li>
+        <li><a href="/services/">事業内容</a></li>
+        <li><a href="/cases/">お客様の声・制作事例</a></li>
+        <li><a href="/column/">コラム</a></li>
+        <li class="nav-cta"><a href="/contact/">お問い合わせ</a></li>
+      </ul>
+    </nav>
+
+    <button class="mobile-toggle" aria-label="メニューを開く" id="mobileToggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="/">トップ</a></li>
+      <li><a href="/company/">れが・しおんについて</a></li>
+      <li><a href="/services/">事業内容</a></li>
+      <li><a href="/cases/">お客様の声・制作事例</a></li>
+      <li><a href="/column/">コラム</a></li>
+      <li class="nav-cta"><a href="/contact/">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">トップ</a> &gt; プライバシーポリシー
       </div>
-
-      <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニューを開く">☰</button>
-
-      <nav class="nav-menu" id="navMenu" aria-label="グローバルメニュー">
-        <div class="nav-menu-inner">
-          <a href="index.html#category1" class="nav-link">カテゴリー1</a>
-          <a href="index.html#category2" class="nav-link">カテゴリー2</a>
-          <a href="index.html#category3" class="nav-link">カテゴリー3</a>
-          <a href="index.html#category4" class="nav-link">カテゴリー4</a>
-          <a href="index.html#category5" class="nav-link">カテゴリー5</a>
-          <a href="index.html#category6" class="nav-link">カテゴリー6</a>
-        </div>
-      </nav>
-    </div>
-  </header>
-
-  <section class="page-hero" id="privacy">
-    <div class="page-hero-inner">
-      <div class="breadcrumb">ホーム / プライバシーポリシー</div>
       <h1 class="page-title">プライバシーポリシー</h1>
-      <p class="page-desc">個人情報の取り扱いについての方針を定めます。</p>
+      <p class="page-lead">
+        当社は、お客様の個人情報を適切に取り扱うため、以下の方針を定めます。
+      </p>
     </div>
   </section>
 
-  <main class="container">
-    <article class="card" aria-label="プライバシーポリシー本文">
-      <p class="lead">
-        くすの木ノート（以下「当サイト」）は、利用者の皆さまの個人情報を適切に取り扱うことを重要な責務と考え、
-        以下のとおりプライバシーポリシーを定めます。
-      </p>
+  <section>
+    <div class="container">
+      <article class="policy">
 
-      <section class="section">
-        <h2 class="h2">1. 個人情報の定義</h2>
-        <p class="p">
-          個人情報とは、氏名、住所、電話番号、メールアドレス等、特定の個人を識別できる情報をいいます。
-          また、他の情報と容易に照合することにより個人を識別できる情報も含みます。
+        <p>
+          終活ムービー れが・しおん（以下「当社」）は、個人情報の保護を重要な責務と考え、
+          個人情報の保護に関する法令および関連するガイドライン等を遵守し、
+          以下のとおりプライバシーポリシー（以下「本ポリシー」）を定めます。
         </p>
-      </section>
 
-      <section class="section">
-        <h2 class="h2">2. 個人情報の取得方法</h2>
-        <p class="p">
-          当サイトは、お問い合わせフォーム等を通じて、利用者が入力した情報を取得する場合があります。
-          取得する情報は、利用目的の達成に必要な範囲に限ります。
+        <h2>1. 個人情報の定義</h2>
+        <p>
+          本ポリシーにおける「個人情報」とは、氏名、住所、電話番号、メールアドレス等、
+          特定の個人を識別できる情報、または他の情報と照合することで個人を識別できる情報をいいます。
         </p>
-        <ul class="list">
-          <li>お問い合わせの種類</li>
-          <li>お名前</li>
-          <li>お電話番号</li>
+
+        <h2>2. 個人情報の取得方法</h2>
+        <p>当社は、以下の方法で個人情報を取得することがあります。</p>
+        <ul>
+          <li>お問い合わせフォームの送信</li>
+          <li>無料相談・見積り依頼等の受付</li>
+          <li>制作進行のためのヒアリング（対面・オンライン）</li>
+          <li>撮影・編集に関連してお客様から提供いただく資料（写真・動画・文章等）</li>
+        </ul>
+
+        <h2>3. 取得する情報の項目</h2>
+        <p>当社が取得する情報には、以下が含まれる場合があります。</p>
+        <ul>
+          <li>氏名</li>
+          <li>住所（撮影場所・納品先等を含む）</li>
+          <li>電話番号</li>
           <li>メールアドレス</li>
-          <li>お問い合わせ内容</li>
+          <li>お問い合わせ内容・ご相談内容</li>
+          <li>制作に必要な情報（インタビュー内容、写真・動画素材、家族構成に関する情報等）</li>
         </ul>
-      </section>
 
-      <section class="section">
-        <h2 class="h2">3. 利用目的</h2>
-        <p class="p">当サイトが取得した個人情報は、以下の目的で利用します。</p>
-        <ul class="list">
-          <li>お問い合わせへの回答、必要なご連絡のため</li>
-          <li>サービス向上のための参考（内容の集計・分析を含む）</li>
-          <li>不正利用・迷惑行為等の防止および対応のため</li>
-          <li>法令等に基づく対応のため</li>
+        <h2>4. 利用目的</h2>
+        <p>当社は、取得した個人情報を以下の目的で利用します。</p>
+        <ul>
+          <li>お問い合わせ・ご相談への対応</li>
+          <li>サービス提供および制作進行（撮影・編集・納品・アフターサポート）</li>
+          <li>見積り・請求・決済等の事務手続き</li>
+          <li>サービス改善・品質向上のための分析（個人を特定しない形での統計化を含む）</li>
+          <li>新サービス・キャンペーン等のご案内（ご希望の場合）</li>
         </ul>
-      </section>
 
-      <section class="section">
-        <h2 class="h2">4. 第三者提供</h2>
-        <p class="p">
-          当サイトは、法令に基づく場合を除き、本人の同意なく個人情報を第三者に提供しません。
+        <h2>5. 第三者提供</h2>
+        <p>
+          当社は、次の場合を除き、お客様の個人情報を第三者に提供しません。
         </p>
-      </section>
+        <ul>
+          <li>お客様の同意がある場合</li>
+          <li>法令に基づく場合</li>
+          <li>人の生命・身体・財産の保護のために必要がある場合で、同意取得が困難な場合</li>
+          <li>業務委託先に対して、利用目的の達成に必要な範囲で提供する場合（次項参照）</li>
+        </ul>
 
-      <section class="section">
-        <h2 class="h2">5. 委託先の管理</h2>
-        <p class="p">
-          利用目的の達成に必要な範囲で、個人情報の取り扱いを外部に委託する場合があります。
-          その場合、委託先の適切性を確認し、契約等により必要かつ適切な監督を行います。
+        <h2>6. 委託先の管理</h2>
+        <p>
+          当社は、業務の一部を外部に委託する場合があります（例：決済、クラウドストレージ、印刷・DVD制作等）。
+          その際は、適切な委託先を選定し、必要かつ適切な監督を行います。
         </p>
-      </section>
 
-      <section class="section">
-        <h2 class="h2">6. 安全管理措置</h2>
-        <p class="p">
-          当サイトは、個人情報の漏えい、滅失または毀損の防止その他個人情報の安全管理のために、
-          必要かつ適切な措置を講じます。
+        <h2>7. 安全管理措置</h2>
+        <p>
+          当社は、個人情報の漏えい、滅失または毀損の防止その他の個人情報の安全管理のために、
+          組織的・技術的な安全管理措置を講じます。
         </p>
-      </section>
 
-      <section class="section">
-        <h2 class="h2">7. Cookie等の利用について</h2>
-        <p class="p">
-          当サイトでは、利便性向上やアクセス解析等のためにCookie等を利用する場合があります。
-          Cookieにより収集される情報には、単体で特定の個人を識別できる情報は含まれません。
+        <h2>8. クッキー（Cookie）等の利用</h2>
+        <p>
+          当サイトでは、利便性向上やアクセス解析のためにCookie等を使用する場合があります。
+          Cookieの受け入れ可否はブラウザ設定により変更できますが、
+          その場合、一部機能が利用できない可能性があります。
         </p>
-        <div class="note">
-          ※ Cookieの受け入れ可否は、ブラウザの設定により変更できます。Cookieを無効化した場合、
-          一部機能が正しく動作しないことがあります。
+
+        <h2>9. 開示・訂正・削除等の請求</h2>
+        <p>
+          お客様は、ご自身の個人情報について、開示、訂正、追加、削除、利用停止等を求めることができます。
+          ご希望の場合は、下記「お問い合わせ窓口」までご連絡ください。
+          ご本人確認のうえ、法令に従い適切に対応します。
+        </p>
+
+        <h2>10. 本ポリシーの変更</h2>
+        <p>
+          当社は、法令の改正や運用上の必要に応じて、本ポリシーを変更することがあります。
+          変更後の内容は当サイト上で公表した時点から適用されます。
+        </p>
+
+        <div class="note-box">
+          お問い合わせフォームをご利用の際は、<a href="/privacy/">本プライバシーポリシー</a>をご確認のうえ、
+          個人情報の取り扱いに同意いただいた上で送信してください。
         </div>
-      </section>
 
-      <section class="section">
-        <h2 class="h2">8. アクセス解析ツールについて（任意）</h2>
-        <p class="p">
-          当サイトでは、サイト改善のためアクセス解析ツールを利用する場合があります。
-          解析ツールはCookie等によりトラフィックデータを収集することがありますが、
-          個人を特定するものではありません。
-        </p>
-        <div class="note">
-          ※ ここは実運用に合わせて、利用ツール名（例：Google Analytics 等）を追記してください。
+        <h2>11. お問い合わせ窓口</h2>
+        <div class="contact-box">
+          <div class="label">個人情報の取り扱いに関するお問い合わせ</div>
+          <p><strong>終活ムービー れが・しおん</strong></p>
+          <p>メール：<a href="mailto:info@example.com">info@example.com</a></p>
+          <p>受付時間：平日 10:00〜18:00</p>
+          <p style="margin-top:10px;font-size:12px;color:#7a6a85;">
+            ※上記はデモ用の記載です。運用時は正式な連絡先に差し替えてください。
+          </p>
         </div>
-      </section>
 
-      <section class="section">
-        <h2 class="h2">9. 個人情報の開示・訂正・削除等</h2>
-        <p class="p">
-          本人から、自己の個人情報について開示、訂正、追加、削除、利用停止等の請求があった場合、
-          本人確認のうえ、法令に従い適切に対応します。
-        </p>
-      </section>
+        <p class="updated">制定日：2025年12月1日</p>
 
-      <section class="section">
-        <h2 class="h2">10. 免責事項</h2>
-        <p class="p">
-          当サイトからリンク・バナー等により外部サイトへ移動した場合、移動先サイトで提供される情報・サービス等について、
-          当サイトは一切の責任を負いません。
-        </p>
-      </section>
-
-      <section class="section">
-        <h2 class="h2">11. 本ポリシーの改定</h2>
-        <p class="p">
-          当サイトは、法令等の変更や運用の見直しにより、本ポリシーを予告なく改定する場合があります。
-          改定後の内容は当ページに掲載した時点で効力を生じます。
-        </p>
-      </section>
-
-      <section class="section">
-        <h2 class="h2">12. お問い合わせ窓口</h2>
-        <p class="p">
-          個人情報の取り扱いに関するお問い合わせは、当サイトの
-          <a href="contact.html#contact" style="color:#2f6a2c;font-weight:900;text-decoration:none;">お問い合わせページ</a>
-          よりご連絡ください。
-        </p>
-        <div class="note">
-          ※ 実運用では、宛名・電話番号・メールアドレス等の掲載方針に合わせて、窓口情報を追記してください。
-        </div>
-      </section>
-
-      <div class="meta" aria-label="文書情報">
-        <div>制定：2024年○月○日</div>
-        <div>最終改定：2024年○月○日</div>
-      </div>
-    </article>
-  </main>
-
-  <!-- フッター（固定条件厳守：カテゴリー無し／ページ上部へ無し） -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">
-        <div class="footer-logo-icon">🌳</div>
-        <div style="font-size:16px;font-weight:600;color:#7FB069;">くすの木ノート</div>
-      </div>
-
-      <div class="footer-nav">
-        <a href="company.html#company">運営会社</a>
-        <a href="supervisor.html#supervisor">監修者紹介</a>
-        <a href="contact.html#faq">よくある質問</a>
-        <a href="contact.html#contact">お問い合わせ</a>
-        <a href="sitemap.html#sitemap">サイトマップ</a>
-        <a href="privacy.html#privacy">プライバシーポリシー</a>
-        <a href="https://www.kusunoki.tokyo/" target="_blank" rel="noopener">クリニック公式サイト</a>
-      </div>
-
-      <div class="copyright">
-        © 2024 くすの木レディースクリニック北千住 All Rights Reserved.
-      </div>
+      </article>
     </div>
-  </footer>
+  </section>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('navMenu');
-      menu.classList.toggle('active');
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="/">トップ</a>
+      <a href="/company/">れが・しおんについて</a>
+      <a href="/services/">事業内容</a>
+      <a href="/cases/">お客様の声・制作事例</a>
+      <a href="/column/">コラム</a>
+      <a href="/sitemap/">サイトマップ</a>
+      <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/contact/">お問い合わせ</a>
+    </div>
+    <div class="footer-copy">© 2025 終活ムービー れが・しおん</div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('mobileToggle');
+  const mobileNav = document.getElementById('mobileNav');
+
+  toggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    mobileNav.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function(e){
+    if(!mobileNav.contains(e.target) && !toggle.contains(e.target)){
+      mobileNav.classList.remove('open');
     }
+  });
+</script>
 
-    document.addEventListener('click', function(event) {
-      if (window.innerWidth < 1024) {
-        const menu = document.getElementById('navMenu');
-        const toggle = document.querySelector('.menu-toggle');
-        if (!menu.contains(event.target) && !toggle.contains(event.target)) {
-          menu.classList.remove('active');
-        }
-      }
-    });
-
-    window.addEventListener('resize', function() {
-      if (window.innerWidth >= 1024) {
-        document.getElementById('navMenu').classList.remove('active');
-      }
-    });
-  </script>
 </body>
 </html>

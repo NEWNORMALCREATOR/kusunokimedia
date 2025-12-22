@@ -1,805 +1,810 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>くすの木ノート - 性と健康について、もっと自然に</title>
+  <meta charset="UTF-8">
+  <title>終活ムービー れが・しおん | ストーリーのプロが、あなたと家族の人生を描きます</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- フォント -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root{
+      --primary:#B983B7;
+      --primary-light:#EAD6EE;
+      --accent:#8B5A8B;
+      --bg:#FAF7FB;
+      --text:#333333;
+      --white:#ffffff;
+      --border:#E4D7EA;
+    }
 
+    *{box-sizing:border-box;margin:0;padding:0;}
     body{
-      font-family: 'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic','Meiryo',sans-serif;
-      background-color:#fff; color:#333; line-height:1.8;
+      font-family:'Noto Sans JP',sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.7;
     }
+    img{max-width:100%;display:block;}
+    a{color:inherit;text-decoration:none;}
 
-    /* ヘッダー */
-    header{
-      background:#fff;
-      border-bottom:3px solid #7FB069;
-      padding:15px 20px;
-      position:sticky; top:0; z-index:1000;
-      box-shadow:0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .header-inner{
-      max-width:1200px; margin:0 auto;
-      display:flex; justify-content:space-between; align-items:center;
-      flex-wrap:nowrap;
-      gap:12px;
-    }
-
-    .logo-area{
-      display:flex; align-items:center; gap:12px;
-      white-space:nowrap;
-      min-width:0;
-      flex: 1 1 auto;
-    }
-
-    .logo-icon{
-      width:35px; height:35px; flex-shrink:0;
-      background:#7FB069; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:20px;
-    }
-
-    .site-text{ min-width:0; }
-    .site-title{ font-size:20px; font-weight:600; color:#7FB069; white-space:nowrap; }
-    .site-subtitle{ font-size:11px; color:#666; margin-top:-2px; white-space:nowrap; }
-
-    /* ハンバーガー */
-    .menu-toggle{
-      background:none; border:none;
-      font-size:28px; cursor:pointer;
-      color:#7FB069; display:block; flex-shrink:0;
-      line-height: 1;
-    }
-
-    /* ナビ（モバイル） */
-    .nav-menu{
-      display:none;
-      background:#f8f9fa;
-      padding:15px 0;
-      margin-top:10px;
-      border-radius:8px;
-      position:absolute;
-      top:70px; right:20px; left:20px;
-      z-index:999;
-      border:1px solid #ededed;
-    }
-    .nav-menu.active{ display:block; }
-    .nav-menu-inner{ display:flex; flex-direction:column; }
-
-    .nav-link{
-      display:block;
-      padding:12px 20px;
-      color:#333; text-decoration:none;
-      border-bottom:1px solid #e0e0e0;
-      font-size:14px;
-      transition:all .3s;
-      white-space:nowrap;
-    }
-    .nav-link:hover{ background:#7FB069; color:#fff; }
-    .nav-menu-inner > .nav-link:last-child{ border-bottom:none; }
-
-    /* ヒーロー：スライドショー */
-    .hero-slider{
-      position:relative;
-      width:100%;
-      height:260px;
-      overflow:hidden;
-      background: linear-gradient(135deg, #7FB069 0%, #9BC87B 100%);
-    }
-    .hero-slides{ position:absolute; inset:0; }
-    .hero-slide{
-      position:absolute; inset:0;
-      opacity:0;
-      transition: opacity .8s ease;
-      background-size:cover;
-      background-position:center;
-    }
-    .hero-slide.active{ opacity:1; }
-
-    .hero-overlay{
-      position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.45) 100%);
-      display:flex;
-      align-items:flex-end;
-      padding:22px 20px;
-      color:#fff;
-    }
-    .hero-copy{
+    .container{
       max-width:1100px;
       margin:0 auto;
-      width:100%;
+      padding:0 16px;
+    }
+
+    /* ===== header ===== */
+    .header{
+      position:fixed;
+      top:0;left:0;right:0;
+      z-index:1000;
+      background:var(--white);
+      box-shadow:0 2px 8px rgba(0,0,0,0.04);
+    }
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:8px 16px;
+      max-width:1100px;
+      margin:0 auto;
+    }
+    .logo{
+      font-family:'Noto Serif JP',serif;
+      font-size:20px;
+      font-weight:700;
+      color:var(--primary);
+      white-space:nowrap;
+    }
+
+    /* PCナビ */
+    .nav-desktop{margin-left:32px;flex:1;}
+    .nav-desktop ul{
+      display:flex;
+      justify-content:flex-end;
+      gap:18px;
+      list-style:none;
+      font-size:14px;
+      align-items:center;
+    }
+    .nav-desktop a{
+      position:relative;
+      padding:6px 0;
+      white-space:nowrap;
+    }
+    .nav-desktop a::after{
+      content:"";
+      position:absolute;
+      left:0;bottom:-4px;
+      width:0;height:2px;
+      background:var(--primary);
+      transition:width .2s;
+    }
+    .nav-desktop a:hover::after{width:100%;}
+
+    /* お問い合わせボタン（PC） */
+    .nav-desktop .nav-cta a{
+      padding:6px 14px;
+      border-radius:18px;
+      background:var(--primary);
+      color:#fff;
+      font-weight:600;
+    }
+    .nav-desktop .nav-cta a::after{display:none;}
+    .nav-desktop .nav-cta a:hover{background:var(--accent);}
+
+    /* ハンバーガー */
+    .mobile-toggle{
+      margin-left:auto;
+      background:none;
+      border:none;
+      cursor:pointer;
+      display:none;
+    }
+    .mobile-toggle span{
+      display:block;
+      width:22px;height:2px;
+      background:var(--primary);
+      border-radius:999px;
+      margin:4px 0;
+    }
+
+    /* モバイルナビ */
+    .mobile-nav{
+      display:none;
+      background:var(--white);
+      border-top:1px solid var(--border);
+    }
+    .mobile-nav.open{display:block;}
+    .mobile-nav ul{list-style:none;padding:10px 16px 14px;}
+    .mobile-nav li+li{margin-top:10px;}
+    .mobile-nav a{display:block;padding:8px 4px;font-size:14px;}
+    .mobile-nav .nav-cta a{
+      background:var(--primary);
+      color:#fff;
+      text-align:center;
+      border-radius:20px;
+      font-weight:600;
+    }
+
+    main{margin-top:70px;}
+
+    /* 共通セクション */
+    section{padding:56px 0;}
+    .section-title{
+      font-family:'Noto Serif JP',serif;
+      font-size:26px;
+      text-align:center;
+      margin-bottom:10px;
+      color:var(--accent);
+    }
+    .section-lead{
+      text-align:center;
+      font-size:14px;
+      color:#666;
+      margin-bottom:32px;
+    }
+
+    /* ===== hero（動画→画像に変更） ===== */
+    .hero{
+      background:linear-gradient(135deg,#fff, #F4E7F6);
+      padding-top:72px;
+      padding-bottom:64px;
+    }
+    .hero-inner{
+      display:grid;
+      grid-template-columns:1.4fr 1fr;
+      gap:32px;
+      align-items:center;
     }
     .hero-copy h1{
-      font-size:22px;
-      font-weight:700;
-      line-height:1.35;
-      text-shadow:0 2px 10px rgba(0,0,0,.25);
-      margin-bottom:8px;
+      font-family:'Noto Serif JP',serif;
+      font-size:30px;
+      line-height:1.5;
+      margin-bottom:10px;
+      color:var(--accent);
     }
-    .hero-copy p{
-      font-size:13px;
-      opacity:.95;
-      text-shadow:0 2px 10px rgba(0,0,0,.25);
+    .hero-copy .tagline{
+      font-size:14px;
+      color:#7a6a85;
+      margin-bottom:16px;
     }
+    .hero-copy p{font-size:14px;margin-bottom:12px;}
 
-    .hero-dots{
-      position:absolute;
-      left:0; right:0;
-      bottom:10px;
+    .hero-badges{
       display:flex;
-      justify-content:center;
+      flex-wrap:wrap;
       gap:8px;
-      z-index:5;
+      margin:14px 0 18px;
     }
-    .hero-dot{
-      width:8px; height:8px;
-      border-radius:50%;
-      background: rgba(255,255,255,.55);
-      border: 1px solid rgba(255,255,255,.55);
-      cursor:pointer;
-    }
-    .hero-dot.active{
-      background:#fff;
-      border-color:#fff;
+    .hero-badge{
+      font-size:11px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:rgba(185,131,183,0.1);
+      color:var(--accent);
     }
 
-    /* コンテンツ */
-    .container{ padding:20px; max-width:1200px; margin:0 auto; }
-
-    .section-title{
-      font-size:18px; font-weight:600; color:#7FB069;
-      margin:30px 0 15px 0; padding-bottom:8px;
-      border-bottom:2px solid #7FB069;
-      display:flex; align-items:center; gap:8px;
+    .hero-cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
-    .section-title::before{ content:'🌿'; font-size:20px; }
-
-    /* カテゴリータグ */
-    .category-tags{
-      display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;
-    }
-    .category-tag{
-      display:inline-block;
-      padding:8px 16px;
-      background:#f8f9fa;
-      border:1px solid #e0e0e0;
-      border-radius:20px;
-      font-size:12px;
-      color:#666;
-      text-decoration:none;
-      transition:all .3s;
-    }
-    .category-tag:hover{ background:#7FB069; color:#fff; border-color:#7FB069; }
-
-    /* 記事グリッド（通常） */
-    .article-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:20px;
-    }
-
-    /* 通常カード */
-    .article-card{
-      background:#fff;
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 2px 8px rgba(0,0,0,0.08);
-      transition:transform .3s, box-shadow .3s;
-      display:flex; flex-direction:column;
-    }
-    .article-card:hover{ transform:translateY(-3px); box-shadow:0 4px 16px rgba(0,0,0,0.12); }
-
-    .article-image{
-      width:100%;
-      height:200px;
-      background:linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%);
-      display:flex; align-items:center; justify-content:center;
-      color:#999; font-size:14px;
-      position:relative;
-    }
-    .article-image img{
-      width:100%; height:100%; object-fit:cover; display:block;
-    }
-
-    .article-category{
-      position:absolute; top:10px; left:10px;
-      background:#7FB069; color:#fff;
-      padding:4px 12px; border-radius:20px;
-      font-size:11px; font-weight:600;
-      z-index:2;
-    }
-
-    .article-content{
-      padding:15px; flex:1;
-      display:flex; flex-direction:column;
-    }
-    .article-title{
-      font-size:16px; font-weight:600; color:#333;
-      margin-bottom:8px; line-height:1.5;
-    }
-    .article-excerpt{
-      font-size:13px; color:#666; line-height:1.6;
-      margin-bottom:10px; flex:1;
-    }
-    .article-meta{
-      display:flex; justify-content:space-between; align-items:center;
-      font-size:11px; color:#999;
-      margin-top:10px; padding-top:10px;
-      border-top:1px solid #f0f0f0;
-    }
-
-    /* ===== 注目記事（大きく、左サムネ／右テキスト） ===== */
-    .featured-wrap{ margin: 8px 0 22px 0; }
-
-    .featured-label{
+    .btn-primary{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      font-size:12px;
-      font-weight:700;
-      color:#7FB069;
-      margin: 0 0 10px 0;
-    }
-    .featured-label::before{ content:"⭐"; font-size:14px; }
-
-    .featured-card{
-      background:#fff;
-      border-radius:14px;
-      overflow:hidden;
-      box-shadow:0 6px 18px rgba(0,0,0,0.10);
-      border:1px solid rgba(127,176,105,.25);
-      transition:transform .3s, box-shadow .3s;
-      display:flex;
-      flex-direction:column; /* スマホは縦 */
-    }
-    .featured-card:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.14);
-    }
-
-    .featured-media{
-      position:relative;
-      width:100%;
-      height:200px;
-      background:linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%);
-      flex-shrink:0;
-    }
-    .featured-media img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .featured-badge{
-      position:absolute;
-      top:12px; left:12px;
-      background:linear-gradient(135deg,#7FB069 0%, #9BC87B 100%);
+      justify-content:center;
+      padding:10px 22px;
+      border-radius:999px;
+      background:var(--primary);
       color:#fff;
-      padding:6px 12px;
+      font-size:14px;
+      font-weight:600;
+    }
+    .btn-primary:hover{background:var(--accent);}
+    .btn-secondary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:9px 18px;
+      border-radius:999px;
+      border:1px solid var(--primary);
+      font-size:13px;
+      color:var(--accent);
+      background:#fff;
+    }
+
+    /* 右側：コンセプト画像枠（ここが差分） */
+    .hero-media{
+      background:#fff;
+      border-radius:18px;
+      padding:14px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.05);
+    }
+    .hero-image{
+      border-radius:12px;
+      background:#ddd;
+      height:260px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-image::before{
+      content:"コンセプト画像（差し替え枠）";
+      position:absolute;
+      top:10px;left:14px;
+      font-size:11px;
+      padding:3px 8px;
+      border-radius:999px;
+      background:rgba(0,0,0,0.5);
+      color:#fff;
+    }
+    .hero-image .placeholder{
+      width:86%;
+      height:78%;
+      border-radius:12px;
+      background:linear-gradient(135deg, rgba(185,131,183,0.22), rgba(139,90,139,0.12));
+      border:1px dashed rgba(139,90,139,0.35);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:14px;
+      color:#5a4761;
+      font-size:13px;
+      line-height:1.6;
+    }
+    .hero-media-caption{
+      margin-top:10px;
+      font-size:12px;
+      color:#777;
+      line-height:1.6;
+    }
+
+    /* ===== concept (訴求) ===== */
+    .flow{
+      background:#fff;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+    .concept-wrap{
+      max-width:920px;
+      margin:0 auto;
+    }
+    .concept-video{
+      background:#F7EFFA;
+      border-radius:18px;
+      padding:12px;
+      border:1px solid #E6D8F0;
+    }
+    .concept-video-box{
+      height:360px;
+      border-radius:12px;
+      background:#ddd;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .concept-video-box::before{
+      content:"コンセプト動画（YouTube想定）";
+      position:absolute;
+      top:10px;left:12px;
+      padding:3px 8px;
       border-radius:999px;
       font-size:11px;
-      font-weight:800;
-      letter-spacing:.02em;
-      box-shadow:0 6px 16px rgba(127,176,105,.35);
+      background:rgba(0,0,0,0.5);
+      color:#fff;
+    }
+    .play-icon{
+      width:64px;height:64px;
+      border-radius:50%;
+      background:rgba(185,131,183,0.9);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:26px;
+      user-select:none;
+    }
+    .concept-caption{
+      margin-top:10px;
+      font-size:12px;
+      color:#777;
+      line-height:1.6;
     }
 
-    .featured-body{
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
+    .concept-emotion{
+      margin-top:18px;
+      background:linear-gradient(135deg,#fff, #F7EFFA);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px 18px 16px;
     }
-    .featured-title{
-      font-size:17px;
-      font-weight:800;
-      line-height:1.45;
-      color:#222;
+    .concept-emotion h3{
+      font-size:18px;
+      color:var(--accent);
+      margin-bottom:10px;
+      line-height:1.6;
     }
-    .featured-excerpt{
-      font-size:13px;
-      color:#555;
-      line-height:1.75;
+    .concept-emotion p{
+      font-size:14px;
+      margin-bottom:12px;
     }
-    .featured-meta{
-      display:flex;
-      justify-content:space-between;
+    .concept-emotion .emphasis{
+      font-weight:700;
+      color:#5b3b62;
+    }
+
+    /* ===== company preview ===== */
+    .section-company{background:var(--bg);}
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1.1fr;
+      gap:28px;
       align-items:center;
-      font-size:11px;
-      color:#888;
-      padding-top:10px;
-      border-top:1px solid #f0f0f0;
-      margin-top:6px;
     }
-    .featured-cta{
+    .face-circle{
+      width:220px;height:220px;
+      border-radius:50%;
+      background:#e8d9f0;
+      margin:0 auto;
+      overflow:hidden;
+    }
+    .face-circle img{width:100%;height:100%;object-fit:cover;}
+    .two-col h3{font-size:18px;margin-bottom:8px;color:var(--accent);}
+    .two-col p{font-size:14px;margin-bottom:10px;}
+    .link-row{margin-top:14px;}
+
+    /* ===== services preview ===== */
+    .section-services{
+      background:#fff;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+    .card-grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+    .service-card{
+      background:#FDFBFF;
+      border-radius:14px;
+      padding:16px 16px 18px;
+      border:1px solid #E6D8F0;
+    }
+    .service-label{font-size:11px;color:#7b5a8d;margin-bottom:4px;}
+    .service-title{font-size:16px;font-weight:600;margin-bottom:6px;color:var(--accent);}
+    .service-price{font-size:15px;font-weight:700;color:#C09B3D;margin-bottom:6px;}
+    .service-card p{font-size:13px;margin-bottom:4px;}
+
+    /* ===== cases/blog ===== */
+    .section-cases{background:var(--bg);}
+    .section-blog{
+      background:#fff;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+    .card-grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+    .thumb{
+      border-radius:12px;
+      overflow:hidden;
+      background:#e3d3ec;
+      height:120px;
+      margin-bottom:8px;
+    }
+    .card-title{font-size:14px;font-weight:600;margin-bottom:4px;}
+    .card-meta{font-size:11px;color:#8a8a8a;margin-bottom:4px;}
+    .card-text{font-size:13px;color:#555;}
+
+    .section-bottom-btn{margin-top:22px;text-align:center;}
+    .section-bottom-btn .btn-secondary{min-width:220px;justify-content:center;}
+
+    /* ===== contact CTA ===== */
+    .section-contact{
+      background:var(--primary);
+      color:#fff;
+      text-align:center;
+    }
+    .section-contact p{font-size:14px;margin:8px 0 18px;}
+    .btn-contact-white{
       display:inline-flex;
       align-items:center;
-      gap:6px;
-      margin-top:4px;
-      font-size:12px;
-      font-weight:700;
-      color:#7FB069;
-      text-decoration:none;
+      justify-content:center;
+      padding:10px 26px;
+      border-radius:999px;
+      background:#fff;
+      color:var(--accent);
+      font-weight:600;
+      font-size:14px;
     }
-    .featured-cta:hover{ text-decoration:underline; }
+    .btn-contact-white:hover{background:#F5F1FA;}
 
-    /* フッター */
+    /* ===== footer ===== */
     footer{
-      background:#f8f9fa;
-      padding:30px 20px;
-      margin-top:40px;
-      border-top:3px solid #7FB069;
+      background:#2E2733;
+      color:#ddd;
+      padding:24px 0 18px;
+      font-size:12px;
     }
-    .footer-content{ max-width:1200px; margin:0 auto; }
-
-    .footer-logo{ text-align:center; margin-bottom:20px; }
-    .footer-logo-icon{
-      width:50px; height:50px;
-      background:#7FB069; border-radius:50%;
-      display:inline-flex; align-items:center; justify-content:center;
-      font-size:28px; margin-bottom:8px;
-    }
-
+    .footer-inner{max-width:1100px;margin:0 auto;padding:0 16px;}
     .footer-nav{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-bottom:20px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom:10px;
     }
-    .footer-nav a{
-      color:#666; text-decoration:none;
-      font-size:12px; padding:8px; text-align:center;
-      border-radius:4px; transition:all .3s;
+    .footer-nav a{color:#ddd;font-size:11px;}
+    .footer-copy{color:#9a8fa6;font-size:11px;}
+
+    /* ===== responsive ===== */
+    @media(max-width:900px){
+      .hero-inner,.two-col{grid-template-columns:1fr;}
+      .hero-image{height:220px;}
+      .concept-video-box{height:260px;}
+      .card-grid-2{grid-template-columns:1fr;}
+      .card-grid-3{grid-template-columns:repeat(2,minmax(0,1fr));}
     }
-    .footer-nav a:hover{ background:#7FB069; color:#fff; }
-
-    .copyright{
-      text-align:center;
-      font-size:11px;
-      color:#999;
-      margin-top:20px;
-    }
-
-    /* タブレット */
-    @media (min-width:768px){
-      .container{ padding:30px; }
-
-      .hero-slider{ height:320px; }
-      .hero-copy h1{ font-size:28px; }
-      .hero-copy p{ font-size:14px; }
-
-      .article-grid{ grid-template-columns:repeat(2,1fr); gap:25px; }
-      .section-title{ font-size:22px; }
-
-      .featured-media{ height:240px; }
-      .featured-title{ font-size:20px; }
-      .featured-excerpt{ font-size:14px; }
-
-      .footer-nav{ grid-template-columns:repeat(4,1fr); }
-    }
-
-    /* PC */
-    @media (min-width:1024px){
-      header{ padding:20px 40px; }
-      .logo-icon{ width:45px; height:45px; font-size:24px; }
-      .site-title{ font-size:24px; }
-      .site-subtitle{ font-size:13px; }
-
-      .menu-toggle{ display:none; }
-
-      .nav-menu{
-        display:block !important;
-        position:static;
-        background:none;
-        padding:0;
-        margin:0;
-        max-width: 70%;
-        border:none;
-      }
-
-      /* 横並び・改行しない・溢れたら横スクロール */
-      .nav-menu-inner{
-        flex-direction:row;
-        justify-content:flex-end;
-        gap:6px;
-        white-space:nowrap;
-        align-items:center;
-        overflow-x:auto;
-        -webkit-overflow-scrolling:touch;
-        padding-bottom:2px;
-      }
-      .nav-menu-inner::-webkit-scrollbar{ height:6px; }
-      .nav-menu-inner::-webkit-scrollbar-thumb{
-        background:rgba(0,0,0,0.12);
-        border-radius:999px;
-      }
-
-      .nav-link{
-        border:none;
-        border-radius:999px;
-        padding:8px 14px;
-        font-size:13px;
-        white-space:nowrap;
-      }
-      .nav-link:hover{ background:#7FB069; color:#fff; }
-
-      .hero-slider{ height:420px; }
-      .hero-overlay{ padding:28px 40px; }
-      .hero-copy h1{ font-size:38px; }
-      .hero-copy p{ font-size:16px; }
-
-      .container{ padding:40px; }
-      .article-grid{ grid-template-columns:repeat(3,1fr); gap:30px; }
-      .article-image{ height:220px; }
-      .section-title{ font-size:24px; margin:40px 0 20px 0; }
-
-      /* 注目記事：PCは左右レイアウト固定 */
-      .featured-card{
-        flex-direction:row; /* 左画像／右テキスト */
-        align-items:stretch;
-      }
-      .featured-media{
-        width:46%;
-        height:auto;
-        min-height:260px;
-      }
-      .featured-body{
-        width:54%;
-        padding:20px 22px;
-      }
-
-      footer{ padding:50px 40px; }
-      .footer-nav{ grid-template-columns:repeat(4,1fr); gap:15px; }
-      .footer-nav a{ font-size:13px; padding:12px; }
-    }
-
-    /* 大画面 */
-    @media (min-width:1440px){
-      .article-grid{ grid-template-columns:repeat(4,1fr); }
-      .hero-copy h1{ font-size:44px; }
-    }
-
-    /* アクセシビリティ：モーション軽減 */
-    @media (prefers-reduced-motion: reduce){
-      .hero-slide{ transition:none; }
-      .article-card, .featured-card{ transition:none; }
+    @media(max-width:640px){
+      .header-inner{padding:8px 12px;}
+      .nav-desktop{display:none;}
+      .mobile-toggle{display:block;}
+      main{margin-top:64px;}
+      .hero{padding-top:60px;padding-bottom:42px;}
+      .hero-inner{gap:22px;}
+      .hero-copy h1{font-size:22px;}
+      .card-grid-3{grid-template-columns:1fr;}
+      section{padding:42px 0;}
+      .concept-video-box{height:220px;}
     }
   </style>
 </head>
-
 <body>
-  <!-- ヘッダー -->
-  <header>
-    <div class="header-inner">
-      <div class="logo-area">
-        <div class="logo-icon">🌳</div>
-        <div class="site-text">
-          <div class="site-title">くすの木ノート</div>
-          <div class="site-subtitle">性と健康について、もっと自然に</div>
-        </div>
-      </div>
 
-      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+<header class="header">
+  <div class="header-inner">
+    <a href="#top" class="logo">終活ムービー れが・しおん</a>
 
-      <!-- グローバルメニュー：カテゴリー1〜6（ドロップダウン撤廃） -->
-      <nav class="nav-menu" id="navMenu" aria-label="グローバルメニュー">
-        <div class="nav-menu-inner">
-          <a href="#category1" class="nav-link">カテゴリー1</a>
-          <a href="#category2" class="nav-link">カテゴリー2</a>
-          <a href="#category3" class="nav-link">カテゴリー3</a>
-          <a href="#category4" class="nav-link">カテゴリー4</a>
-          <a href="#category5" class="nav-link">カテゴリー5</a>
-          <a href="#category6" class="nav-link">カテゴリー6</a>
-        </div>
-      </nav>
-    </div>
-  </header>
+    <nav class="nav-desktop">
+      <ul>
+        <li><a href="#top">トップ</a></li>
+        <li><a href="/company/">れが・しおんについて</a></li>
+        <li><a href="/services/">事業内容</a></li>
+        <li><a href="/cases/">お客様の声・制作事例</a></li>
+        <li><a href="/column/">コラム</a></li>
+        <li class="nav-cta"><a href="/contact/">お問い合わせ</a></li>
+      </ul>
+    </nav>
 
-  <!-- ヒーロー：スライドショー（画像枠） -->
-  <section class="hero-slider" aria-label="メインビジュアルスライドショー">
-    <div class="hero-slides" id="heroSlides">
-      <div class="hero-slide active" style="background-image:url('hero1.jpg');"></div>
-      <div class="hero-slide" style="background-image:url('hero2.jpg');"></div>
-      <div class="hero-slide" style="background-image:url('hero3.jpg');"></div>
-    </div>
+    <button class="mobile-toggle" aria-label="メニューを開く" id="mobileToggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 
-    <div class="hero-overlay">
+  <nav class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="#top">トップ</a></li>
+      <li><a href="/company/">れが・しおんについて</a></li>
+      <li><a href="/services/">事業内容</a></li>
+      <li><a href="/cases/">お客様の声・制作事例</a></li>
+      <li><a href="/column/">コラム</a></li>
+      <li class="nav-cta"><a href="/contact/">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO（右側は動画ではなく“コンセプト画像”枠） -->
+  <section class="hero">
+    <div class="container hero-inner">
       <div class="hero-copy">
-        <h1>性と健康について、もっと自然に見る・知る場所</h1>
-        <p>くすの木レディースクリニックが足立区から発信する性教育メディア</p>
-      </div>
-    </div>
+        <h1>「伝えたい想い」を<br>今の声と表情ごと、未来へ残す。</h1>
+        <p class="tagline">テレビ報道の現場で磨いたストーリーテリングで、<br>あなたとご家族の人生を一つの物語に。</p>
 
-    <div class="hero-dots" id="heroDots" aria-label="スライド選択">
-      <button class="hero-dot active" type="button" aria-label="スライド1"></button>
-      <button class="hero-dot" type="button" aria-label="スライド2"></button>
-      <button class="hero-dot" type="button" aria-label="スライド3"></button>
+        <div class="hero-badges">
+          <span class="hero-badge">終活ガイド1級が制作をサポート</span>
+          <span class="hero-badge">テレビ番組と同等クラスの機材</span>
+          <span class="hero-badge">ご予算に合わせた3つのコース</span>
+        </div>
+
+        <p>「いずれは…」と思いながら、つい後回しになりがちな終活の準備。  
+        れが・しおんでは、ゆっくりお話を伺いながら、カメラの前でも自然体でいられる撮影を心がけています。</p>
+
+        <div class="hero-cta-row">
+          <a href="/contact/" class="btn-primary">無料相談のご予約</a>
+          <a href="/services/" class="btn-secondary">料金プランをみる</a>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <div class="hero-image">
+          <!-- 実装時：ここを<img>に差し替える or 背景画像にする -->
+          <!-- 例：<img src="images/hero-concept.jpg" alt="終活ムービーのコンセプトを表す写真"> -->
+          <div class="placeholder">
+            例）<br>
+            家族が自然に笑い合う “日常” のワンシーン、<br>
+            ふとした表情が伝わるポートレート、<br>
+            撮影の現場感（カメラ／照明）など。<br><br>
+            「表情・声・つながり」が想像できる画像を配置します。
+          </div>
+        </div>
+        <p class="hero-media-caption">
+          ヒーローでは「サービスのコンセプトが一瞬で伝わる」ビジュアルを優先します。  
+          動画（YouTube）は次の訴求セクションで掲載し、役割が重ならない構成にしています。
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- コンテンツ -->
-  <div class="container" id="category">
-    <!-- カテゴリータグ -->
-    <div class="category-tags">
-      <a href="#category1" class="category-tag">#思春期のからだ</a>
-      <a href="#category2" class="category-tag">#生理のこと</a>
-      <a href="#category3" class="category-tag">#避妊と性感染症</a>
-      <a href="#category2" class="category-tag">#親子の会話</a>
-      <a href="#category1" class="category-tag">#LGBTQ+</a>
-      <a href="#category1" class="category-tag">#パートナーシップ</a>
-    </div>
+  <!-- 訴求（コンセプト動画＋文章） -->
+  <section class="flow">
+    <div class="container">
+      <h2 class="section-title">終活ムービーで、これからの時間を前向きに。</h2>
+      <p class="section-lead">
+        「別れの準備」ではなく、「これからをどう生きるか」を一緒に考えるための時間。  
+        れが・しおんの終活ムービーは、そのプロセスそのものがご本人とご家族の対話のきっかけになります。
+      </p>
 
-    <!-- ===== カテゴリー1 ===== -->
-    <h2 class="section-title" id="category1">新着記事（カテゴリーサンプル1）</h2>
-
-    <div class="featured-wrap">
-      <div class="featured-label">このカテゴリーの注目記事</div>
-      <article class="featured-card">
-        <div class="featured-media">
-          <img src="featured-cat1.jpg" alt="注目記事のサムネイル（日本人女性）">
-          <div class="featured-badge">思春期のからだ</div>
-        </div>
-        <div class="featured-body">
-          <h3 class="featured-title">思春期のからだの変化、どう向き合う？不安を小さくする“3つの見方”</h3>
-          <p class="featured-excerpt">
-            「自分だけおかしいのでは」と感じるときほど、まず知っておきたい“個人差”の話がある。
-            本記事では、からだの変化を「正常／異常」で切り分けるのではなく、安心して観察できる見方を整理する。
+      <div class="concept-wrap">
+        <div class="concept-video">
+          <div class="concept-video-box">
+            <div class="play-icon">▶</div>
+          </div>
+          <p class="concept-caption">
+            ここにはサービスの世界観が伝わるコンセプト動画（YouTube埋め込み想定）を配置します。  
+            ご本人の声や表情、ご家族のまなざし、撮影現場の空気感が自然に伝わるダイジェストを想定しています。
           </p>
-          <a class="featured-cta" href="#">この記事を読む →</a>
-          <div class="featured-meta"><span>📅 2024.11.28</span><span>👤 院長 藤田聡子</span></div>
         </div>
-      </article>
-    </div>
 
-    <div class="article-grid">
-      <div class="article-card">
-        <div class="article-image">
-          <span class="article-category">生理のこと</span>
-          <img src="thumb1.jpg" alt="日本人女性の画像">
-        </div>
-        <div class="article-content">
-          <h3 class="article-title">生理痛がつらいとき、どこまで我慢していい？受診の目安を知ろう</h3>
-          <p class="article-excerpt">学校や仕事を休むほどの生理痛は、我慢すべき症状ではない。受診の目安とサインをわかりやすくまとめる。</p>
-          <div class="article-meta"><span>📅 2024.11.25</span><span>👤 スタッフ 山田</span></div>
-        </div>
-      </div>
+        <div class="concept-emotion">
+          <h3>
+            いちばん残したいのは、言葉の上手さよりも、<br>
+            <span class="emphasis">その人らしい「表情」と「声」と「生き方」</span>です。
+          </h3>
 
-      <div class="article-card">
-        <div class="article-image">
-          <span class="article-category">親子の会話</span>
-          <img src="thumb2.jpg" alt="日本人女性の画像">
-        </div>
-        <div class="article-content">
-          <h3 class="article-title">「性のこと、子どもにどう伝える？」最初の一歩の言葉がけ</h3>
-          <p class="article-excerpt">完璧な説明でなくても大丈夫。安心して話を始めるための言葉の選び方とタイミングを紹介する。</p>
-          <div class="article-meta"><span>📅 2024.11.22</span><span>👤 院長 藤田聡子</span></div>
-        </div>
-      </div>
-
-      <div class="article-card">
-        <div class="article-image">
-          <span class="article-category">LGBTQ+</span>
-          <img src="thumb3.jpg" alt="日本人女性の画像">
-        </div>
-        <div class="article-content">
-          <h3 class="article-title">「ふつう」と違ってもいい。多様な性について子どもと話してみる</h3>
-          <p class="article-excerpt">子どもから質問されたとき、どのように説明すると良いのか。基本的な考え方を整理して解説する。</p>
-          <div class="article-meta"><span>📅 2024.11.20</span><span>👤 スタッフ 佐藤</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== カテゴリー2 ===== -->
-    <h2 class="section-title" id="category2">テーマ別で読む（カテゴリーサンプル2）</h2>
-
-    <div class="featured-wrap">
-      <div class="featured-label">このカテゴリーの注目記事</div>
-      <article class="featured-card">
-        <div class="featured-media">
-          <img src="featured-cat2.jpg" alt="注目記事のサムネイル（日本人女性）">
-          <div class="featured-badge">親子の会話</div>
-        </div>
-        <div class="featured-body">
-          <h3 class="featured-title">年齢別・性教育の伝え方。家庭で“自然に話せる”導入フレーズ集</h3>
-          <p class="featured-excerpt">
-            幼児期・小学生・中高生で必要な情報量は異なる。話題を切り出す難しさを減らすために、
-            家庭で使いやすい導入フレーズと、避けたい言い回しを整理する。
+          <p>
+            家族へ伝えたい思いがあるのに、面と向かうと照れくさい。言葉を選びすぎてしまい、結局なにも言えない。  
+            そんな経験はありませんか。終活ムービーは、立派なスピーチをする場ではありません。  
+            ふと笑った瞬間、言い淀んだ間、思い出を語るときの目の動き――そうした<span class="emphasis">自然な表情</span>こそが、家族の心をあたためます。
           </p>
-          <a class="featured-cta" href="#">この記事を読む →</a>
-          <div class="featured-meta"><span>📅 2024.10.18</span><span>👤 スタッフ 佐藤</span></div>
-        </div>
-      </article>
-    </div>
 
-    <div class="article-grid">
-      <div class="article-card">
-        <div class="article-image">
-          <span class="article-category">パートナーシップ</span>
-          <img src="thumb4.jpg" alt="日本人女性の画像">
-        </div>
-        <div class="article-content">
-          <h3 class="article-title">付き合う前に話しておきたい「同意」と「境界線」のこと</h3>
-          <p class="article-excerpt">言葉で確認することは、安心を増やす。デート前に知っておきたい考え方を整理する。</p>
-          <div class="article-meta"><span>📅 2024.10.28</span><span>👤 院長 藤田聡子</span></div>
-        </div>
-      </div>
-
-      <div class="article-card">
-        <div class="article-image">
-          <span class="article-category">クリニックの日常</span>
-          <img src="thumb5.jpg" alt="日本人女性の画像">
-        </div>
-        <div class="article-content">
-          <h3 class="article-title">婦人科で話してよいこと・悪いことなんてありません</h3>
-          <p class="article-excerpt">医師にどう切り出せばよいか迷う方へ、問診の流れと例を紹介する。</p>
-          <div class="article-meta"><span>📅 2024.10.25</span><span>👤 スタッフ 中村</span></div>
-        </div>
-      </div>
-
-      <div class="article-card">
-        <div class="article-image">
-          <span class="article-category">生理のこと</span>
-          <img src="thumb6.jpg" alt="日本人女性の画像">
-        </div>
-        <div class="article-content">
-          <h3 class="article-title">部活と生理。パフォーマンスを落とさないためにできる準備</h3>
-          <p class="article-excerpt">大会や試合と重なる不安を軽くする。事前準備と伝え方のヒントをまとめる。</p>
-          <div class="article-meta"><span>📅 2024.10.22</span><span>👤 スタッフ 田中</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== カテゴリー3 ===== -->
-    <h2 class="section-title" id="category3">よく読まれている記事（カテゴリーサンプル3）</h2>
-
-    <div class="featured-wrap">
-      <div class="featured-label">このカテゴリーの注目記事</div>
-      <article class="featured-card">
-        <div class="featured-media">
-          <img src="featured-cat3.jpg" alt="注目記事のサムネイル（日本人女性）">
-          <div class="featured-badge">避妊と性感染症</div>
-        </div>
-        <div class="featured-body">
-          <h3 class="featured-title">避妊と性感染症予防の基本。“知っているつもり”を整理するチェックリスト</h3>
-          <p class="featured-excerpt">
-            「コンドームだけでOK？」と感じたことがある人へ。避妊と感染症予防の違い、
-            併用の意味、相談先の選び方まで、最小限の要点で見直す。
+          <p>
+            映像が残ると、時間の意味が変わります。  
+            つらい日には、声を聴いて胸が熱くなり、我慢していた涙をちゃんと流せる。  
+            何気ない一言に励まされ、ふっと肩の力が抜ける。  
+            そして、元気な姿や笑顔を見返すたびに、それは<span class="emphasis">癒し</span>になり、家族にとっての<span class="emphasis">記念</span>になっていきます。
           </p>
-          <a class="featured-cta" href="#">この記事を読む →</a>
-          <div class="featured-meta"><span>📅 2024.09.30</span><span>👤 院長 藤田聡子</span></div>
-        </div>
-      </article>
-    </div>
 
-    <div class="article-grid">
-      <div class="article-card">
-        <div class="article-image">
-          <span class="article-category">クリニックの日常</span>
-          <img src="thumb7.jpg" alt="日本人女性の画像">
-        </div>
-        <div class="article-content">
-          <h3 class="article-title">初めての婦人科受診、何を聞かれる？どんな検査をする？</h3>
-          <p class="article-excerpt">来院のイメージが湧くように、問診や診察の流れを具体的に紹介する。</p>
-          <div class="article-meta"><span>📅 2024.09.25</span><span>👤 スタッフ 佐藤</span></div>
-        </div>
-      </div>
+          <p>
+            また、施設・法人さまの制作では「その人の人生」を丁寧に描くことで、単なる紹介ではなく、見る人の心に残るストーリーになります。  
+            信頼が生まれ、共感が広がり、結果として<span class="emphasis">PRとして機能する映像</span>にもなる。  
+            れが・しおんは、報道・ドキュメンタリーの現場で培った構成力で、「感情が動く一本」に仕上げます。
+          </p>
 
-      <div class="article-card">
-        <div class="article-image">
-          <span class="article-category">院長の診察室から</span>
-          <img src="thumb8.jpg" alt="日本人女性の画像">
-        </div>
-        <div class="article-content">
-          <h3 class="article-title">【連載】院長の診察室から vol.1 - 私が産婦人科医になった理由</h3>
-          <p class="article-excerpt">院長が大切にしている価値観を語る連載。クリニックの原点を紹介する。</p>
-          <div class="article-meta"><span>📅 2024.09.20</span><span>👤 院長 藤田聡子</span></div>
-        </div>
-      </div>
-
-      <div class="article-card">
-        <div class="article-image">
-          <span class="article-category">生理のこと</span>
-          <img src="thumb9.jpg" alt="日本人女性の画像">
-        </div>
-        <div class="article-content">
-          <h3 class="article-title">生理周期アプリとの付き合い方。便利さと注意点を知っておこう</h3>
-          <p class="article-excerpt">アプリは便利だが医療的診断ではない。受診が必要なサインも含めて説明する。</p>
-          <div class="article-meta"><span>📅 2024.09.18</span><span>👤 スタッフ 山田</span></div>
+          <p>
+            「いつか撮ろう」を「今、撮っておいてよかった」に変えるために。  
+            まずはお気軽にお話を聞かせてください。あなたとご家族の“らしさ”が伝わる形を、一緒に見つけていきます。
+          </p>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- れが・しおんについて（プレビュー） -->
+  <section class="section-company">
+    <div class="container">
+      <h2 class="section-title">れが・しおんについて</h2>
+      <p class="section-lead">テレビ報道出身の放送作家・ディレクターが、責任をもって制作を担当します。</p>
+
+      <div class="two-col">
+        <div>
+          <div class="face-circle">
+            <!-- <img src="images/rep.jpg" alt="代表の写真"> -->
+          </div>
+        </div>
+        <div>
+          <h3>「あの時の表情を、もう一度見られたら。」という思いから始まったサービスです。</h3>
+          <p>
+            代表の関は、報道番組『報道ステーション』『サンデーLIVE!!』などで  
+            数多くのドキュメンタリーを制作してきました。  
+            自身の家族を亡くした経験から、映像が残してくれる「安心感」と「つながり」を痛感し、  
+            終活ムービーれが・しおんを立ち上げました。
+          </p>
+          <p>
+            制作チームは少人数精鋭。だからこそ、一件一件の背景に寄り添い、  
+            そのご家族らしい物語をていねいに紡いでいきます。
+          </p>
+          <div class="link-row">
+            <a href="/company/" class="btn-secondary">れが・しおんについて詳しくみる</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 事業内容 プレビュー -->
+  <section class="section-services">
+    <div class="container">
+      <h2 class="section-title">ご希望に合わせて選べる制作プラン</h2>
+      <p class="section-lead">「まずはライトに写真中心で」「しっかり撮影して残したい」など、目的とご予算に応じてお選びいただけます。</p>
+
+      <div class="card-grid-2">
+        <div class="service-card">
+          <div class="service-label">匠プラン（制作サービス）</div>
+          <div class="service-title">ライトコース</div>
+          <div class="service-price">8万円（税込）〜</div>
+          <p>お手持ちの写真やスマホ動画をお預かりし、ナレーション・テロップと合わせて一本の映像に仕上げます。</p>
+          <p>・打ち合わせ 1回 / 撮影なし<br>・編集 1回まで修正無料<br>・DVD + データ納品</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-label">匠プラン（制作サービス）</div>
+          <div class="service-title">スタンダードコース</div>
+          <div class="service-price">30万円（税込）〜</div>
+          <p>ご本人へのインタビューと、思い出の場所での撮影を組み合わせた、本格的な終活ムービーです。</p>
+          <p>・撮影1日 / ロケ1箇所<br>・約5分の映像に編集<br>・ご家族のコメントも挿入可能</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-label">匠プラン（制作サービス）</div>
+          <div class="service-title">プレミアムコース</div>
+          <div class="service-price">45万円（税込）〜</div>
+          <p>ご本人とご家族・ご友人へのインタビューも交えたドキュメンタリー形式。人生の「記録」と「記憶」を一つに残します。</p>
+          <p>・撮影2日 / ロケ2箇所<br>・約7分の映像に編集<br>・追加ロケもご相談可能</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-label">修プラン（教育サービス）</div>
+          <div class="service-title">終活ムービー制作ワークショップ</div>
+          <div class="service-price">料金：個別お見積り</div>
+          <p>「自分たちの手で撮影・編集してみたい」という方向けに、プロのノウハウをレクチャーします。</p>
+          <p>・1ヶ月あたり360分のオンライン講座<br>・撮影・編集・構成の基本をマンツーマンで指導</p>
+        </div>
+      </div>
+
+      <div class="section-bottom-btn">
+        <a href="/services/" class="btn-secondary">事業内容・料金プランを詳しくみる</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- お客様の声・制作事例 -->
+  <section class="section-cases">
+    <div class="container">
+      <h2 class="section-title">お客様の声・制作事例</h2>
+      <p class="section-lead">実際に終活ムービーを制作されたご家族の表情や、完成映像の一部をご紹介します。</p>
+
+      <div class="card-grid-3">
+        <article>
+          <div class="thumb"></div>
+          <div class="card-meta">ご夫婦の終活ムービー / プレミアムコース</div>
+          <h3 class="card-title">「あの人らしい笑顔が、いつでも見られる宝物になりました。」</h3>
+          <p class="card-text">
+            ご主人の還暦をきっかけに撮影したムービー。お二人の馴れ初めや、子どもたちへのメッセージを盛り込んだ一本に。
+          </p>
+        </article>
+
+        <article>
+          <div class="thumb"></div>
+          <div class="card-meta">お母様へのビデオレター / スタンダードコース</div>
+          <h3 class="card-title">「照れ屋な母が、本音を話してくれました。」</h3>
+          <p class="card-text">
+            いつもは多くを語らないお母様が、カメラの前で家族への感謝をぽつりぽつりと。撮影後、家族みんなで涙したそうです。
+          </p>
+        </article>
+
+        <article>
+          <div class="thumb"></div>
+          <div class="card-meta">施設利用者様の記録映像 / ライトコース</div>
+          <h3 class="card-title">「利用者さんの人生を知るきっかけになりました。」</h3>
+          <p class="card-text">
+            介護施設さまからのご依頼で制作した事例。写真とインタビューをまとめることで、職員同士の共有にも役立っています。
+          </p>
+        </article>
+      </div>
+
+      <div class="section-bottom-btn">
+        <a href="/cases/" class="btn-secondary">他のお客様の声・制作事例を詳しくみる</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- コラム -->
+  <section class="section-blog">
+    <div class="container">
+      <h2 class="section-title">コラム</h2>
+      <p class="section-lead">終活に必要な準備などお役立ち情報をお届けしています。</p>
+
+      <div class="card-grid-3">
+        <article>
+          <div class="thumb"></div>
+          <div class="card-meta">コラム / 終活のはじめ方</div>
+          <h3 class="card-title">終活で「動画」を残すという選択肢</h3>
+          <p class="card-text">
+            エンディングノートや写真アルバムだけでは伝えきれない、声や仕草。動画ならではの良さを解説します。
+          </p>
+        </article>
+
+        <article>
+          <div class="thumb"></div>
+          <div class="card-meta">コラム / 撮影のコツ</div>
+          <h3 class="card-title">スマホでも印象が変わる「光」の使い方</h3>
+          <p class="card-text">
+            ちょっとした光の向きや窓の位置で、表情の見え方は大きく変わります。ご家庭で実践できるコツをご紹介。
+          </p>
+        </article>
+
+        <article>
+          <div class="thumb"></div>
+          <div class="card-meta">コラム / 家族との向き合い方</div>
+          <h3 class="card-title">「ありがとう」を映像で伝えるメリット</h3>
+          <p class="card-text">
+            面と向かっては照れくさい感謝の言葉も、映像だからこそ落ち着いて伝えられる。その心理的な効果について。
+          </p>
+        </article>
+      </div>
+
+      <div class="section-bottom-btn">
+        <a href="/column/" class="btn-secondary">他のコラムを詳しくみる</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- お問い合わせ CTA -->
+  <section class="section-contact">
+    <div class="container">
+      <h2 class="section-title" style="color:#fff;">まずはお気軽にご相談ください。</h2>
+      <p>
+        「まだ具体的に決めていない」「いつ撮るのがいいかわからない」  
+        といったご相談だけでも歓迎です。オンライン・対面どちらも対応しております。
+      </p>
+      <a href="/contact/" class="btn-contact-white">無料相談フォームへ</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="#top">トップ</a>
+      <a href="/company/">れが・しおんについて</a>
+      <a href="/services/">事業内容</a>
+      <a href="/cases/">お客様の声・制作事例</a>
+      <a href="/column/">コラム</a>
+      <a href="/sitemap/">サイトマップ</a>
+      <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/contact/">お問い合わせ</a>
+    </div>
+    <div class="footer-copy">© 2025 終活ムービー れが・しおん</div>
   </div>
+</footer>
 
-  <!-- フッター -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">
-        <div class="footer-logo-icon">🌳</div>
-        <div style="font-size:16px;font-weight:600;color:#7FB069;">くすの木ノート</div>
-      </div>
+<script>
+  const toggle = document.getElementById('mobileToggle');
+  const mobileNav = document.getElementById('mobileNav');
 
-      <!-- フッター内メニュー：カテゴリー削除（ページ上部へも入れない） -->
-      <div class="footer-nav">
-        <a href="#company">運営会社</a>
-        <a href="#supervisor">監修者紹介</a>
-        <a href="#faq">よくある質問</a>
-        <a href="#contact">お問い合わせ</a>
-        <a href="#sitemap">サイトマップ</a>
-        <a href="#privacy">プライバシーポリシー</a>
-        <a href="https://www.kusunoki.tokyo/" target="_blank" rel="noopener">クリニック公式サイト</a>
-      </div>
+  toggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    mobileNav.classList.toggle('open');
+  });
 
-      <div class="copyright">
-        © 2024 くすの木レディースクリニック北千住 All Rights Reserved.
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('navMenu');
-      menu.classList.toggle('active');
+  document.addEventListener('click', function(e){
+    if(!mobileNav.contains(e.target) && !toggle.contains(e.target)){
+      mobileNav.classList.remove('open');
     }
+  });
+</script>
 
-    // メニュー外クリックで閉じる（モバイルのみ）
-    document.addEventListener('click', function(event) {
-      if (window.innerWidth < 1024) {
-        const menu = document.getElementById('navMenu');
-        const toggle = document.querySelector('.menu-toggle');
-        if (!menu.contains(event.target) && !toggle.contains(event.target)) {
-          menu.classList.remove('active');
-        }
-      }
-    });
-
-    // ウィンドウリサイズ時の処理
-    window.addEventListener('resize', function() {
-      if (window.innerWidth >= 1024) {
-        document.getElementById('navMenu').classList.remove('active');
-      }
-    });
-
-    /* ===== ヒーロースライダー ===== */
-    (function(){
-      const slides = Array.from(document.querySelectorAll('.hero-slide'));
-      const dots = Array.from(document.querySelectorAll('.hero-dot'));
-      if (!slides.length) return;
-
-      let index = 0;
-      const intervalMs = 5000;
-      let timer = null;
-
-      function show(i){
-        index = (i + slides.length) % slides.length;
-        slides.forEach((el, n) => el.classList.toggle('active', n === index));
-        dots.forEach((el, n) => el.classList.toggle('active', n === index));
-      }
-
-      function start(){
-        stop();
-        timer = setInterval(()=> show(index + 1), intervalMs);
-      }
-
-      function stop(){
-        if (timer) clearInterval(timer);
-        timer = null;
-      }
-
-      dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-          show(i);
-          start();
-        });
-      });
-
-      // モーション軽減
-      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      show(0);
-      if (!prefersReduced) start();
-    })();
-  </script>
 </body>
 </html>
