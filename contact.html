@@ -506,41 +506,6 @@
               <input type="email" name="email" placeholder="例：example@domain.com" required />
             </div>
 
-            <div class="field">
-              <div class="label">電話番号</div>
-              <input type="tel" name="tel" placeholder="例：090-1234-5678" />
-            </div>
-
-            <div class="field">
-              <div class="label">会社名</div>
-              <input type="text" name="company" placeholder="例：株式会社◯◯（任意）" />
-            </div>
-
-            <div class="field span-2">
-              <div class="label">当メディアのことを何で知りましたか？ <span class="req">必須</span></div>
-              <div class="checks" role="group" aria-label="流入経路">
-                <label class="check"><input type="checkbox" name="source[]" value="facebook" required /> Facebook</label>
-                <label class="check"><input type="checkbox" name="source[]" value="instagram" /> Instagram</label>
-                <label class="check"><input type="checkbox" name="source[]" value="x" /> X</label>
-                <label class="check"><input type="checkbox" name="source[]" value="line" /> LINE</label>
-                <label class="check"><input type="checkbox" name="source[]" value="store" /> クリニック</label>
-                <label class="check"><input type="checkbox" name="source[]" value="other" /> その他</label>
-              </div>
-              <div class="note">※チェックは最低1つ必要です（デモ）。</div>
-            </div>
-
-            <div class="field span-2">
-              <div class="label">お問い合わせの種類 <span class="req">必須</span></div>
-              <select name="type" required>
-                <option value="" selected disabled>選択してください</option>
-                <option value="interview">取材依頼</option>
-                <option value="feature">商品掲載について</option>
-                <option value="info">情報提供について</option>
-                <option value="ads">広告掲載について</option>
-                <option value="other">その他</option>
-              </select>
-            </div>
-
             <div class="field span-2">
               <div class="label">お問い合わせ内容 <span class="req">必須</span></div>
               <textarea name="message" placeholder="ご用件の詳細をご記入ください。" required></textarea>
@@ -550,17 +515,12 @@
           <div class="consent">
             <input id="consent" type="checkbox" required />
             <label for="consent">
-              <a href="#terms">利用規約</a>と<a href="#privacy">プライバシーポリシー</a>について同意する
+              <a href="#privacy">プライバシーポリシー</a>について同意する
             </label>
           </div>
 
           <div class="actions">
             <button class="btn btn-primary" type="submit">送信</button>
-          </div>
-
-          <div class="note">
-            ※本ページはデモ用の静的HTMLです。送信処理は実装されていません。<br>
-            ※フォーム項目は「となりのカインズさん」のお問い合わせページ構成を参考にしています。
           </div>
         </form>
       </div>
